@@ -1,0 +1,53 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique @db.VarChar(191)
+  email     String   @unique @db.VarChar(191)
+  password  String   @db.VarChar(191)
+  role      Role     @default(simpleUser)
+  banned    Boolean  @default(false)
+  createdAt DateTime @default(now()) @db.DateTime(3)
+  updatedAt DateTime @updatedAt @db.DateTime(3)
+  publications     Publication[]  // One-to-many relation with Publication
+  likes     Like[]                // One-to-many relation with Like
+}
+
+model Publication {
+  id        Int      @id @default(autoincrement())
+  title     String   @db.VarChar(191)
+  content   String   @db.Text
+  authorId  Int
+  author    User     @relation(fields: [authorId], references: [id])  // Foreign key to User
+  createdAt DateTime @default(now()) @db.DateTime(3)
+  updatedAt DateTime @updatedAt @db.DateTime(3)
+  likes     Like[]                // One-to-many relation with Like
+}
+
+model Like {
+  id              Int         @id @default(autoincrement())
+  userId          Int
+  publicationId   Int
+  createdAt       DateTime    @default(now()) @db.DateTime(3)
+  
+  user            User        @relation(fields: [userId], references: [id])    // Foreign key to User
+  publication     Publication @relation(fields: [publicationId], references: [id])  // Foreign key to Publication
+
+  @@unique([userId, publicationId])  // Unique constraint for userId and publicationId pair
+}
+
+// Enum for role
+enum Role {
+  admin
+  simpleUser
+}
