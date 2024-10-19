@@ -15,7 +15,7 @@ model User {
   username  String   @unique @db.VarChar(191)
   email     String   @unique @db.VarChar(191)
   password  String   @db.VarChar(191)
-  role      Role     @default(simpleUser)
+  role      Role     
   banned    Boolean  @default(false)
   createdAt DateTime @default(now()) @db.DateTime(3)
   updatedAt DateTime @updatedAt @db.DateTime(3)

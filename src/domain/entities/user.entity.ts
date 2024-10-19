@@ -17,13 +17,13 @@ export type UserProps = {
 
 export class User {
     private constructor(private props: UserProps) { };
-    public static create(username: string, email: string, password: string): User {
+    public static create(username: string, email: string, password: string, role:Role): User {
         return new User({
             id: 0,
             username,
             email,
             password,
-            role: Role.SIMPLE_USER,
+            role,
             banned: false,
             createdAt: new Date(),
             updatedAt: new Date()
