@@ -5,7 +5,7 @@ type Role = PrismaRole | DomainRole;
 
 export class UserMapper {
     static toPersistence(user: DomainUser): PrismaUser {
-        return {
+        const prismaUser = {
             id: user.id,
             username: user.username,
             email: user.email,
@@ -14,7 +14,10 @@ export class UserMapper {
             banned: user.banned,
             createdAt: user.createdAt,
             updatedAt: user.updatedAt
-        };
+        } as any;
+        console.log('Mapped user for persistence:', prismaUser); // Log para depuración
+        return prismaUser;
+    
     }
 
     static toDomain(prismaUser: PrismaUser): DomainUser {

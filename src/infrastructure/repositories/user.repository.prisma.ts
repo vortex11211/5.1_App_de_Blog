@@ -5,8 +5,34 @@ import { User as DomainUser } from "../../domain/entities/user.entity";
 
 export class UserRepositoryPrisma implements UserGateway {
     public async save(user: DomainUser): Promise<void> {
-        const prismaUser = UserMapper.toPersistence(user);
-        await prisma.user.create({ data: prismaUser });
+     /*   const prismaUser = UserMapper.toPersistence(user);*/
+     const prismaUser = {
+        username: user.username,
+        email: user.email,
+        password: user.password,
+        role: user.role,  // Asegúrate de que esto es del tipo correcto
+        banned: user.banned,
+        createdAt: user.createdAt,
+        updatedAt: user.updatedAt
+    };
+        console.log('Creating user with data:', prismaUser);
+
+        /*await prisma.user.create({ data: prismaUser
+         });*/
+         await prisma.user.create({ 
+            data: prismaUser,
+            select: {
+                id: true, 
+                username: true,
+                email: true,
+                password: true,
+                role: true,
+                banned: true,
+                createdAt: true,
+                updatedAt: true
+            }
+        });
+
     }
 
     public async findById(id: number): Promise<DomainUser | null> {

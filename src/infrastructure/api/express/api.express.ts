@@ -1,7 +1,7 @@
 import express, { Application } from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import registerUserRoute from './routes/user/register-user.route'; // Asegúrate de que la ruta esté bien importada
+import registerUserRoute from '../controllers/express/routes/user/register-user.route'; // Asegúrate de que la ruta esté bien importada
 
 class App {
     public app: Application;
@@ -21,6 +21,12 @@ class App {
         this.app.use((req, res, next) => {
             res.setHeader('X-Powered-By', 'Your-Own-Value');
             res.setHeader('X-Another-Custom-Header', 'Another-Value');
+            next();
+        });
+
+        // Middleware global de logging
+        this.app.use((req, res, next) => {
+            console.log(`${req.method} ${req.url}`);
             next();
         });
 
