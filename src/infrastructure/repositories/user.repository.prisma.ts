@@ -1,54 +1,32 @@
-import { User } from "../../domain/entities/user.entity";
 import { UserGateway } from "../../domain/gateways/user.gateway";
-import prisma from "./prismaClient"
-
+import prisma from "./prismaClient";
+import { UserMapper } from "./user.mapper";
+import { User as DomainUser } from "../../domain/entities/user.entity";
 
 export class UserRepositoryPrisma implements UserGateway {
-    public async save(user: User): Promise<void> {
-        await prisma.user.create({
-            data: {
-                username: user.username,
-                email: user.email,
-                password: user.password,
-                role: user.role
-            }
-        });
+    public async save(user: DomainUser): Promise<void> {
+        const prismaUser = UserMapper.toPersistence(user);
+        await prisma.user.create({ data: prismaUser });
     }
 
-    public async findById(id: number): Promise<User | null> {
-        const userData = await prisma.user.findUnique({
-            where: { id },
-        });
-
+    public async findById(id: number): Promise<DomainUser | null> {
+        const userData = await prisma.user.findUnique({ where: { id } });
         if (!userData) {
             return null;
         }
-
-        return User.with({
-            id: userData.id,
-            username: userData.username,
-            email: userData.email,
-            password: userData.password,
-            role: userData.role,
-            banned: userData.banned,
-            createdAt: userData.createdAt,
-            updatedAt: userData.updatedAt
-        });
-  
-    public async list(): Promise<User[]> {
-        const usersData = await prisma.user.findMany();
-        return usersData.map(userData =>
-            User.with({
-                id: userData.id,
-                username: userData.username,
-                email: userData.email,
-                password: userData.password,
-                role: userData.role,
-                banned: userData.banned,
-                createdAt: userData.createdAt,
-                updatedAt: userData.updatedAt
-            })
-        );
+        return UserMapper.toDomain(userData);
     }
-}
+
+    public async list(): Promise<DomainUser[]> {
+        const usersData = await prisma.user.findMany();
+        return usersData.map(UserMapper.toDomain);
+    }
+
+    public async findByEmail(email: string): Promise<DomainUser | null> {
+        const userData = await prisma.user.findUnique({ where: { email } });
+        if (!userData) {
+            return null;
+        }
+        return UserMapper.toDomain(userData);
+    }
 }
