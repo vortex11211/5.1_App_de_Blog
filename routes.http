@@ -2,8 +2,19 @@ POST http://localhost:3300/api/users/register
 Content-Type: application/json
 
 {
-  "username": "testuser6",
-  "email": "testus2@example.com",
+  "username": "testuser",
+  "email": "testu2@example.com",
   "password": "testpassword",
-  "role": "admin"
+  "role": "simpleUser"
+}
+
+###
+
+POST http://localhost:3300/api/publications/publication
+Content-Type: application/json
+
+{
+  "title": "Arquitectura Limpia",
+  "content": "pueba",
+  "authorId": 2
 }
