@@ -18,9 +18,9 @@ export class RegisterUser implements RegisterUserUseCase {
         if (existingUser) {
             throw new Error('User with this email already exists.');
         }
-const role=dto.role as Role;
+        const role = dto.role as Role;
         // Crear usuario y guardarlo en la base de datos
-        const user = User.create(dto.username, dto.email, dto.password,role);
+        const user = User.create(dto.username, dto.email, dto.password, role);
         await this.userGateway.save(user);
     }
 }

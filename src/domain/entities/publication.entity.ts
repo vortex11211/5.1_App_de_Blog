@@ -44,6 +44,9 @@ export class Publication {
     public get updatedAt() {
         return this.props.updatedAt;
     }
+    public static with(props:PublicationProps):Publication{
+        return new Publication(props);
+    }
 }
 
 

@@ -1,5 +1,5 @@
 import { Role as PrismaRole, User as PrismaUser } from "@prisma/client";
-import { User as DomainUser, UserProps, Role as DomainRole } from "../../domain/entities/user.entity";
+import { User as DomainUser, Role as DomainRole } from "../../domain/entities/user.entity";
 
 type Role = PrismaRole | DomainRole;
 

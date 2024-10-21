@@ -2,7 +2,7 @@ import express, { Application } from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import registerUserRoute from '../controllers/express/routes/user/register-user.route'; // Asegúrate de que la ruta esté bien importada
-
+import postPublicationRoute from '../controllers/express/routes/publication/post-publication.route'
 class App {
     public app: Application;
 
@@ -36,6 +36,7 @@ class App {
     private initializeRoutes() {
         this.app.use('/api/users', registerUserRoute);
         // Puedes agregar otras rutas aquí
+        this.app.use('/api/publications',postPublicationRoute)
     }
 
     public listen(port: number) {
