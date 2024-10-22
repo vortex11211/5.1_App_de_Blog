@@ -1,9 +1,9 @@
 import express, { Application } from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import registerUserRoute from '../controllers/express/routes/user/register-user.route'; // Asegúrate de que la ruta esté bien importada
-import postPublicationRoute from '../controllers/express/routes/publication/post-publication.route'
-import loginUserRoute from '../controllers/express/routes/user/login-user.route'
+import registerUserRoute from './routes/user/register-user.route'
+import postPublicationRoute from './routes/publication/post-publication.route'
+import loginUserRoute from './routes/user/login-user.route'
 
 
 
