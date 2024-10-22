@@ -55,4 +55,12 @@ export class UserRepositoryPrisma implements UserGateway {
         }
         return UserMapper.toDomain(userData);
     }
+    public async findByUsername(username: string): Promise<DomainUser | null> {
+        const userData = await prisma.user.findUnique({ where: { username } });
+        if (!userData) {
+            return null;
+        }
+        return UserMapper.toDomain(userData);
+    }
+
 }

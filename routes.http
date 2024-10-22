@@ -2,10 +2,18 @@ POST http://localhost:3300/api/users/register
 Content-Type: application/json
 
 {
-  "username": "testuser",
-  "email": "testu2@example.com",
-  "password": "testpassword",
-  "role": "simpleUser"
+  "username": "test user3",
+  "email": "tes3@example.com",
+  "password": "123456",
+  "role": "admin"
+}
+###
+Post http://localhost:3300/api/users/login
+Content-Type: application/json
+{
+  "email": "tes3@example.com",
+  "password": "123456",
+ 
 }
 
 ###

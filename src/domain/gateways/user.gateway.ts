@@ -5,4 +5,5 @@ export interface UserGateway {
   findById(id: number): Promise<User | null>;
   list(): Promise<User[]>;
   findByEmail(id: string): Promise<User | null>
+  findByUsername(username:string):Promise<User | null>
 }
