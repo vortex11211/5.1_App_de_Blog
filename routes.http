@@ -30,3 +30,13 @@ Content-Type: application/json
   "content": "pueba",
   "authorId": 4
 }
+
+
+### like Publication
+POST http://localhost:3300/api/publications/like
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "publicationId": 2
+}
