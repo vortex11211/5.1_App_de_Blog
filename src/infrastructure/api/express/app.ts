@@ -43,7 +43,7 @@ class App {
         this.app.use('/api/users', loginUserRoute)
     }
 
-    public listen(port: number) {
+    public listen(port: number, p0: () => void) {
         this.app.listen(port, () => {
             console.log(`Server running on port ${port}`);
         });

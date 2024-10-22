@@ -1,28 +1,32 @@
-POST http://localhost:3300/api/users/register
+### edit PORT number in this line
+@BASE_URL=http://localhost:3300
+
+###register new user
+POST {{BASE_URL}}/api/users/register
 Content-Type: application/json
 
 {
-  "username": "test user3",
-  "email": "tes3@example.com",
+  "username": "test user5",
+  "email": "tes5@example.com",
   "password": "123456",
   "role": "admin"
 }
-###
-Post http://localhost:3300/api/users/login
+### login user
+Post {{BASE_URL}}/api/users/login
 Content-Type: application/json
+
 {
-  "email": "tes3@example.com",
+  "email": "tes4@example.com",
   "password": "123456"
- 
 }
 
-###
+### Post publication
 
-POST http://localhost:3300/api/publications/publication
+POST {{BASE_URL}}/api/publications/publication
 Content-Type: application/json
 
 {
   "title": "Arquitectura Limpia",
   "content": "pueba",
-  "authorId": 2
+  "authorId": 4
 }

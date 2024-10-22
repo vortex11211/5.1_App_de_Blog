@@ -17,6 +17,10 @@ export type LikeProps = {
       });
     }
   
+    public static with(props: LikeProps): Like {
+      return new Like(props);
+    }
+
     public get id() {
       return this.props.id;
     }
