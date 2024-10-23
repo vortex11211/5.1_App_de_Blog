@@ -4,7 +4,7 @@ import cors from 'cors';
 import registerUserRoute from './routes/user/register-user.route'
 import postPublicationRoute from './routes/publication/post-publication.route'
 import loginUserRoute from './routes/user/login-user.route'
-import likePublicationRoute from './routes/publication/like-publication.route'
+import favoritePublicationRoute from './routes/publication/favorite-publication.route'
 class App {
     public app: Application;
 
@@ -38,7 +38,7 @@ class App {
     private initializeRoutes() {
         this.app.use('/api/users', registerUserRoute);
         this.app.use('/api/publications', postPublicationRoute);
-        this.app.use('/api/publications', likePublicationRoute);
+        this.app.use('/api/publications', favoritePublicationRoute);
         this.app.use('/api/users', loginUserRoute)
     }
 

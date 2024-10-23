@@ -1,15 +1,15 @@
-export type LikeProps = {
+export type FavoriteProps = {
     id: number;
     userId: number;
     publicationId: number;
     createdAt: Date;
   };
   
-  export class Like {
-    private constructor(private props: LikeProps) {}
+  export class Favorite {
+    private constructor(private props: FavoriteProps) {}
   
-    public static create(userId: number, publicationId: number): Like {
-      return new Like({
+    public static create(userId: number, publicationId: number): Favorite {
+      return new Favorite({
         id: 0, 
         userId,
         publicationId,
@@ -17,10 +17,7 @@ export type LikeProps = {
       });
     }
   
-    public static with(props: LikeProps): Like {
-      return new Like(props);
-    }
-
+    
     public get id() {
       return this.props.id;
     }
@@ -35,5 +32,8 @@ export type LikeProps = {
   
     public get createdAt() {
       return this.props.createdAt;
+    }
+    public static with(props: FavoriteProps): Favorite {
+      return new Favorite(props);
     }
   }

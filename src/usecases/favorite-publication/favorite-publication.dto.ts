@@ -1,4 +1,4 @@
-export interface LikePublicationDTO {
+export interface FavoritePublicationDTO {
     publicationId: number;
     userId: number;
 }

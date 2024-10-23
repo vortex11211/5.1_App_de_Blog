@@ -10,44 +10,59 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model PrismaMigration {
+  id                String   @id @default(uuid())
+  checksum          String
+  finishedAt       DateTime? @db.DateTime(3)
+  migrationName     String
+  logs              String?
+  rolledBackAt      DateTime? @db.DateTime(3)
+  startedAt        DateTime   @default(now()) @db.DateTime(3)
+  appliedStepsCount Int      @default(0)
+
+  @@map("_prisma_migrations")
+}
+
 model User {
-  id        Int      @id @default(autoincrement())
-  username  String   @unique @db.VarChar(191)
-  email     String   @unique @db.VarChar(191)
-  password  String   @db.VarChar(191)
-  role      Role     
-  banned    Boolean  @default(false)
-  createdAt DateTime @default(now()) @db.DateTime(3)
-  updatedAt DateTime @updatedAt @db.DateTime(3)
-  publications     Publication[]  // One-to-many relation with Publication
-  likes     Like[]                // One-to-many relation with Like
+  id        Int       @id @default(autoincrement())
+  username  String    @unique @db.VarChar(191)
+  email     String    @unique @db.VarChar(191)
+  password  String    @db.VarChar(191)
+  role      Role      @default(simpleUser) 
+  banned    Boolean   @default(false)
+  createdAt DateTime  @default(now()) @db.DateTime(3)
+  updatedAt DateTime  @updatedAt @db.DateTime(3)
+  publications Publication[]
+  favorites   Favorite[]
+
+  @@map("user")
 }
 
 model Publication {
-  id        Int      @id @default(autoincrement())
-  title     String   @db.VarChar(191)
-  content   String   @db.Text
+  id        Int       @id @default(autoincrement())
+  title     String    @db.VarChar(191)
+  content   String    @db.Text
   authorId  Int
-  author    User     @relation(fields: [authorId], references: [id])  // Foreign key to User
-  createdAt DateTime @default(now()) @db.DateTime(3)
-  updatedAt DateTime @updatedAt @db.DateTime(3)
-  likes     Like[]                // One-to-many relation with Like
+  author    User      @relation(fields: [authorId], references: [id])
+  createdAt DateTime  @default(now()) @db.DateTime(3)
+  updatedAt DateTime  @updatedAt @db.DateTime(3)
+  favorites Favorite[] @relation("PublicationFavorites")
+  @@map("Publication")
 }
 
-model Like {
-  id              Int         @id @default(autoincrement())
-  userId          Int
-  publicationId   Int
-  createdAt       DateTime    @default(now()) @db.DateTime(3)
-  
-  user            User        @relation(fields: [userId], references: [id])    // Foreign key to User
-  publication     Publication @relation(fields: [publicationId], references: [id])  // Foreign key to Publication
+model Favorite {
+  id          Int       @id @default(autoincrement())
+  userId      Int
+  publicationId Int
+  createdAt   DateTime  @default(now()) @db.DateTime(3)
+  user        User      @relation(fields: [userId], references: [id])
+  publication Publication @relation("PublicationFavorites",fields: [publicationId], references: [id])
 
-  @@unique([userId, publicationId])  // Unique constraint for userId and publicationId pair
+  @@unique([userId, publicationId])
+  @@map("favorite")
 }
 
-// Enum for role
 enum Role {
-  admin
-  simpleUser
+  admin 
+  simpleUser 
 }
