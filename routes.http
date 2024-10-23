@@ -1,13 +1,13 @@
 ### edit PORT number in this line
-@BASE_URL=http://localhost:3000
+@BASE_URL=http://localhost:3300
 
 ###register new user
 POST {{BASE_URL}}/api/users/register
 Content-Type: application/json
 
 {
-  "username": "test user2",
-  "email": "tes2@example.com",
+  "username": "test user3",
+  "email": "tes3@example.com",
   "password": "123456",
   "role": "admin"
 }
@@ -27,8 +27,8 @@ Content-Type: application/json
 
 {
   "title": "Arquitectura Limpia",
-  "content": "pueba2",
-  "authorId": 2
+  "content": "pueba",
+  "authorId": 1
 }
 
 
@@ -37,6 +37,6 @@ POST {{BASE_URL}}/api/publications/like
 Content-Type: application/json
 
 {
-  "userId": 2,
-  "publicationId": 1
+  "userId": 3,
+  "publicationId": 2
 }
