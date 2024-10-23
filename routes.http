@@ -27,7 +27,7 @@ Content-Type: application/json
 
 {
   "title": "Arquitectura Limpia",
-  "content": "pueba",
+  "content": "prueba",
   "authorId": 1
 }
 
