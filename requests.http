@@ -6,10 +6,10 @@ POST {{BASE_URL}}/api/users/register
 Content-Type: application/json
 
 {
-  "username": "test user3",
-  "email": "tes3@example.com",
+  "username": "test user8",
+  "email": "tes8@example.com",
   "password": "123456",
-  "role": "admin"
+  "role": "simpleUser"
 }
 ### login user
 Post {{BASE_URL}}/api/users/login
@@ -26,9 +26,9 @@ POST {{BASE_URL}}/api/publications/publication
 Content-Type: application/json
 
 {
-  "title": "Arquitectura Limpia",
-  "content": "prueba",
-  "authorId": 1
+  "title": "Arquitectura Limpia separando updatey create",
+  "content": "prueba repository",
+  "authorId": 3
 }
 
 
@@ -37,6 +37,18 @@ POST {{BASE_URL}}/api/publications/like
 Content-Type: application/json
 
 {
-  "userId": 3,
-  "publicationId": 2
+  "userId": 2,
+  "publicationId": 3
+}
+
+
+### Edit Publication
+
+PATCH  {{BASE_URL}}/api/publications/publication
+Content-Type: application/json
+
+{
+  "publicationId":8,
+  "content": "Se logro actualizar"
+ 
 }

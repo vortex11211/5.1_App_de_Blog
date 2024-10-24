@@ -47,6 +47,14 @@ export class Publication {
     public static with(props:PublicationProps):Publication{
         return new Publication(props);
     }
+    public updateTitle(title:string){
+        this.props.title = title;
+        this.props.updatedAt= new Date();
+    }
+    public updateContent(content:string){
+        this.props.content = content;
+        this.props.updatedAt= new Date();
+    }
 }
 
 
