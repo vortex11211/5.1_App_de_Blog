@@ -10,7 +10,8 @@ export class PublicationRepositoryPrisma implements PublicationGateway {
             content: publication.content,
             authorId: publication.authorId,
             createdAt: publication.createdAt,
-            updatedAt: publication.updatedAt
+            updatedAt: publication.updatedAt,
+            delete:publication.deleted
         };
         await prisma.publication.create({
             data: prismaPublication,
@@ -21,6 +22,7 @@ export class PublicationRepositoryPrisma implements PublicationGateway {
                 authorId: true,
                 createdAt: true,
                 updatedAt: true,
+                deleted:false,
             }
         })
     }

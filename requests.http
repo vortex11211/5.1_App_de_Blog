@@ -26,7 +26,7 @@ POST {{BASE_URL}}/api/publications/publication
 Content-Type: application/json
 
 {
-  "title": "Arquitectura Limpia separando updatey create",
+  "title": "softdeleted",
   "content": "prueba repository",
   "authorId": 3
 }

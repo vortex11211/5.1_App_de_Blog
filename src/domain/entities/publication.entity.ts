@@ -4,10 +4,11 @@ export type PublicationProps = {
     content: string;
     authorId: number;
     createdAt: Date;
-    updatedAt: Date
+    updatedAt: Date;
+    deleted:Boolean
 }
 
-export class Publication {
+export class Publication {;
     private constructor(private props: PublicationProps) { };
     public static create(title: string, content: string, authorId: number): Publication {
         return new Publication({
@@ -18,6 +19,7 @@ export class Publication {
             authorId,
             createdAt: new Date(),
             updatedAt: new Date(),
+            deleted:false
         });
     }
 
@@ -44,6 +46,10 @@ export class Publication {
     public get updatedAt() {
         return this.props.updatedAt;
     }
+
+    public get deleted() {
+        return this.props.deleted;
+    }
     public static with(props:PublicationProps):Publication{
         return new Publication(props);
     }
@@ -54,6 +60,10 @@ export class Publication {
     public updateContent(content:string){
         this.props.content = content;
         this.props.updatedAt= new Date();
+    }
+    public softDelete() {
+        this.props.deleted = true;
+        this.props.updatedAt = new Date();
     }
 }
 

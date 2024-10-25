@@ -9,7 +9,8 @@ export class PublicationMapper {
             content: publication.content,
             authorId: publication.authorId,
             createdAt: publication.createdAt,
-            updatedAt: publication.updatedAt
+            updatedAt: publication.updatedAt,
+            deleted: publication.deleted
         } as any;
         return prismaPublication
     }
@@ -21,7 +22,8 @@ export class PublicationMapper {
             content: prismaPublication.content,
             authorId: prismaPublication.authorId,
             createdAt: prismaPublication.createdAt,
-            updatedAt: prismaPublication.updatedAt
+            updatedAt: prismaPublication.updatedAt,
+            deleted: prismaPublication.deleted
 
         });
     }
