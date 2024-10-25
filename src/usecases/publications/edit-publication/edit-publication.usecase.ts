@@ -1,6 +1,6 @@
-import { PublicationGateway } from "../../domain/gateways/publication.gateway";
+import { PublicationGateway } from "../../../domain/gateways/publication.gateway";
 import { EditPublicationDTO } from "./edit-publication.dto";
-import { Publication } from "../../domain/entities/publication.entity";
+import { Publication } from "../../../domain/entities/publication.entity";
 
 export class EditPublication {
     private publicationRepository: PublicationGateway;

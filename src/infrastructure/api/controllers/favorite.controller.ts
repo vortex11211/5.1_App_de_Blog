@@ -1,7 +1,7 @@
-import { FavoritePublication } from '../../../usecases/favorite-publication/favorite-publication.usecase';
+import { FavoritePublication } from '../../../usecases/publications/favorite-publication/favorite-publication.usecase';
 import { Request, Response } from 'express';
 import { FavoriteRepositoryPrisma } from '../../repositories/favorite.repository.prisma';
-import { FavoritePublicationDTO } from '../../../usecases/favorite-publication/favorite-publication.dto';
+import { FavoritePublicationDTO } from '../../../usecases/publications/favorite-publication/favorite-publication.dto';
 
 const favoriteRepository = new FavoriteRepositoryPrisma();
 const favoritePublicationUseCase = new FavoritePublication(favoriteRepository);

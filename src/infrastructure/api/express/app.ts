@@ -7,9 +7,8 @@ import loginUserRoute from './routes/user/login-user.route'
 import postPublicationRoute from './routes/publication/post-publication.route'
 import favoritePublicationRoute from './routes/publication/favorite-publication.route'
 import editPublicationRoute from './routes/publication/edit-publication.route'
-
-
-
+import softDeletePublicationRoute from './routes/publication/softdelete-publication.route'
+import deletePublicationRoute from './routes/publication/delete-publication.route'
 class App {
     public app: Application;
 
@@ -43,10 +42,12 @@ class App {
     private initializeRoutes() {
         this.app.use('/api/users', registerUserRoute);
         this.app.use('/api/users', loginUserRoute)
-        
         this.app.use('/api/publications', postPublicationRoute);
-        this.app.use('/api/publications', favoritePublicationRoute);
         this.app.use('/api/publications', editPublicationRoute);
+        this.app.use('/api/publications', softDeletePublicationRoute);
+        this.app.use('/api/publications', favoritePublicationRoute);
+        this.app.use('/api/publications', deletePublicationRoute);
+
     }
 
     public listen(port: number, p0: () => void) {

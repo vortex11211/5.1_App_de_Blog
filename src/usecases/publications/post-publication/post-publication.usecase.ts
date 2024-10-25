@@ -1,6 +1,6 @@
 import { PostPublicationDTO } from "./post-publication.dto";
-import { PublicationGateway } from "../../domain/gateways/publication.gateway";
-import { Publication } from "../../domain/entities/publication.entity";
+import { PublicationGateway } from "../../../domain/gateways/publication.gateway";
+import { Publication } from "../../../domain/entities/publication.entity";
 
 
 export interface PostPublicationUseCase {

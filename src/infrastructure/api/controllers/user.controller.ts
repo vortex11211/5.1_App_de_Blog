@@ -1,7 +1,7 @@
-import { RegisterUser } from '../../../usecases/register-user/register-user.usecase';
+import { RegisterUser } from '../../../usecases/users/register-user/register-user.usecase';
 import { Request, Response } from 'express';
 import { UserRepositoryPrisma } from '../../repositories/user.repository.prisma';
-import { RegisterUserDTO } from '../../../usecases/register-user/register-user.dto';
+import { RegisterUserDTO } from '../../../usecases/users/register-user/register-user.dto';
 const userRepository = new UserRepositoryPrisma();
 const registerUserUseCase = new RegisterUser(userRepository);
 

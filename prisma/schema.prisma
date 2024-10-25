@@ -46,7 +46,7 @@ model Publication {
   author    User      @relation(fields: [authorId], references: [id])
   createdAt DateTime  @default(now()) @db.DateTime(3)
   updatedAt DateTime  @updatedAt @db.DateTime(3)
-  deleted Boolean @default(false)
+  deleted   Boolean   @default(false)
   favorites Favorite[] @relation("PublicationFavorites")
   @@map("Publication")
 }

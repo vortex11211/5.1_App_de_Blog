@@ -1,7 +1,7 @@
 import { RegisterUserDTO } from './register-user.dto';
-import { UserGateway } from '../../domain/gateways/user.gateway';
-import { User } from '../../domain/entities/user.entity';
-import { Role } from '../../domain/entities/user.entity';
+import { UserGateway } from '../../../domain/gateways/user.gateway';
+import { User } from '../../../domain/entities/user.entity';
+import { Role } from '../../../domain/entities/user.entity';
 import bcrypt from 'bcryptjs'
 
 

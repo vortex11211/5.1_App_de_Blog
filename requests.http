@@ -6,10 +6,10 @@ POST {{BASE_URL}}/api/users/register
 Content-Type: application/json
 
 {
-  "username": "test user8",
-  "email": "tes8@example.com",
+  "username": "test user3",
+  "email": "tes3@example.com",
   "password": "123456",
-  "role": "simpleUser"
+  "role": "admin"
 }
 ### login user
 Post {{BASE_URL}}/api/users/login
@@ -28,7 +28,36 @@ Content-Type: application/json
 {
   "title": "softdeleted",
   "content": "prueba repository",
-  "authorId": 3
+  "authorId": 1
+}
+
+### Edit Publication
+
+PATCH  {{BASE_URL}}/api/publications/publication
+Content-Type: application/json
+
+{
+  "publicationId":1,
+  "title": "quizas funcione"
+ 
+}
+
+### Delete Publication
+
+DELETE {{BASE_URL}}/api/publications/publication
+Content-Type: application/json
+
+{
+  "publicationId": 1,
+"deleted":true
+}
+
+### Eliminate Publication
+DELETE {{BASE_URL}}/api/publications/delete-publication
+Content-Type: application/json
+
+{
+  "publicationId": 3
 }
 
 
@@ -38,17 +67,5 @@ Content-Type: application/json
 
 {
   "userId": 2,
-  "publicationId": 3
-}
-
-
-### Edit Publication
-
-PATCH  {{BASE_URL}}/api/publications/publication
-Content-Type: application/json
-
-{
-  "publicationId":8,
-  "content": "Se logro actualizar"
- 
+  "publicationId": 1
 }

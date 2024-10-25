@@ -1,6 +1,6 @@
 import { FavoritePublicationDTO } from './favorite-publication.dto';
-import { FavoriteGateway } from '../../domain/gateways/favorite.gateway';
-import { Favorite } from '../../domain/entities/favorite.entity';
+import { FavoriteGateway } from '../../../domain/gateways/favorite.gateway';
+import { Favorite } from '../../../domain/entities/favorite.entity';
 
 export interface FavoritePublicationUseCase {
     execute(dto: FavoritePublicationDTO): Promise<void>;

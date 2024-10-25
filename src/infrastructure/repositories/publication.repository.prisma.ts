@@ -11,7 +11,7 @@ export class PublicationRepositoryPrisma implements PublicationGateway {
             authorId: publication.authorId,
             createdAt: publication.createdAt,
             updatedAt: publication.updatedAt,
-            delete:publication.deleted
+           
         };
         await prisma.publication.create({
             data: prismaPublication,
@@ -22,17 +22,34 @@ export class PublicationRepositoryPrisma implements PublicationGateway {
                 authorId: true,
                 createdAt: true,
                 updatedAt: true,
-                deleted:false,
+             
             }
         })
     }
     public async update(publication: DomainPublication): Promise<void> {
         const prismaPublication = PublicationMapper.toPersistence(publication);
         await prisma.publication.update({
-            where: { id: prismaPublication.id },
+            where: { 
+                id: prismaPublication.id, 
+                deleted: false
+            },
             data: prismaPublication,
         });
     }
+
+public async softDelete(publication: DomainPublication): Promise<void> {
+    const prismaPublication = PublicationMapper.toPersistence(publication);
+    await prisma.publication.update({
+        where:{id: prismaPublication.id},
+        data:{deleted:true, updatedAt: new Date()}
+    });
+}
+
+public async delete(id:number):Promise<void>{
+    await prisma.publication.delete({
+        where:{id}
+    })
+}
 
 
     public async findById(id: number): Promise<DomainPublication | null> {
