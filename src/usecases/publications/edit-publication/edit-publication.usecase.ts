@@ -22,7 +22,7 @@ export class EditPublication {
             publication.updateContent(dto.content);
         }
 
-        await this.publicationRepository.save(publication);
+        await this.publicationRepository.update(publication);
 
         return publication;
     }

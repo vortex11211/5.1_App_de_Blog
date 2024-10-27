@@ -6,8 +6,8 @@ POST {{BASE_URL}}/api/users/register
 Content-Type: application/json
 
 {
-  "username": "test user3",
-  "email": "tes3@example.com",
+  "username": "test user2",
+  "email": "tes2@example.com",
   "password": "123456",
   "role": "admin"
 }
@@ -16,7 +16,7 @@ Post {{BASE_URL}}/api/users/login
 Content-Type: application/json
 
 {
-  "email": "tes2@example.com",
+  "email": "tes1@example.com",
   "password": "123456"
 }
 
@@ -26,9 +26,9 @@ POST {{BASE_URL}}/api/publications/publication
 Content-Type: application/json
 
 {
-  "title": "softdeleted",
-  "content": "prueba repository",
-  "authorId": 1
+  "title": "title 1",
+  "content": "tex1",
+  "authorId": 2
 }
 
 ### Edit Publication
@@ -38,7 +38,7 @@ Content-Type: application/json
 
 {
   "publicationId":1,
-  "title": "quizas funcione"
+  "title": "editando titulo 1"
  
 }
 
@@ -48,7 +48,7 @@ DELETE {{BASE_URL}}/api/publications/publication
 Content-Type: application/json
 
 {
-  "publicationId": 1,
+  "publicationId": 6,
 "deleted":true
 }
 
@@ -57,7 +57,7 @@ DELETE {{BASE_URL}}/api/publications/delete-publication
 Content-Type: application/json
 
 {
-  "publicationId": 3
+  "publicationId": 1
 }
 
 
@@ -66,6 +66,6 @@ POST {{BASE_URL}}/api/publications/like
 Content-Type: application/json
 
 {
-  "userId": 2,
+  "userId": 4,
   "publicationId": 1
 }
