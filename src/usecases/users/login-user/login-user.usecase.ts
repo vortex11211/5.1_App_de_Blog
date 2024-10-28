@@ -2,7 +2,7 @@ import { LoginUserDTO } from "./login-user.dto";
 import { UserGateway } from "../../../domain/gateways/user.gateway";
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
-
+import dotenv from 'dotenv'
 
 
 export interface LoginUserUseCase {
@@ -18,13 +18,14 @@ export class LoginUser implements LoginUserUseCase {
     public async execute(dto:LoginUserDTO):Promise<string>{
 const user=await this.userGateway.findByEmail(dto.email);
 if (!user){
-    throw new Error('Invalid email or password')
+    throw new Error('Invalid email')
 }
 const isPasswordValid= await bcrypt.compare(dto.password,user.password);
 if (!isPasswordValid){
-    throw new Error('Invalid email or password')
+    throw new Error('Invalid password')
 }
-const token=jwt.sign({userId:user.id}, 'your-secret-key',{expiresIn:'1h'});
+const SECRET_KEY= String(process.env.JWT_SECRET_KEY)
+const token=jwt.sign({userId:user.id, userRole:user.role},SECRET_KEY,{expiresIn:'1h'});
 return token;
     }
 }

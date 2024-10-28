@@ -16,8 +16,8 @@ Post {{BASE_URL}}/api/users/login
 Content-Type: application/json
 
 {
-  "email": "tes1@example.com",
-  "password": "123456"
+  "email": "tes5@example.com",
+  "password": "12345"
 }
 
 ### Post publication
