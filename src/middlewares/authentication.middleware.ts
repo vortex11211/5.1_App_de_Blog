@@ -7,7 +7,8 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction) 
 
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET as string);
-        res.locals.jwtPayload = decoded; // Guardar el payload decodificado en res.locals
+        res.locals.jwtPayload = decoded;
+        console.log('decoded autentication middle',decoded) // Guardar el payload decodificado en res.locals
         next();
     } catch (error) {
         return res.status(403).json({ message: 'Forbidden' });

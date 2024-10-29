@@ -1,13 +1,13 @@
 ### edit PORT number in this line add token after log-in
 @BASE_URL=http://localhost:3300
-@TOKEN= eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsInVzZXJSb2xlIjoiYWRtaW4iLCJpYXQiOjE3MzAyMDIxODgsImV4cCI6MTczMDIwNTc4OH0.zCMlhJCE9XMIjx1KavcAVfu_j8p9d3tHabsojp8F-O0
+@TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsInVzZXJSb2xlIjoic2ltcGxlVXNlciIsImlhdCI6MTczMDIxOTQxNiwiZXhwIjoxNzMwMjIzMDE2fQ.QneqlGGHlsISWMw5q8UvnIu1LGdP6V6LspxDyCWg7qk
 ###register new user
 POST {{BASE_URL}}/api/users/register
 Content-Type: application/json
 
 {
-  "username": "test user3",
-  "email": "tes3@example.com",
+  "username": "test user4",
+  "email": "tes4@example.com",
   "password": "123456",
   "role": "simpleUser"
 }
@@ -16,10 +16,13 @@ Post {{BASE_URL}}/api/users/login
 Content-Type: application/json
 
 {
-  "email": "tes1@example.com",
+  "email": "tes4@example.com",
   "password": "123456"
 }
 
+### listar usuarios
+GET {{BASE_URL}}/api/users/list
+Authorization: Bearer {{TOKEN}}
 ### Post publication
 
 POST {{BASE_URL}}/api/publications/publication
@@ -70,6 +73,3 @@ Content-Type: application/json
   "publicationId": 1
 }
 
-### listar usuarios
-GET {{BASE_URL}}/api/users/list
-Authorization: Bearer {{TOKEN}}

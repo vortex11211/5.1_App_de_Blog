@@ -9,6 +9,7 @@ export const checkAction = (action: string) => {
     return async (req: Request, res: Response, next: NextFunction) => {
 const jwtPayload= res.locals.jwtPayload;
         const userId = jwtPayload.userId; 
+        console.log('userid',userId)
         const userRole = jwtPayload.userRole;
       
         const authorizeUser = new AuthorizeUser(userRepository); // 
@@ -27,8 +28,8 @@ const jwtPayload= res.locals.jwtPayload;
 }
 */
 
-/*
-const userRepository = new UserRepositoryPrisma();
+
+/*const userRepository = new UserRepositoryPrisma();
 
 export const checkAction = (action: string) => {
     return async (req: Request, res: Response, next: NextFunction) => {
@@ -51,9 +52,9 @@ export const checkAction = (action: string) => {
 };
 */
 
+/*
 
-
-/*const userRepository = new UserRepositoryPrisma();
+const userRepository = new UserRepositoryPrisma();
 
 export const checkAction = (action: string) => {
     return async (req: Request, res: Response, next: NextFunction) => {
@@ -77,9 +78,8 @@ export const checkAction = (action: string) => {
             res.status(403).send({ message: typedError.message });
         }
     };
-};*/
-;
-
+}
+*/
 /*const userRepository = new UserRepositoryPrisma();
 
 export const checkAction = (action: string) => {
@@ -109,6 +109,7 @@ export const checkAction = (action: string) => {
 const userRepository = new UserRepositoryPrisma();
 
 export const checkAction = (action: string) => {
+    console.log('action', action)
     return async (req: Request, res: Response, next: NextFunction): Promise<void> => {
         try {
             if (!res.locals.jwtPayload) {
@@ -117,7 +118,7 @@ export const checkAction = (action: string) => {
             }
 
             const { userId, userRole } = res.locals.jwtPayload; // Extraer userId y userRole desde res.locals.jwtPayload
-
+            console.log('userid', userId)
             const authorizeUser = new AuthorizeUser(userRepository);
             const dto: AuthorizeUserDTO = { userId, userRole, action };
             const hasAccess = await authorizeUser.execute(dto);
