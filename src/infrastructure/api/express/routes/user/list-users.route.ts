@@ -7,3 +7,6 @@ const router = express.Router();
 router.get('/list', checkAction('viewAllUsers'), listUsersController);
 
 export default router;
+
+
+

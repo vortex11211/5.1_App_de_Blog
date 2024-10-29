@@ -48,7 +48,7 @@ class App {
         this.app.use('/api/users', loginUserRoute);
         this.app.use('/api/users',userRoute)
         this.app.use('api/users',listUsersRoute)
-        
+
         this.app.use('/api/publications', postPublicationRoute);
         this.app.use('/api/publications', editPublicationRoute);
         this.app.use('/api/publications', softDeletePublicationRoute);
