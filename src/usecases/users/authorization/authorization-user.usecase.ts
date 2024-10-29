@@ -1,5 +1,6 @@
 import { AuthorizeUserDTO } from "./authorization-user.dto";
 import { UserGateway } from "../../../domain/gateways/user.gateway";
+import { Role } from "../../../domain/entities/user.entity";
 
 export interface AuthorizeUserUseCase {
     execute(dto: AuthorizeUserDTO): Promise<boolean>;
@@ -23,7 +24,7 @@ export class AuthorizeUser implements AuthorizeUserUseCase {
         return hasAccess;
     }
 
-    private checkAccess(role: string, action: string): boolean {
+    private checkAccess(role: Role, action: string): boolean {
         // Aquí se puede implementar la lógica de autorización según roles
         const rolePermissions = {
             admin: ['viewAllUsers', 'banUser', 'elimnatePublication', 'view', 'create', 'edit', 'delete', 'softDelete', 'recover'],

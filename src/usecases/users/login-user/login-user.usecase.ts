@@ -2,7 +2,6 @@ import { LoginUserDTO } from "./login-user.dto";
 import { UserGateway } from "../../../domain/gateways/user.gateway";
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
-import dotenv from 'dotenv'
 
 
 export interface LoginUserUseCase {

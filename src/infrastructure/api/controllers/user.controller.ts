@@ -1,7 +1,10 @@
 import { RegisterUser } from '../../../usecases/users/register-user/register-user.usecase';
 import { Request, Response } from 'express';
 import { UserRepositoryPrisma } from '../../repositories/user.repository.prisma';
+
 import { RegisterUserDTO } from '../../../usecases/users/register-user/register-user.dto';
+import { ListUsers } from '../../../usecases/users/listUsers/list-users.usecase';
+
 const userRepository = new UserRepositoryPrisma();
 const registerUserUseCase = new RegisterUser(userRepository);
 
@@ -17,3 +20,15 @@ export const registerUserController = async (req: Request, res: Response) => {
         res.status(400).json({message:typedError.message});
     }
 };
+
+export const listUsersUseCase = new ListUsers(userRepository);
+
+export const listUsersController = async (req:Request,res:Response)=>{
+try{
+    const users=await listUsersUseCase.execute();
+    res.status(200).json({users});
+} catch (error){
+    const typedError=error as Error;
+    res.status(400).json({message: typedError.message})
+}
+}
