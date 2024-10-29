@@ -1,11 +1,11 @@
 import express, { Application } from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import { checkAction } from '../../../middlewares/auth.middleware';
+import { authMiddleware as authenticationMiddleware } from '../../../middlewares/authentication.middleware';
 
 import registerUserRoute from './routes/user/register-user.route'
 import loginUserRoute from './routes/user/login-user.route'
-import  listUsersRoute from './routes/user/list-users.route'
+import listUsersRoute from './routes/user/list-users.route'
 
 import postPublicationRoute from './routes/publication/post-publication.route'
 import favoritePublicationRoute from './routes/publication/favorite-publication.route'
@@ -26,6 +26,7 @@ class App {
         this.app.use(bodyParser.urlencoded({ extended: false }));
         this.app.use(cors());
 
+
         // Incluir tus propias cabeceras
         this.app.use((req, res, next) => {
             res.setHeader('X-Powered-By', 'Your-Own-Value');
@@ -45,7 +46,9 @@ class App {
     private initializeRoutes() {
         this.app.use('/api/users', registerUserRoute);
         this.app.use('/api/users', loginUserRoute);
-       this.app.use('api/users',listUsersRoute)
+
+
+        this.app.use('api/users', authenticationMiddleware, listUsersRoute);
 
         this.app.use('/api/publications', postPublicationRoute);
         this.app.use('/api/publications', editPublicationRoute);
@@ -55,7 +58,7 @@ class App {
 
     }
 
-    public listen(port: number, p0: () => void) {
+    public listen(port: number) {
         this.app.listen(port, () => {
             console.log(`Server running on port ${port}`);
         });

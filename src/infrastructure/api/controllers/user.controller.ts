@@ -6,6 +6,7 @@ import { RegisterUserDTO } from '../../../usecases/users/register-user/register-
 import { ListUsers } from '../../../usecases/users/listUsers/list-users.usecase';
 
 const userRepository = new UserRepositoryPrisma();
+
 const registerUserUseCase = new RegisterUser(userRepository);
 
 export const registerUserController = async (req: Request, res: Response) => {
@@ -21,11 +22,13 @@ export const registerUserController = async (req: Request, res: Response) => {
     }
 };
 
-export const listUsersUseCase = new ListUsers(userRepository);
+ const listUsersUseCase = new ListUsers(userRepository);
 
 export const listUsersController = async (req:Request,res:Response)=>{
 try{
+    console.log('List Users Controller Called')
     const users=await listUsersUseCase.execute();
+    console.log('users found', users)
     res.status(200).json({users});
 } catch (error){
     const typedError=error as Error;

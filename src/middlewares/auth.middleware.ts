@@ -109,8 +109,7 @@ export const checkAction = (action: string) => {
 const userRepository = new UserRepositoryPrisma();
 
 export const checkAction = (action: string) => {
-    console.log('action', action)
-    return async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+       return async (req: Request, res: Response, next: NextFunction): Promise<void> => {
         try {
             if (!res.locals.jwtPayload) {
                 res.status(403).json({ message: 'Forbidden: Missing JWT payload' });
@@ -118,7 +117,7 @@ export const checkAction = (action: string) => {
             }
 
             const { userId, userRole } = res.locals.jwtPayload; // Extraer userId y userRole desde res.locals.jwtPayload
-            console.log('userid', userId)
+           
             const authorizeUser = new AuthorizeUser(userRepository);
             const dto: AuthorizeUserDTO = { userId, userRole, action };
             const hasAccess = await authorizeUser.execute(dto);
