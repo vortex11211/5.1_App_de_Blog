@@ -13,17 +13,6 @@ export class AuthorizeUser implements AuthorizeUserUseCase {
         this.userGateway = userGateway;
     }
 
-    public async execute(dto: AuthorizeUserDTO): Promise<boolean> {
-        const user = await this.userGateway.findById(dto.userId);
-        if (!user) {
-            throw new Error('User not found');
-        }
-
-        // Verificar si el rol del usuario tiene acceso al recurso
-        const hasAccess = this.checkAccess(user.role, dto.action);
-        return hasAccess;
-    }
-
     private checkAccess(role: Role, action: string): boolean {
         // Aquí se puede implementar la lógica de autorización según roles
         const rolePermissions = {
@@ -33,4 +22,18 @@ export class AuthorizeUser implements AuthorizeUserUseCase {
 
         return rolePermissions[role]?.includes(action) || false;
     }
+    
+    public async execute(dto: AuthorizeUserDTO): Promise<boolean> {
+        const user = await this.userGateway.findById(dto.userId);
+        console.log('queusuarioes',user)
+        if (!user) {
+            throw new Error('User not found');
+        }
+
+        // Verificar si el rol del usuario tiene acceso al recurso
+        const hasAccess = this.checkAccess(user.role, dto.action);
+        return hasAccess;
+    }
+
+    
 }

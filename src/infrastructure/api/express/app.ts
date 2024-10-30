@@ -1,8 +1,6 @@
 import express, { Application } from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import { authMiddleware as authenticationMiddleware } from '../../../middlewares/authentication.middleware';
-
 import registerUserRoute from './routes/user/register-user.route'
 import loginUserRoute from './routes/user/login-user.route'
 import listUsersRoute from './routes/user/list-users.route'
@@ -47,8 +45,8 @@ class App {
         this.app.use('/api/users', registerUserRoute);
         this.app.use('/api/users', loginUserRoute);
 
-
-        this.app.use('api/users', authenticationMiddleware, listUsersRoute);
+        //vamos a quitar el middleware this.app.use('api/users', authMiddleware, listUsersRoute)
+        this.app.use('api/users', listUsersRoute);
 
         this.app.use('/api/publications', postPublicationRoute);
         this.app.use('/api/publications', editPublicationRoute);
@@ -58,12 +56,14 @@ class App {
 
     }
 
+
     public listen(port: number) {
         this.app.listen(port, () => {
             console.log(`Server running on port ${port}`);
         });
     }
+
+
 }
 
 export default App;
-
