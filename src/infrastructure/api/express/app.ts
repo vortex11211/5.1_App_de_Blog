@@ -46,7 +46,7 @@ class App {
         this.app.use('/api/users', loginUserRoute);
 
         //vamos a quitar el middleware this.app.use('api/users', authMiddleware, listUsersRoute)
-        this.app.use('api/users', listUsersRoute);
+        this.app.use('/api/users', listUsersRoute);
 
         this.app.use('/api/publications', postPublicationRoute);
         this.app.use('/api/publications', editPublicationRoute);
@@ -67,3 +67,5 @@ class App {
 }
 
 export default App;
+
+

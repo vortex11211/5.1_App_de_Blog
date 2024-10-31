@@ -22,7 +22,7 @@ Content-Type: application/json
 
 ### listar usuarios
 GET {{BASE_URL}}/api/users/list
-
+Content-Type: application/json
 
 
 ### Post publication

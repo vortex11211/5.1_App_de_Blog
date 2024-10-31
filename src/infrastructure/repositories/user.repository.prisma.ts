@@ -14,7 +14,6 @@ export class UserRepositoryPrisma implements UserGateway {
             createdAt: user.createdAt,
             updatedAt: user.updatedAt
         };
-        console.log('Creating user with data:', prismaUser);
 
         await prisma.user.create({
             data: prismaUser,
@@ -42,10 +41,8 @@ export class UserRepositoryPrisma implements UserGateway {
     }
 
     public async list(): Promise<DomainUser[]> {
-        console.log('Listing users');
         const usersData = await prisma.user.findMany();
-        console.log('Users retrieved from database:', usersData);
-        return usersData.map(UserMapper.toDomain);
+        return usersData.map(UserMapper.toDomain)
     }
 
     public async findByEmail(email: string): Promise<DomainUser | null> {

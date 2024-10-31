@@ -40,9 +40,10 @@ import { RegisterUserDTO } from '../../../usecases/users/register-user/register-
 import { ListUsers } from '../../../usecases/users/listUsers/list-users.usecase';
 import { ListUsersDTO } from '../../../usecases/users/listUsers/list-users.dto';
 const userRepository = new UserRepositoryPrisma();
-
+console.log('despues de crear el user repositorio')
 const registerUserUseCase = new RegisterUser(userRepository);
 export const registerUserController = async (req: Request, res: Response) => {
+    console.log('llamada a registrar usuario')
     try {
         const dto: RegisterUserDTO = req.body;
         await registerUserUseCase.execute(dto);
@@ -58,11 +59,9 @@ export const registerUserController = async (req: Request, res: Response) => {
 
 const listUsersUseCase = new ListUsers(userRepository);
 export const listUsersController = async (req: Request, res: Response) => {
-    console.log('List Users Controller Called'); // Log para verificar si el controlador es llamado
     try {
-        const dto:ListUsersDTO={};
+        const dto: ListUsersDTO = {};
         const users = await listUsersUseCase.execute(dto);
-        console.log('users found', users); // Log para verificar si se recuperan usuarios
         res.status(200).json({ users });
     } catch (error) {
         const typedError = error as Error;
