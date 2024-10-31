@@ -9,9 +9,8 @@ export class ListUsers {
         this.userRepository = userRepository;
     }
 
-    public async execute(dto:ListUsersDTO): Promise<User[]> {
-        console.log('que es esto', this.userRepository.list());
+    public async execute(dto: ListUsersDTO): Promise<User[]> {
         return this.userRepository.list();
-        
+
     }
 }

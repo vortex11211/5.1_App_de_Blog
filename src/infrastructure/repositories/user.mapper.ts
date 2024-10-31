@@ -15,9 +15,8 @@ export class UserMapper {
             createdAt: user.createdAt,
             updatedAt: user.updatedAt
         } as any;
-        console.log('Mapped user for persistence:', prismaUser); // Log para depuración
         return prismaUser;
-    
+
     }
 
     static toDomain(prismaUser: PrismaUser): DomainUser {
@@ -26,7 +25,7 @@ export class UserMapper {
             username: prismaUser.username,
             email: prismaUser.email,
             password: prismaUser.password,
-            role: prismaUser.role as DomainRole,  
+            role: prismaUser.role as DomainRole,
             banned: prismaUser.banned,
             createdAt: prismaUser.createdAt,
             updatedAt: prismaUser.updatedAt

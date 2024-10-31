@@ -4,7 +4,7 @@ import cors from 'cors';
 import registerUserRoute from './routes/user/register-user.route'
 import loginUserRoute from './routes/user/login-user.route'
 import listUsersRoute from './routes/user/list-users.route'
-
+import { authMiddleware } from '../../../middlewares/authentication.middleware';
 import postPublicationRoute from './routes/publication/post-publication.route'
 import favoritePublicationRoute from './routes/publication/favorite-publication.route'
 import editPublicationRoute from './routes/publication/edit-publication.route'
@@ -38,16 +38,14 @@ class App {
             next();
         });
 
-        // Aquí puedes agregar middleware de autenticación y autorización si es necesario
     }
 
     private initializeRoutes() {
         this.app.use('/api/users', registerUserRoute);
         this.app.use('/api/users', loginUserRoute);
 
-        //vamos a quitar el middleware this.app.use('api/users', authMiddleware, listUsersRoute)
-        this.app.use('/api/users', listUsersRoute);
-
+      this.app.use('/api/users', authMiddleware, listUsersRoute)
+       
         this.app.use('/api/publications', postPublicationRoute);
         this.app.use('/api/publications', editPublicationRoute);
         this.app.use('/api/publications', softDeletePublicationRoute);
