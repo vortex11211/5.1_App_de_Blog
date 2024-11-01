@@ -18,8 +18,6 @@ export class BanUser {
         await this.userRepository.banUser(user);
         return user;
     }
-
-
 }
 
 

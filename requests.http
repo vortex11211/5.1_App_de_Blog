@@ -1,6 +1,6 @@
 ### edit PORT number in this line add token after log-in
 @BASE_URL=http://localhost:3300
-@TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExLCJ1c2VyUm9sZSI6ImFkbWluIiwiaWF0IjoxNzMwMzcxOTcwLCJleHAiOjE3MzAzNzU1NzB9.Ie_4xwPkFbABWbBGj8XXbRfIrqfsiUasIXxaBXxTc8I
+@TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUsInVzZXJSb2xlIjoiYWRtaW4iLCJpYXQiOjE3MzA0NTg5OTgsImV4cCI6MTczMDQ2MjU5OH0.Kg1WH8d2sHj9rZyZ6tfOaLz1I1cqcIxOJN22TZJ4O0A
 ###register new user
 POST {{BASE_URL}}/api/users/register
 Content-Type: application/json
@@ -11,6 +11,16 @@ Content-Type: application/json
   "password": "123456",
   "role": "admin"
 }
+
+### Ban User
+DELETE {{BASE_URL}}/api/users/ban
+Content-Type: application/json
+
+{
+  "userId":3,
+  "banned":true
+}
+
 ### login user
 Post {{BASE_URL}}/api/users/login
 Content-Type: application/json
@@ -23,6 +33,7 @@ Content-Type: application/json
 ### Listar usuarios
 GET {{BASE_URL}}/api/users/list
 Authorization: Bearer {{TOKEN}}
+
 
 
 ### Post publication
