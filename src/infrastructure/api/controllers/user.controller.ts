@@ -38,4 +38,14 @@ export const listUsersController = async (req: Request, res: Response) => {
     }
 };
 
-const banUserUseCase new Ban
+const banUserUseCase= new BanUser(userRepository);
+export const banUserController= async (req:Request, res:Response)=>{
+    try {
+        const dto: BanUserDTO= req.body;
+        const bannedUser= await banUserUseCase.execute(dto);
+        res.status(200).json ({message:'User banned successfully', user:bannedUser})
+    } catch(error){
+        const typedError=error as Error
+        res.status(400).json({message:typedError.message})
+}
+}
