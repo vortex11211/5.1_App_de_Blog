@@ -60,5 +60,16 @@ export class UserRepositoryPrisma implements UserGateway {
         }
         return UserMapper.toDomain(userData);
     }
-}
 
+
+public async banUser(user:DomainUser):Promise<void>{
+  const prismaUser= UserMapper.toPersistence(user);
+      await prisma.user.update({
+    where:{
+        id: prismaUser.id
+    },
+    data: {banned:true}
+   })
+
+
+}}

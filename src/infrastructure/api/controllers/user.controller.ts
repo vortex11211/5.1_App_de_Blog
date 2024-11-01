@@ -5,6 +5,10 @@ import { UserRepositoryPrisma } from '../../repositories/user.repository.prisma'
 import { RegisterUserDTO } from '../../../usecases/users/register-user/register-user.dto';
 import { ListUsers } from '../../../usecases/users/listUsers/list-users.usecase';
 import { ListUsersDTO } from '../../../usecases/users/listUsers/list-users.dto';
+
+import { BanUserDTO } from '../../../usecases/users/banUser/ban-user.dto';
+import { BanUser } from '../../../usecases/users/banUser/ban-user.usecase';
+
 const userRepository = new UserRepositoryPrisma();
 const registerUserUseCase = new RegisterUser(userRepository);
 export const registerUserController = async (req: Request, res: Response) => {
@@ -32,3 +36,5 @@ export const listUsersController = async (req: Request, res: Response) => {
         res.status(400).json({ message: typedError.message });
     }
 };
+
+const banUserUseCase new Ban
