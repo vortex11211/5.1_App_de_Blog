@@ -6,4 +6,5 @@ export interface UserGateway {
   list(): Promise<User[]>;
   findByEmail(id: string): Promise<User | null>
   findByUsername(username:string):Promise<User | null>
+  banUser(user:User):Promise<void>;
 }

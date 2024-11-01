@@ -18,9 +18,8 @@ export class FavoriteRepositoryPrisma implements FavoriteGateway {
                     createdAt: true
                 }
             });
-            console.log('Prisma favorite created:', result);
+
         } catch (error) {
-            console.error('Error creating prisma favorite:', error);
             throw error;
         }
     }

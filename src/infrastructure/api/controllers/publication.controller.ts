@@ -43,12 +43,12 @@ export const editPublicationController = async (req: Request, res: Response) => 
     }
 };
 
-const sofdeletePublicationUseCase = new SoftDeletePublication(publicationRepository);
+const softDeletePublicationUseCase = new SoftDeletePublication(publicationRepository);
 
 export const softDeletePublicationController = async (req: Request, res: Response) => {
     try {
         const dto: SoftDeletePublicationDTO = req.body;
-        const softdeletePublication = await sofdeletePublicationUseCase.execute(dto);
+        const softdeletePublication = await softDeletePublicationUseCase.execute(dto);
         res.status(200).json({ message: 'Publication deleted successfully', publication: softdeletePublication })
     } catch (error) {
         const typedError = error as Error;

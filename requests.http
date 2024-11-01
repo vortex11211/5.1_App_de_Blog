@@ -1,28 +1,28 @@
 ### edit PORT number in this line add token after log-in
 @BASE_URL=http://localhost:3300
-@TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwLCJ1c2VyUm9sZSI6InNpbXBsZVVzZXIiLCJpYXQiOjE3MzAyODAzMjUsImV4cCI6MTczMDI4MzkyNX0.UACD2Na_CdSW-5ppHON8g6744PgANWQEF7sVHxFEQ88
+@TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExLCJ1c2VyUm9sZSI6ImFkbWluIiwiaWF0IjoxNzMwMzcxOTcwLCJleHAiOjE3MzAzNzU1NzB9.Ie_4xwPkFbABWbBGj8XXbRfIrqfsiUasIXxaBXxTc8I
 ###register new user
 POST {{BASE_URL}}/api/users/register
 Content-Type: application/json
 
 {
-  "username": "test user4",
-  "email": "tes4@example.com",
+  "username": "test user20",
+  "email": "tes20@example.com",
   "password": "123456",
-  "role": "simpleUser"
+  "role": "admin"
 }
 ### login user
 Post {{BASE_URL}}/api/users/login
 Content-Type: application/json
 
 {
-  "email": "tes4@example.com",
+  "email": "tes20@example.com",
   "password": "123456"
 }
 
-### listar usuarios
+### Listar usuarios
 GET {{BASE_URL}}/api/users/list
-
+Authorization: Bearer {{TOKEN}}
 
 
 ### Post publication
