@@ -19,24 +19,3 @@ export class BanUser {
         return user;
     }
 }
-
-
-
-
-/*export interface BannedUserUseCase{
-    execute(dto: BanUserDTO):Promise<void>;
-}
-
-export class BanUser implements BannedUserUseCase{
-    private userGateway: UserGateway;
-    constructor(userGateway:UserGateway){
-        this.userGateway=userGateway;
-    }
-
-    public async execute(dto:BanUserDTO):Promise<void>{
-        const alreadyBanned= await this.userGateway.findById(dto.userId);
-         if (alreadyBanned){
-            await this.userGateway.banUser(dto.userId)
-         }
-    }
-}*/

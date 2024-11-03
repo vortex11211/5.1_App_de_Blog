@@ -1,13 +1,13 @@
 ### edit PORT number in this line add token after log-in
 @BASE_URL=http://localhost:3300
-@TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUsInVzZXJSb2xlIjoiYWRtaW4iLCJpYXQiOjE3MzA0NTg5OTgsImV4cCI6MTczMDQ2MjU5OH0.Kg1WH8d2sHj9rZyZ6tfOaLz1I1cqcIxOJN22TZJ4O0A
+@TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsInVzZXJSb2xlIjoic2ltcGxlVXNlciIsImlhdCI6MTczMDYzODU0MCwiZXhwIjoxNzMwNjQyMTQwfQ.9CshLspc5WKviC2czA_mYvOn-EIFTpJvuqP7w6p50p8
 ###register new user
 POST {{BASE_URL}}/api/users/register
 Content-Type: application/json
 
 {
-  "username": "test user20",
-  "email": "tes20@example.com",
+  "username": "test user5",
+  "email": "tes5@example.com",
   "password": "123456",
   "role": "admin"
 }
@@ -17,7 +17,7 @@ DELETE {{BASE_URL}}/api/users/ban
 Content-Type: application/json
 
 {
-  "userId":3,
+  "userId":5,
   "banned":true
 }
 
@@ -26,7 +26,7 @@ Post {{BASE_URL}}/api/users/login
 Content-Type: application/json
 
 {
-  "email": "tes20@example.com",
+  "email": "tes4@example.com",
   "password": "123456"
 }
 
@@ -49,10 +49,11 @@ Content-Type: application/json
 ### Edit Publication
 PATCH  {{BASE_URL}}/api/publications/publication
 Content-Type: application/json
+Authorization: Bearer {{TOKEN}}
 
 {
-  "publicationId":1,
-  "title": "editando titulo 1"
+  "publicationId":2,
+  "title": "editando titulo simpleUser"
  
 }
 

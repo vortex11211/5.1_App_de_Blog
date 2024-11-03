@@ -6,8 +6,6 @@ import { FavoriteMapper } from './favorite.mapper';
 export class FavoriteRepositoryPrisma implements FavoriteGateway {
     public async save(favorite: DomainFavorite): Promise<void> {
         const prismaFavorite = FavoriteMapper.toPersistence(favorite);
-        console.log('Prisma favorite before create:', prismaFavorite);
-
         try {
             const result = await prisma.favorite.create({
                 data: prismaFavorite,

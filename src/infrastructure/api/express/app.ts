@@ -52,7 +52,7 @@ class App {
 
 
         this.app.use('/api/publications', postPublicationRoute);
-        this.app.use('/api/publications', editPublicationRoute);
+        this.app.use('/api/publications',authMiddleware, editPublicationRoute);
         this.app.use('/api/publications', softDeletePublicationRoute);
         this.app.use('/api/publications', favoritePublicationRoute);
         this.app.use('/api/publications', deletePublicationRoute);
