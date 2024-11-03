@@ -14,6 +14,9 @@ import favoritePublicationRoute from './routes/publication/favorite-publication.
 import editPublicationRoute from './routes/publication/edit-publication.route'
 import softDeletePublicationRoute from './routes/publication/softdelete-publication.route'
 import deletePublicationRoute from './routes/publication/delete-publication.route'
+import { banUserController } from '../controllers/user.controller';
+
+
 class App {
     public app: Application;
 
@@ -47,15 +50,21 @@ class App {
     private initializeRoutes() {
         this.app.use('/api/users', registerUserRoute);
         this.app.use('/api/users', loginUserRoute);
-        this.app.use('/api/users', banUserRoute);
-        this.app.use('/api/users', authMiddleware, listUsersRoute);
+        this.app.use(
+            '/api/users', authMiddleware,
+            listUsersRoute,
+            banUserRoute
+        );
 
 
-        this.app.use('/api/publications', postPublicationRoute);
-        this.app.use('/api/publications',authMiddleware, editPublicationRoute);
-        this.app.use('/api/publications', softDeletePublicationRoute);
-        this.app.use('/api/publications', favoritePublicationRoute);
-        this.app.use('/api/publications', deletePublicationRoute);
+        this.app.use(
+            '/api/publications', authMiddleware,
+            postPublicationRoute,
+            editPublicationRoute,
+            softDeletePublicationRoute,
+            favoritePublicationRoute,
+            deletePublicationRoute
+        );
 
     }
 
