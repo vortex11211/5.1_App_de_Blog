@@ -5,6 +5,12 @@ import { User as DomainUser } from "../../domain/entities/user.entity";
 
 export class UserRepositoryPrisma implements UserGateway {
     public async save(user: DomainUser): Promise<void> {
+        const existingUser=await prisma.user.findUnique({
+            where:{username:user.username},
+        });
+        if(existingUser){
+            throw new Error (`Username ${user.username} already exists`)
+        }
         const prismaUser = {
             username: user.username,
             email: user.email,
@@ -68,8 +74,8 @@ public async banUser(user:DomainUser):Promise<void>{
     where:{
         id: prismaUser.id
     },
-    data: {banned:true}
-   })
+    data: {banned:prismaUser.banned}
+   });
 
 
 }}

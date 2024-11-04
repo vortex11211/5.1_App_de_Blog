@@ -1,6 +1,6 @@
 ### edit PORT number in this line add token after log-in
 @BASE_URL=http://localhost:3300
-@TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsInVzZXJSb2xlIjoic2ltcGxlVXNlciIsImlhdCI6MTczMDY2MDM0MSwiZXhwIjoxNzMwNjYzOTQxfQ.MUXFjVzTi6X2zGFDSVLsxBh728v_FzVumRrMsoYp8Ew
+@TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJSb2xlIjoiYWRtaW4iLCJpYXQiOjE3MzA3MTcwODksImV4cCI6MTczMDcyMDY4OX0._iJtIjlQgPKDLvpFi6cR_qQsTRYQxbAile2Tl5nVxoI
 ###register new user
 POST {{BASE_URL}}/api/users/register
 Content-Type: application/json
@@ -18,7 +18,7 @@ POST {{BASE_URL}}/api/users/login
 Content-Type: application/json
 
 {
-  "email": "tes4@example.com",
+  "email": "tes5@example.com",
   "password": "123456"
 }
 
@@ -30,16 +30,17 @@ Authorization: Bearer {{TOKEN}}
 ### Ban User
 DELETE {{BASE_URL}}/api/users/ban
 Content-Type: application/json
+Authorization: Bearer {{TOKEN}}
 
 {
-  "userId":5,
-  "banned":true
+  "userId":5
 }
 
 
 ### Post publication
 POST {{BASE_URL}}/api/publications/publication
 Content-Type: application/json
+Authorization: Bearer {{TOKEN}}
 
 {
   "title": "La senda de las brujas",
@@ -53,7 +54,7 @@ Content-Type: application/json
 Authorization: Bearer {{TOKEN}}
 
 {
-  "publicationId":2,
+  "publicationId":3,
   "title": "editando titulo brujas3"
  
 }
@@ -61,15 +62,17 @@ Authorization: Bearer {{TOKEN}}
 ### Delete Publication
 DELETE {{BASE_URL}}/api/publications/publication
 Content-Type: application/json
+Autorization: Bearer {{TOKEN}}
 
 {
-  "publicationId": 9,
+  "publicationId": 4,
 "deleted":true
 }
 
 ### Eliminate Publication
 DELETE {{BASE_URL}}/api/publications/delete-publication
 Content-Type: application/json
+Autorization: Bearer {{TOKEN}}
 
 {
   "publicationId": 9
@@ -79,9 +82,10 @@ Content-Type: application/json
 ### like Publication
 POST {{BASE_URL}}/api/publications/like
 Content-Type: application/json
+Authorization: Bearer {{TOKEN}}
 
 {
   "userId": 4,
-  "publicationId": 1
+  "publicationId": 12
 }
 

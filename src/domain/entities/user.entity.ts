@@ -68,7 +68,7 @@ public static with(props:UserProps):User{
     return new User(props);
 }
 public banUser(){
-    this.props.banned=true;
+    this.props.banned = !this.props.banned
 }
 
 }
