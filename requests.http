@@ -63,7 +63,7 @@ Authorization: Bearer {{TOKEN}}
 ### SoftDelete Publication
 DELETE {{BASE_URL}}/api/publications/publication
 Content-Type: application/json
-Autorization: Bearer {{TOKEN}}
+Authorization: Bearer {{TOKEN}}
 
 {
   "publicationId": 3,
@@ -72,7 +72,7 @@ Autorization: Bearer {{TOKEN}}
 ### Eliminate Publication
 DELETE {{BASE_URL}}/api/publications/delete-publication
 Content-Type: application/json
-Autorization: Bearer {{TOKEN}}
+Authorization: Bearer {{TOKEN}}
 
 {
   "publicationId": 9
