@@ -62,7 +62,7 @@ export class Publication {;
         this.props.updatedAt= new Date();
     }
     public softDelete() {
-        this.props.deleted = true;
+        this.props.deleted;
         this.props.updatedAt = new Date();
     }
 }

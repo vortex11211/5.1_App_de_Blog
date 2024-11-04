@@ -3,5 +3,5 @@ import {softDeletePublicationController} from '../../../controllers/publication.
 import { checkAction } from '../../../../../middlewares/auth.middleware';
 
 const router = express.Router();
-router.delete('/publication',checkAction('softDeleteOwn') ,softDeletePublicationController);
+router.delete('/publication',checkAction('softDelete','softDeleteOwn') ,softDeletePublicationController);
 export default router

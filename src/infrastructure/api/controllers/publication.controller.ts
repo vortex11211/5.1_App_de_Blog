@@ -49,7 +49,7 @@ export const softDeletePublicationController = async (req: Request, res: Respons
     try {
         const dto: SoftDeletePublicationDTO = req.body;
         const softdeletePublication = await softDeletePublicationUseCase.execute(dto);
-        res.status(200).json({ message: 'Publication deleted successfully', publication: softdeletePublication })
+        res.status(200).json({ message: `Publication ${softdeletePublication.deleted ? 'deleted' :'restored'} successfully`, publication: softdeletePublication })
     } catch (error) {
         const typedError = error as Error;
         res.status(400).json({ message: typedError.message })
