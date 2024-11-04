@@ -5,22 +5,23 @@ import { FavoriteMapper } from './favorite.mapper';
 
 export class FavoriteRepositoryPrisma implements FavoriteGateway {
     public async save(favorite: DomainFavorite): Promise<void> {
-        const prismaFavorite = FavoriteMapper.toPersistence(favorite);
-        try {
-            const result = await prisma.favorite.create({
-                data: prismaFavorite,
-                select: {
-                    id: true,
-                    userId: true,
-                    publicationId: true,
-                    createdAt: true
-                }
-            });
-
-        } catch (error) {
-            throw error;
+        const prismaFavorite = FavoriteMapper.toPersistence(favorite); 
+        const publicationExists = await prisma.publication.findUnique({
+            where: { id: prismaFavorite.publicationId }
+        });
+        if (!publicationExists) {
+            throw new Error('PublicationNotFound'); 
+        } try {
+            await prisma.favorite.create({
+                 data: prismaFavorite 
+                });
+        } catch (unknownError) {
+            const error = unknownError as Error
+            throw new Error(`Failed to save favorite: ${error.message}`);
         }
     }
+
+
 
     public async findByUserAndPublication(userId: number, publicationId: number): Promise<DomainFavorite | null> {
         const favorite = await prisma.favorite.findUnique({

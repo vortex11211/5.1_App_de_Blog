@@ -8,14 +8,17 @@ const favoritePublicationUseCase = new FavoritePublication(favoriteRepository);
 
 export const favoritePublicationController = async (req: Request, res: Response) => {
     try {
-        
         const dto: FavoritePublicationDTO = req.body;
         await favoritePublicationUseCase.execute(dto);
         res.status(201).json({ message: 'Favorite processed successfully' });
     } catch (error) {
         const typedError = error as Error;
-        console.error('Error:', typedError.message); 
-        res.status(400).json({ message: typedError.message });
+        if (typedError.message === "PublicationNotFound") {
+            res.status(404).json({ message: 'Publication not found' });
+        } else {
+            res.status(500).json({ message: "An unexpected error occurred" });
+        }
+
     }
 };
 
