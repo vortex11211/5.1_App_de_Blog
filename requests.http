@@ -1,6 +1,6 @@
 ### edit PORT number in this line add token after log-in
 @BASE_URL=http://localhost:3300
-@TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsInVzZXJSb2xlIjoic2ltcGxlVXNlciIsImlhdCI6MTczMDgwOTMyOSwiZXhwIjoxNzMwODEyOTI5fQ.kCqETEAvGunpKr7tpH1ZdVELjOMUnSve6NufPCuDZQY
+@TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsInVzZXJSb2xlIjoic2ltcGxlVXNlciIsImlhdCI6MTczMDg0MDAwMCwiZXhwIjoxNzMwODQzNjAwfQ.nzu2r6F2TJPixLarRKI2AnUuVLiGilGaCSirI68kRiA
 
 ### Register User
 POST {{BASE_URL}}/api/users/register
@@ -19,11 +19,11 @@ POST {{BASE_URL}}/api/users/login
 Content-Type: application/json
 
 {
-  "email": "tes8@example.com",
+  "email": "tes3@example.com",
   "password": "123456"
 }
 ### Obtener todas las publicaciones 
-GET {{BASE_URL}}/api/publications
+GET {{BASE_URL}}/api/publications/posts
 Content-Type: application/json 
 Authorization: Bearer {{TOKEN}}
 
@@ -57,7 +57,7 @@ Content-Type: application/json
 Authorization: Bearer {{TOKEN}}
 
 {
-  "publicationId":21,
+  "publicationId":15,
   "content": "simple pero muy que simplex2"
  
 }
@@ -68,7 +68,7 @@ Content-Type: application/json
 Authorization: Bearer {{TOKEN}}
 
 {
-  "publicationId": 21
+  "publicationId": 15
 }
 
 ### Eliminate Publication

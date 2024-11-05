@@ -15,3 +15,4 @@ export const getAllPublicationsController = async (req: Request, res: Response) 
         res.status(500).json({ message: 'Error fetching publications', error: typedError.message });
     }
 };
+
