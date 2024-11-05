@@ -2,7 +2,7 @@ import { PublicationGateway } from "../../../domain/gateways/publication.gateway
 import { Publication } from "../../../domain/entities/publication.entity";
 
 export interface GetAllPublicationsUseCase {
-    execute(): Promise<Publication[]>;
+    execute(userRole:string): Promise<Publication[]>;
 }
 
 export class GetAllPublications implements GetAllPublicationsUseCase {
@@ -12,8 +12,11 @@ export class GetAllPublications implements GetAllPublicationsUseCase {
         this.publicationGateway = publicationGateway;
     }
 
-    async execute(): Promise<Publication[]> {
-        const publications = await this.publicationGateway.list();
+    async execute(userRole:string): Promise<Publication[]> {
+        let publications = await this.publicationGateway.list();
+if(userRole !=='admin'){
+    publications= publications.filter(publication=>!publication.deleted)
+}
         publications.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime()); // Ordenar por fecha de creación
         return publications;
     }

@@ -8,7 +8,8 @@ const getAllPublicationsUseCase = new GetAllPublications(publicationRepository);
 
 export const getAllPublicationsController = async (req: Request, res: Response) => {
     try {
-        const publications = await getAllPublicationsUseCase.execute();
+        const userRole=res.locals.jwtPayload.userRole;
+        const publications = await getAllPublicationsUseCase.execute(userRole);
         res.status(200).json(publications);
     } catch (error) {
         const typedError = error as Error;
