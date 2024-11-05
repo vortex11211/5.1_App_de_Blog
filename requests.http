@@ -1,13 +1,14 @@
 ### edit PORT number in this line add token after log-in
 @BASE_URL=http://localhost:3300
-@TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsInVzZXJSb2xlIjoic2ltcGxlVXNlciIsImlhdCI6MTczMDc1NDUyNSwiZXhwIjoxNzMwNzU4MTI1fQ.pAxyVfaa1kF02olEmXBLG72Xdhy4EIIDslHhZEHCKGU
-###register new user
+@TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsInVzZXJSb2xlIjoic2ltcGxlVXNlciIsImlhdCI6MTczMDgwMTY0MiwiZXhwIjoxNzMwODA1MjQyfQ.pH_J-mklJl0jQzeKTwiOp1YblBWbaNL4BKCP6yG4-cc
+
+### Register User
 POST {{BASE_URL}}/api/users/register
 Content-Type: application/json
 
 {
-  "username": "test user5",
-  "email": "tes4@example.com",
+  "username": "ADMIN",
+  "email": "tes11@example.com",
   "password": "123456",
   "role": "admin"
 }
@@ -18,7 +19,7 @@ POST {{BASE_URL}}/api/users/login
 Content-Type: application/json
 
 {
-  "email": "tes3@example.com",
+  "email": "tes8@example.com",
   "password": "123456"
 }
 
@@ -43,9 +44,8 @@ Content-Type: application/json
 Authorization: Bearer {{TOKEN}}
 
 {
-  "title": "La senda de las brujas",
-  "content": "larga, yerma y cruel nuestra senda es",
-  "authorId": 5
+  "title": "Simple usuario",
+  "content": "simple publicacion"
 }
 
 ### Edit Publication
@@ -54,8 +54,8 @@ Content-Type: application/json
 Authorization: Bearer {{TOKEN}}
 
 {
-  "publicationId":12,
-  "title": "editando titulo brujas3"
+  "publicationId":21,
+  "content": "simple pero muy que simple"
  
 }
 
@@ -65,7 +65,7 @@ Content-Type: application/json
 Authorization: Bearer {{TOKEN}}
 
 {
-  "publicationId": 12
+  "publicationId": 21
 }
 
 ### Eliminate Publication
@@ -74,7 +74,7 @@ Content-Type: application/json
 Authorization: Bearer {{TOKEN}}
 
 {
-  "publicationId": 12
+  "publicationId": 17
 }
 
 
@@ -85,6 +85,6 @@ Authorization: Bearer {{TOKEN}}
 
 {
   "userId": 3,
-  "publicationId": 12
+  "publicationId": 11
 }
 

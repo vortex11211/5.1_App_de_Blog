@@ -13,12 +13,12 @@ export class AuthorizeUser implements AuthorizeUserUseCase {
         this.userGateway = userGateway;
     }
 
-    private checkAccess(userId:number, role: Role, action: string): boolean {
+    private checkAccess(userId: number, role: Role, action: string): boolean {
         const rolePermissions = {
-            admin: ['viewAllUsers', 'banUser', 'elimnatePublication', 'view', 'create', 'edit', 'softDelete', 'recover'],
-            simpleUser: ['viewOwn', 'create', 'editOwn', 'softDeleteOwn', 'recoverOwn', 'like'],
+            admin: ['viewAllUsers', 'banUser', 'eliminatePublication', 'view', 'create', 'edit', 'softDelete', 'recover', 'like'],
+            simpleUser: ['viewOwn', 'create', 'editOwn', 'softDeleteOwn', 'like'],
         };
-
+        console.log(`Checking access for role: ${role}, action: ${action}`);
 
         return rolePermissions[role]?.includes(action) || false;
     }
@@ -29,7 +29,7 @@ export class AuthorizeUser implements AuthorizeUserUseCase {
             throw new Error('User not found');
         }
 
-        const hasAccess = this.checkAccess(user.id,user.role, dto.action);
+        const hasAccess = this.checkAccess(user.id, user.role, dto.action);
         return hasAccess;
     }
 
