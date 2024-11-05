@@ -6,7 +6,7 @@ import registerUserRoute from './routes/user/register-user.route'
 import loginUserRoute from './routes/user/login-user.route'
 import listUsersRoute from './routes/user/list-users.route'
 import banUserRoute from './routes/user/ban-user.route'
-
+import getAllPublicationsRoute from './routes/publication/getall-publications.route'
 import { authMiddleware } from '../../../middlewares/authentication.middleware';
 
 import postPublicationRoute from './routes/publication/post-publication.route'
@@ -14,8 +14,6 @@ import favoritePublicationRoute from './routes/publication/favorite-publication.
 import editPublicationRoute from './routes/publication/edit-publication.route'
 import softDeletePublicationRoute from './routes/publication/softdelete-publication.route'
 import deletePublicationRoute from './routes/publication/delete-publication.route'
-import { banUserController } from '../controllers/user.controller';
-
 
 class App {
     public app: Application;
@@ -50,21 +48,18 @@ class App {
     private initializeRoutes() {
         this.app.use('/api/users', registerUserRoute);
         this.app.use('/api/users', loginUserRoute);
-        this.app.use(
-            '/api/users', authMiddleware,
-            listUsersRoute,
-            banUserRoute
-        );
 
+        this.app.use(authMiddleware)
 
-        this.app.use(
-            '/api/publications', authMiddleware,
-            postPublicationRoute,
-            editPublicationRoute,
-            softDeletePublicationRoute,
-            favoritePublicationRoute,
-            deletePublicationRoute
-        );
+        this.app.use('/api/users', listUsersRoute);
+        this.app.use('/api/users', banUserRoute);
+      
+        this.app.use('/api/publications', getAllPublicationsRoute);
+        this.app.use('/api/publications', postPublicationRoute);
+        this.app.use('/api/publications', editPublicationRoute);
+        this.app.use('/api/publications', softDeletePublicationRoute);
+        this.app.use('/api/publications', favoritePublicationRoute);
+        this.app.use('/api/publications', deletePublicationRoute);
 
     }
 

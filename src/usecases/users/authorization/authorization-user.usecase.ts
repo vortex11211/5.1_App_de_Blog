@@ -16,7 +16,7 @@ export class AuthorizeUser implements AuthorizeUserUseCase {
     private checkAccess(userId: number, role: Role, action: string): boolean {
         const rolePermissions = {
             admin: ['viewAllUsers', 'banUser', 'eliminatePublication', 'view', 'create', 'edit', 'softDelete', 'recover', 'like'],
-            simpleUser: ['viewOwn', 'create', 'editOwn', 'softDeleteOwn', 'like'],
+            simpleUser: ['viewOwn', 'create', 'editOwn', 'softDeleteOwn', 'like','view'],
         };
         console.log(`Checking access for role: ${role}, action: ${action}`);
 
