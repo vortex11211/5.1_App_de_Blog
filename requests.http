@@ -45,7 +45,7 @@ Authorization: Bearer {{TOKEN}}
 
 {
   "title": "Simple usuario",
-  "content": "simple publicacion"
+  "content": "simple publicacion9"
 }
 
 ### Edit Publication
@@ -55,7 +55,7 @@ Authorization: Bearer {{TOKEN}}
 
 {
   "publicationId":21,
-  "content": "simple pero muy que simple"
+  "content": "simple pero muy que simplex2"
  
 }
 
@@ -74,7 +74,7 @@ Content-Type: application/json
 Authorization: Bearer {{TOKEN}}
 
 {
-  "publicationId": 17
+  "publicationId": 21
 }
 
 
@@ -84,7 +84,6 @@ Content-Type: application/json
 Authorization: Bearer {{TOKEN}}
 
 {
-  "userId": 3,
-  "publicationId": 11
+    "publicationId": 11
 }
 

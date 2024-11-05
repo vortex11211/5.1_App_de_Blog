@@ -8,7 +8,10 @@ const favoritePublicationUseCase = new FavoritePublication(favoriteRepository);
 
 export const favoritePublicationController = async (req: Request, res: Response) => {
     try {
-        const dto: FavoritePublicationDTO = req.body;
+const {publicationId}=req.body;
+const userId = res.locals.jwtPayload.userId;
+
+        const dto: FavoritePublicationDTO = {userId,publicationId}
         await favoritePublicationUseCase.execute(dto);
         res.status(201).json({ message: 'Favorite processed successfully' });
     } catch (error) {
