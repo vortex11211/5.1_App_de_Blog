@@ -7,4 +7,5 @@ export interface UserGateway {
   findByEmail(id: string): Promise<User | null>
   findByUsername(username:string):Promise<User | null>
   banUser(user:User):Promise<void>;
+  count(): Promise<number>
 }
