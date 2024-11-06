@@ -76,6 +76,11 @@ public async banUser(user:DomainUser):Promise<void>{
     },
     data: {banned:prismaUser.banned}
    });
+}
+public async count():Promise<number>{
+    const count=await prisma.user.count();
+    return count;
+}
+   
 
-
-}}
+}

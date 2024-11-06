@@ -49,4 +49,13 @@ export class FavoriteRepositoryPrisma implements FavoriteGateway {
             }
         });
     }
+
+public async countByPublicationId(publicationId:number):Promise<number>{
+    const count=await prisma.favorite.count({
+            where: {publicationId}
+    });
+    return count;
+}
+
+
 }

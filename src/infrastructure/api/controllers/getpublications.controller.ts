@@ -1,10 +1,13 @@
 import { Request, Response } from 'express';
 import { PublicationRepositoryPrisma } from '../../repositories/publication.repository.prisma';
 import { GetAllPublications } from '../../../usecases/publications/getAll-publications/get-all-publications.usecase';
-
+import { UserRepositoryPrisma } from '../../repositories/user.repository.prisma';
+import { FavoriteRepositoryPrisma } from '../../repositories/favorite.repository.prisma';
 
 const publicationRepository = new PublicationRepositoryPrisma();
-const getAllPublicationsUseCase = new GetAllPublications(publicationRepository);
+const userRepository=new UserRepositoryPrisma();
+const favoriteRepository= new FavoriteRepositoryPrisma();
+const getAllPublicationsUseCase = new GetAllPublications(publicationRepository, userRepository,favoriteRepository);
 
 export const getAllPublicationsController = async (req: Request, res: Response) => {
     try {
