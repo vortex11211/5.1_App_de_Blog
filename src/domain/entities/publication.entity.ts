@@ -5,7 +5,8 @@ export type PublicationProps = {
     authorId: number;
     createdAt: Date;
     updatedAt: Date;
-    deleted:Boolean
+    deleted:Boolean;
+    popularity?:string
 }
 
 export class Publication {;
@@ -50,9 +51,15 @@ export class Publication {;
     public get deleted() {
         return this.props.deleted;
     }
-    public static with(props:PublicationProps):Publication{
-        return new Publication(props);
+
+    public get popularity(){
+        return this.props.popularity;
     }
+    
+    public set popularity(value:string | undefined){
+        this.props.popularity=value;
+    }
+
     public updateTitle(title:string){
         this.props.title = title;
         this.props.updatedAt= new Date();
@@ -62,8 +69,13 @@ export class Publication {;
         this.props.updatedAt= new Date();
     }
     public softDelete() {
-        this.props.deleted = true;
+        this.props.deleted= !this.props.deleted
         this.props.updatedAt = new Date();
+    }
+
+
+    public static with(props:PublicationProps):Publication{
+        return new Publication(props);
     }
 }
 

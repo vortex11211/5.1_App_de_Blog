@@ -41,7 +41,7 @@ public async softDelete(publication: DomainPublication): Promise<void> {
     const prismaPublication = PublicationMapper.toPersistence(publication);
     await prisma.publication.update({
         where:{id: prismaPublication.id},
-        data:{deleted:true, updatedAt: new Date()}
+        data:{deleted:prismaPublication.deleted, updatedAt: new Date()}
     });
 }
 

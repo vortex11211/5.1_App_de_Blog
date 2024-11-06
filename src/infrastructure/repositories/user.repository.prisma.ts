@@ -5,20 +5,22 @@ import { User as DomainUser } from "../../domain/entities/user.entity";
 
 export class UserRepositoryPrisma implements UserGateway {
     public async save(user: DomainUser): Promise<void> {
-        /*   const prismaUser = UserMapper.toPersistence(user);*/
+        const existingUser=await prisma.user.findUnique({
+            where:{username:user.username},
+        });
+        if(existingUser){
+            throw new Error (`Username ${user.username} already exists`)
+        }
         const prismaUser = {
             username: user.username,
             email: user.email,
             password: user.password,
-            role: user.role, 
+            role: user.role,
             banned: user.banned,
             createdAt: user.createdAt,
             updatedAt: user.updatedAt
         };
-        console.log('Creating user with data:', prismaUser);
 
-        /*await prisma.user.create({ data: prismaUser
-         });*/
         await prisma.user.create({
             data: prismaUser,
             select: {
@@ -35,6 +37,7 @@ export class UserRepositoryPrisma implements UserGateway {
 
     }
 
+
     public async findById(id: number): Promise<DomainUser | null> {
         const userData = await prisma.user.findUnique({ where: { id } });
         if (!userData) {
@@ -45,7 +48,7 @@ export class UserRepositoryPrisma implements UserGateway {
 
     public async list(): Promise<DomainUser[]> {
         const usersData = await prisma.user.findMany();
-        return usersData.map(UserMapper.toDomain);
+        return usersData.map(UserMapper.toDomain)
     }
 
     public async findByEmail(email: string): Promise<DomainUser | null> {
@@ -55,6 +58,7 @@ export class UserRepositoryPrisma implements UserGateway {
         }
         return UserMapper.toDomain(userData);
     }
+
     public async findByUsername(username: string): Promise<DomainUser | null> {
         const userData = await prisma.user.findUnique({ where: { username } });
         if (!userData) {
@@ -62,5 +66,21 @@ export class UserRepositoryPrisma implements UserGateway {
         }
         return UserMapper.toDomain(userData);
     }
+
+
+public async banUser(user:DomainUser):Promise<void>{
+  const prismaUser= UserMapper.toPersistence(user);
+      await prisma.user.update({
+    where:{
+        id: prismaUser.id
+    },
+    data: {banned:prismaUser.banned}
+   });
+}
+public async count():Promise<number>{
+    const count=await prisma.user.count();
+    return count;
+}
+   
 
 }

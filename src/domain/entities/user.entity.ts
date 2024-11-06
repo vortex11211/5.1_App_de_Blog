@@ -67,6 +67,9 @@ export class User {
 public static with(props:UserProps):User{
     return new User(props);
 }
+public banUser(){
+    this.props.banned = !this.props.banned
+}
 
 }
 

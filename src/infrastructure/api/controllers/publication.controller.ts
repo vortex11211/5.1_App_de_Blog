@@ -21,9 +21,11 @@ const postPublicationUseCase = new PostPublication(publicationRepository);
 
 export const postPublicationController = async (req: Request, res: Response) => {
     try {
-        const dto: PostPublicationDTO = req.body;
+        const{title, content}= req.body;
+        const authorId=res.locals.jwtPayload.userId;
+        const dto: PostPublicationDTO = {title,content,authorId}
         const createdPublication = await postPublicationUseCase.execute(dto);
-        res.status(201).json({ message: 'Post created succesfuly', publication: createdPublication })
+        res.status(201).json({ message: 'Post created successfully', publication: createdPublication })
     } catch (error) {
         const typedError = error as Error;
         res.status(400).json({ message: typedError.message })
@@ -43,13 +45,13 @@ export const editPublicationController = async (req: Request, res: Response) => 
     }
 };
 
-const sofdeletePublicationUseCase = new SoftDeletePublication(publicationRepository);
+const softDeletePublicationUseCase = new SoftDeletePublication(publicationRepository);
 
 export const softDeletePublicationController = async (req: Request, res: Response) => {
     try {
         const dto: SoftDeletePublicationDTO = req.body;
-        const softdeletePublication = await sofdeletePublicationUseCase.execute(dto);
-        res.status(200).json({ message: 'Publication deleted successfully', publication: softdeletePublication })
+        const softdeletePublication = await softDeletePublicationUseCase.execute(dto);
+        res.status(200).json({ message: `Publication ${softdeletePublication.deleted ? 'deleted' :'restored'} successfully`, publication: softdeletePublication })
     } catch (error) {
         const typedError = error as Error;
         res.status(400).json({ message: typedError.message })
