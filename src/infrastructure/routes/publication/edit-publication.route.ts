@@ -3,5 +3,5 @@ import { editPublicationController } from '../../controllers/publication.control
 import { checkAction } from '../../../middlewares/auth.middleware';
 const router= express.Router();
 
-router.patch('/publication',checkAction('edit','editOwn'),editPublicationController);
+router.put('/publication',checkAction('edit','editOwn'),editPublicationController);
 export default router;

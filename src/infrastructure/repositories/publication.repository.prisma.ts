@@ -28,6 +28,14 @@ export class PublicationRepositoryPrisma implements PublicationGateway {
     }
     public async update(publication: DomainPublication): Promise<void> {
         const prismaPublication = PublicationMapper.toPersistence(publication);
+
+        const existingPublication = await prisma.publication.findUnique({
+            where: {id: prismaPublication.id},
+            select:{deleted:true},
+        });
+        if(existingPublication?.deleted){
+            throw new Error ('Cannot update a deleted publication')
+        }
         await prisma.publication.update({
             where: { 
                 id: prismaPublication.id, 

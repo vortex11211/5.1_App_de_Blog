@@ -1,6 +1,6 @@
 ### edit PORT number in this line add token after log-in
 @BASE_URL=http://localhost:3300
-@TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjcsInVzZXJSb2xlIjoiYWRtaW4iLCJpYXQiOjE3MzExNzc2ODYsImV4cCI6MTczMTE4MTI4Nn0.iFHbaT-qf74_tDlah2MGE0pnIkJuhsOU9fWJwSOKyXw
+@TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjcsInVzZXJSb2xlIjoiYWRtaW4iLCJpYXQiOjE3MzExODIyNTYsImV4cCI6MTczMTE4NTg1Nn0.D0JPHgdMT4ULYenjHQaqBUhh6GvJuAY_Xn_92FE9iWE
 
 ### Register User
 POST {{BASE_URL}}/api/users/register
@@ -20,7 +20,7 @@ Content-Type: application/json
 
 {
   "email": "tes11@example.com",
-  "password": "123456"
+  "password": "1234567"
 }
 
 ### Obtener todas las publicaciones 
@@ -53,13 +53,13 @@ Authorization: Bearer {{TOKEN}}
 }
 
 ### Edit Publication
-PATCH  {{BASE_URL}}/api/publications/publication
+PUT  {{BASE_URL}}/api/publications/publication
 Content-Type: application/json
 Authorization: Bearer {{TOKEN}}
 
 {
-  "publicationId":16,
-  "content": "si que es simple"
+  "publicationId":15,
+  "title": "no deberia borrarla"
  
 }
 
