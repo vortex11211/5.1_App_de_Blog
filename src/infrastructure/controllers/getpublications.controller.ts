@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
-import { PublicationRepositoryPrisma } from '../../repositories/publication.repository.prisma';
-import { GetAllPublications } from '../../../usecases/publications/getAll-publications/get-all-publications.usecase';
-import { UserRepositoryPrisma } from '../../repositories/user.repository.prisma';
-import { FavoriteRepositoryPrisma } from '../../repositories/favorite.repository.prisma';
+import { PublicationRepositoryPrisma } from '../repositories/publication.repository.prisma';
+import { GetAllPublications } from '../../usecases/publications/getAll-publications/get-all-publications.usecase';
+import { UserRepositoryPrisma } from '../repositories/user.repository.prisma';
+import { FavoriteRepositoryPrisma } from '../repositories/favorite.repository.prisma';
 
 const publicationRepository = new PublicationRepositoryPrisma();
 const userRepository=new UserRepositoryPrisma();

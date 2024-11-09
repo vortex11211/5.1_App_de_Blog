@@ -1,6 +1,6 @@
 import express from 'express'
-import { deletePublicationController } from '../../../controllers/publication.controller'
-import { checkAction } from '../../../../../middlewares/auth.middleware';
+import { deletePublicationController } from '../../controllers/publication.controller'
+import { checkAction } from '../../../middlewares/auth.middleware';
 
 
 const router = express.Router();

@@ -9,7 +9,7 @@ import banUserRoute from './routes/user/ban-user.route'
 import updateUserRoute from './routes/user/update-user.route'
 
 import getAllPublicationsRoute from './routes/publication/getall-publications.route'
-import { authMiddleware } from '../../../middlewares/authentication.middleware';
+import { authMiddleware } from '../middlewares/authentication.middleware';
 
 import postPublicationRoute from './routes/publication/post-publication.route'
 import favoritePublicationRoute from './routes/publication/favorite-publication.route'

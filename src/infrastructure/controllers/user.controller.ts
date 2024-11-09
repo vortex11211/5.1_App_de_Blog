@@ -1,16 +1,16 @@
-import { RegisterUser } from '../../../usecases/users/register-user/register-user.usecase';
+import { RegisterUser } from '../../usecases/users/register-user/register-user.usecase';
 import { Request, Response } from 'express';
-import { UserRepositoryPrisma } from '../../repositories/user.repository.prisma';
+import { UserRepositoryPrisma } from '../repositories/user.repository.prisma';
 
-import { RegisterUserDTO } from '../../../usecases/users/register-user/register-user.dto';
-import { ListUsers } from '../../../usecases/users/listUsers/list-users.usecase';
-import { ListUsersDTO } from '../../../usecases/users/listUsers/list-users.dto';
+import { RegisterUserDTO } from '../../usecases/users/register-user/register-user.dto';
+import { ListUsers } from '../../usecases/users/listUsers/list-users.usecase';
+import { ListUsersDTO } from '../../usecases/users/listUsers/list-users.dto';
 
-import { BanUserDTO } from '../../../usecases/users/banUser/ban-user.dto';
-import { BanUser } from '../../../usecases/users/banUser/ban-user.usecase';
+import { BanUserDTO } from '../../usecases/users/banUser/ban-user.dto';
+import { BanUser } from '../../usecases/users/banUser/ban-user.usecase';
 
-import { UpdateUserProfileDTO } from '../../../usecases/users/update-user/update-user.dto';
-import { UpdateUserProfile } from '../../../usecases/users/update-user/update-user.usecase';
+import { UpdateUserProfileDTO } from '../../usecases/users/update-user/update-user.dto';
+import { UpdateUserProfile } from '../../usecases/users/update-user/update-user.usecase';
 
 const userRepository = new UserRepositoryPrisma();
 

@@ -1,7 +1,7 @@
-import { LoginUser } from '../../../usecases/users/login-user/login-user.usecase';
+import { LoginUser } from '../../usecases/users/login-user/login-user.usecase';
 import { Request, Response } from 'express';
-import { UserRepositoryPrisma } from '../../repositories/user.repository.prisma';
-import { LoginUserDTO } from '../../../usecases/users/login-user/login-user.dto';
+import { UserRepositoryPrisma } from '../repositories/user.repository.prisma';
+import { LoginUserDTO } from '../../usecases/users/login-user/login-user.dto';
 
 const userRepository = new UserRepositoryPrisma();
 const loginUserUseCase = new LoginUser(userRepository);

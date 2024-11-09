@@ -1,17 +1,17 @@
 import { Request, Response } from "express";
-import { PublicationRepositoryPrisma } from "../../repositories/publication.repository.prisma";
+import { PublicationRepositoryPrisma } from "../repositories/publication.repository.prisma";
 
-import { PostPublication } from "../../../usecases/publications/post-publication/post-publication.usecase";
-import { PostPublicationDTO } from "../../../usecases/publications/post-publication/post-publication.dto";
+import { PostPublication } from "../../usecases/publications/post-publication/post-publication.usecase";
+import { PostPublicationDTO } from "../../usecases/publications/post-publication/post-publication.dto";
 
-import { EditPublicationDTO } from "../../../usecases/publications/edit-publication/edit-publication.dto";
-import { EditPublication } from "../../../usecases/publications/edit-publication/edit-publication.usecase";
+import { EditPublicationDTO } from "../../usecases/publications/edit-publication/edit-publication.dto";
+import { EditPublication } from "../../usecases/publications/edit-publication/edit-publication.usecase";
 
-import { SoftDeletePublicationDTO } from "../../../usecases/publications/softdeleted-publication/softdeleted-publication.dto";
-import { SoftDeletePublication } from "../../../usecases/publications/softdeleted-publication/softdeleted-publication.usecase";
+import { SoftDeletePublicationDTO } from "../../usecases/publications/softdeleted-publication/softdeleted-publication.dto";
+import { SoftDeletePublication } from "../../usecases/publications/softdeleted-publication/softdeleted-publication.usecase";
 
-import { DeletePublicationDTO } from "../../../usecases/publications/delete-publication/delete-publication.dto";
-import { DeletePublication } from "../../../usecases/publications/delete-publication/delete-publication.usecase";
+import { DeletePublicationDTO } from "../../usecases/publications/delete-publication/delete-publication.dto";
+import { DeletePublication } from "../../usecases/publications/delete-publication/delete-publication.usecase";
 
 
 
