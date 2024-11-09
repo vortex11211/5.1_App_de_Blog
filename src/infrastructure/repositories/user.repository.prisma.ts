@@ -39,7 +39,9 @@ export class UserRepositoryPrisma implements UserGateway {
 
 
     public async findById(id: number): Promise<DomainUser | null> {
-        const userData = await prisma.user.findUnique({ where: { id } });
+        const userData = await prisma.user.findUnique({
+             where: { id }
+             });
         if (!userData) {
             return null;
         }
@@ -81,6 +83,15 @@ public async count():Promise<number>{
     const count=await prisma.user.count();
     return count;
 }
-   
+public async update(user:DomainUser):Promise<void>{
+const prismaUser=UserMapper.toPersistence(user);
+await prisma.user.update({
+    where:{
+        id:prismaUser.id,
+        banned:false
+    },
+    data: prismaUser
+});
+}
 
 }

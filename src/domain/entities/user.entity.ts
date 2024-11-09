@@ -17,7 +17,7 @@ export type UserProps = {
 
 export class User {
     private constructor(private props: UserProps) { };
-    public static create(username: string, email: string, password: string, role:Role): User {
+    public static create(username: string, email: string, password: string, role: Role): User {
         return new User({
             id: 0,
             username,
@@ -64,17 +64,19 @@ export class User {
         return this.props.updatedAt;
     }
 
-public static with(props:UserProps):User{
-    return new User(props);
+    public updateUsername(newUsername: string) {
+        this.props.username = newUsername;
+        this.props.updatedAt = new Date();
+    }
+
+    public updatePassword(newPassword: string) {
+        this.props.password = newPassword;
+        this.props.updatedAt = new Date();
+    }
+    public banUser() {
+        this.props.banned = !this.props.banned
+    }
+    public static with(props: UserProps): User {
+        return new User(props);
+    }
 }
-public banUser(){
-    this.props.banned = !this.props.banned
-}
-
-}
-
-
-
-
-
-
