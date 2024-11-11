@@ -26,9 +26,10 @@ const Home: React.FC = () => {
       {error && <p>{error}</p>}
       <ul>
         {publications.map((publication: any) => (
-          <li key={publication.props.id}> {/* Añadir propiedad key */}
-            <h2>{publication.props.title}</h2> {/* Acceder a title en props */}
-            <p>{publication.props.content}</p> {/* Acceder a content en props */}
+          <li key={publication.props.id}> 
+            <h2>{publication.props.title}</h2> 
+            <p>{publication.props.content}</p> 
+            <p><b>Author</b>: {publication.props.authorName}</p>
             <p>Popularity: {publication.props.popularity}</p> {/* Mostrar popularidad */}
             <p>Created At: {new Date(publication.props.createdAt).toLocaleDateString()}</p> {/* Mostrar fecha de creación */}
             <p>Updated At: {new Date(publication.props.updatedAt).toLocaleDateString()}</p> {/* Mostrar fecha de actualización */}

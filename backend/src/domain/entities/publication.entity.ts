@@ -5,11 +5,13 @@ export type PublicationProps = {
     authorId: number;
     createdAt: Date;
     updatedAt: Date;
-    deleted:Boolean;
-    popularity?:string
+    deleted: Boolean;
+    popularity?: string;
+    authorName?: string
 }
 
-export class Publication {;
+export class Publication {
+    ;
     private constructor(private props: PublicationProps) { };
     public static create(title: string, content: string, authorId: number): Publication {
         return new Publication({
@@ -20,7 +22,7 @@ export class Publication {;
             authorId,
             createdAt: new Date(),
             updatedAt: new Date(),
-            deleted:false
+            deleted: false
         });
     }
 
@@ -52,29 +54,36 @@ export class Publication {;
         return this.props.deleted;
     }
 
-    public get popularity(){
+    public get popularity() {
         return this.props.popularity;
     }
-    
-    public set popularity(value:string | undefined){
-        this.props.popularity=value;
+
+    public set popularity(value: string | undefined) {
+        this.props.popularity = value;
+    }
+    public get authorName() {
+        return this.props.authorName;
+    }
+    public set authorName(value: string | undefined) {
+        this.props.authorName = value;
     }
 
-    public updateTitle(title:string){
+
+    public updateTitle(title: string) {
         this.props.title = title;
-        this.props.updatedAt= new Date();
+        this.props.updatedAt = new Date();
     }
-    public updateContent(content:string){
+    public updateContent(content: string) {
         this.props.content = content;
-        this.props.updatedAt= new Date();
+        this.props.updatedAt = new Date();
     }
     public softDelete() {
-        this.props.deleted= !this.props.deleted
+        this.props.deleted = !this.props.deleted
         this.props.updatedAt = new Date();
     }
 
 
-    public static with(props:PublicationProps):Publication{
+    public static with(props: PublicationProps): Publication {
         return new Publication(props);
     }
 }
