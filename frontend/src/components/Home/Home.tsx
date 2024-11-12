@@ -24,7 +24,6 @@ const Home: React.FC = () => {
     console.log('ID de la publicación que se va a enviar:', publicationId);
     try {
       await publicationService.likePublication(publicationId);
-      // Opcional: Puedes refetch data si deseas actualizar la UI inmediatamente después de dar like
      const response = await publicationService.getAllPublications();
       setPublications(response);
     } catch (error) {

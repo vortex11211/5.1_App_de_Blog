@@ -1,0 +1,70 @@
+.edit-profile-container {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 40px auto;
+    text-align: center;
+  }
+  
+  .edit-profile-container h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    background: linear-gradient(120deg, #2980b9, #8e44ad);
+    color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+  }
+  
+  .edit-profile-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .edit-profile-form .input-container {
+    margin-bottom: 15px;
+    width: 100%;
+  }
+  
+  .edit-profile-form .input-container label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 16px;
+    color: #333;
+  }
+  
+  .edit-profile-form .input-container input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .edit-profile-form .edit-profile-button {
+    background-color: #ff4081;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .edit-profile-form .edit-profile-button:hover {
+    background-color: #e91e63;
+  }
+  
+  .edit-profile-form .error-message {
+    color: red;
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  
+  .edit-profile-form .success-message {
+    color: green;
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  

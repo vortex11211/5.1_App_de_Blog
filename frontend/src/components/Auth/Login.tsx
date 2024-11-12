@@ -24,7 +24,7 @@ const Login: React.FC = () => {
     <div className="login-container">
       <div className="login-box">
         <div className="login-header">
-          <i className="fas fa-user"></i> {/* Icono de usuario */}
+          <i className="fas fa-user"></i>
           <h2>Login</h2>
         </div>
         <form onSubmit={handleSubmit}>
