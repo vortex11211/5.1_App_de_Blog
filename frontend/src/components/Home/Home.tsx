@@ -25,8 +25,8 @@ const Home: React.FC = () => {
     try {
       await publicationService.likePublication(publicationId);
       // Opcional: Puedes refetch data si deseas actualizar la UI inmediatamente después de dar like
-     // const response = await publicationService.getAllPublications();
-      //setPublications(response);
+     const response = await publicationService.getAllPublications();
+      setPublications(response);
     } catch (error) {
       setError('Error al dar like a la publicación');
       console.error('Error al dar like a la publicación:', error);
@@ -52,10 +52,10 @@ const Home: React.FC = () => {
               <p className="publication-author">Author: {publication.props.authorName}</p>
               <p className="publication-popularity">Popularity: {publication.props.popularity}</p>
             </div>
-            <button onClick={() => handleLike(publication.props.id)} className="like-button">
-              Like
-            </button>
-            
+            <i
+              className="fas fa-regular fa-star like-icon"
+              onClick={() => handleLike(publication.props.id)}
+            ></i>
           </div>
         ))}
       </div>
