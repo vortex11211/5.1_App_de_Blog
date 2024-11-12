@@ -1,0 +1,116 @@
+### edit PORT number in this line add token after log-in
+@BASE_URL=http://localhost:3300
+@TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEzLCJ1c2VyUm9sZSI6ImFkbWluIiwiaWF0IjoxNzMxNDE1ODQ2LCJleHAiOjE3MzE0MTk0NDZ9.UPWA5ce171GNuNAwxKoVpE1V2aVx7IYUpwYiXa7bzA0
+
+### Register Admin
+POST {{BASE_URL}}/api/users/register
+Content-Type: application/json
+
+{
+  "username": "malkey2",
+  "email": "malkey2@example.com",
+  "password": "123456",
+  "role": "admin",
+  "adminKey":"admin_key112"
+ }
+### Register simpleUser
+POST {{BASE_URL}}/api/users/register
+Content-Type: application/json
+
+{
+  "username": "malkey2",
+  "email": "malkey2@example.com",
+  "password": "123456",
+  "role": "simpleUser"
+ }
+
+
+
+### login user
+POST {{BASE_URL}}/api/users/login
+Content-Type: application/json
+
+{
+  "email": "tes11@example.com",
+  "password": "1234567"
+}
+
+### Obtener todas las publicaciones 
+GET {{BASE_URL}}/api/publications/posts
+Content-Type: application/json 
+Authorization: Bearer {{TOKEN}}
+
+### Listar usuarios
+GET {{BASE_URL}}/api/users/list
+Authorization: Bearer {{TOKEN}}
+
+### Ban User
+DELETE {{BASE_URL}}/api/users/ban
+Content-Type: application/json
+Authorization: Bearer {{TOKEN}}
+
+{
+  "userId":5
+}
+
+
+### Post publication
+POST {{BASE_URL}}/api/publications/publication
+Content-Type: application/json
+Authorization: Bearer {{TOKEN}}
+
+{
+  "title": "Simple usuario",
+  "content": "simple publicacion9"
+}
+
+### Edit Publication
+PUT  {{BASE_URL}}/api/publications/publication
+Content-Type: application/json
+Authorization: Bearer {{TOKEN}}
+
+{
+  "publicationId":15,
+  "title": "no deberia borrarla"
+ 
+}
+
+### SoftDelete Publication
+DELETE {{BASE_URL}}/api/publications/publication
+Content-Type: application/json
+Authorization: Bearer {{TOKEN}}
+
+{
+  "publicationId": 15
+}
+
+### Eliminate Publication
+DELETE {{BASE_URL}}/api/publications/delete-publication
+Content-Type: application/json
+Authorization: Bearer {{TOKEN}}
+
+{
+  "publicationId": 8
+}
+
+
+### like Publication
+POST {{BASE_URL}}/api/publications/like
+Content-Type: application/json
+Authorization: Bearer {{TOKEN}}
+
+{
+    "publicationId": 23
+}
+
+
+### Actualizar perfil de usuario
+PUT {{BASE_URL}}/api/users/profile
+Content-Type: application/json
+Authorization: Bearer {{TOKEN}}
+
+{
+  "username": "Nuevo Admin",
+  "oldPassword": "123456",
+  "newPassword": "1234567"
+}
