@@ -5,6 +5,7 @@ import { Role } from '../../../domain/entities/user.entity';
 import bcrypt from 'bcryptjs'
 
 
+const ADMIN_KEY= 'admin_key112';
 
 export interface RegisterUserUseCase {
     execute(dto: RegisterUserDTO): Promise<void>;
@@ -27,6 +28,9 @@ export class RegisterUser implements RegisterUserUseCase {
             throw new Error('User with this username already exists.');
         }
 
+        if (dto.role ==='admin' && dto.adminKey !== ADMIN_KEY){
+            throw new Error('Invalid admin Key')
+        }
         const hashedPassword= await bcrypt.hash(dto.password,10);
 
         const role = dto.role as Role;

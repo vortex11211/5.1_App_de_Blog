@@ -20,6 +20,21 @@ const Home: React.FC = () => {
     fetchPublications();
   }, []);
 
+  const handleLike = async (publicationId: number) => {
+    console.log('ID de la publicación que se va a enviar:', publicationId);
+    try {
+      await publicationService.likePublication(publicationId);
+      // Opcional: Puedes refetch data si deseas actualizar la UI inmediatamente después de dar like
+     // const response = await publicationService.getAllPublications();
+      //setPublications(response);
+    } catch (error) {
+      setError('Error al dar like a la publicación');
+      console.error('Error al dar like a la publicación:', error);
+    }
+  };
+
+
+
   return (
     <div className="home-container">
       <h1>Latest Publications</h1>
@@ -37,6 +52,10 @@ const Home: React.FC = () => {
               <p className="publication-author">Author: {publication.props.authorName}</p>
               <p className="publication-popularity">Popularity: {publication.props.popularity}</p>
             </div>
+            <button onClick={() => handleLike(publication.props.id)} className="like-button">
+              Like
+            </button>
+            
           </div>
         ))}
       </div>

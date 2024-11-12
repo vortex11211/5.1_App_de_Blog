@@ -1,17 +1,29 @@
 ### edit PORT number in this line add token after log-in
 @BASE_URL=http://localhost:3300
-@TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEzLCJ1c2VyUm9sZSI6ImFkbWluIiwiaWF0IjoxNzMxMzE4NDQwLCJleHAiOjE3MzEzMjIwNDB9.Zk1asBJJV9H-trKwehrJ0NUz5_To8oD4TczZ8rnDV_0
+@TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEzLCJ1c2VyUm9sZSI6ImFkbWluIiwiaWF0IjoxNzMxNDE1ODQ2LCJleHAiOjE3MzE0MTk0NDZ9.UPWA5ce171GNuNAwxKoVpE1V2aVx7IYUpwYiXa7bzA0
 
-### Register User
+### Register Admin
 POST {{BASE_URL}}/api/users/register
 Content-Type: application/json
 
 {
-  "username": "ADMIN",
-  "email": "tes11@example.com",
+  "username": "malkey2",
+  "email": "malkey2@example.com",
   "password": "123456",
-  "role": "admin"
-}
+  "role": "admin",
+  "adminKey":"admin_key112"
+ }
+### Register simpleUser
+POST {{BASE_URL}}/api/users/register
+Content-Type: application/json
+
+{
+  "username": "malkey2",
+  "email": "malkey2@example.com",
+  "password": "123456",
+  "role": "simpleUser"
+ }
+
 
 
 ### login user
@@ -88,7 +100,7 @@ Content-Type: application/json
 Authorization: Bearer {{TOKEN}}
 
 {
-    "publicationId": 11
+    "publicationId": 23
 }
 
 
