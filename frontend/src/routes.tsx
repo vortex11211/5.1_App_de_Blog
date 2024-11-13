@@ -47,6 +47,7 @@ import HomePage from './pages/HomePage';
 //import ProfilePage from './pages/ProfilePage';
 import Header from './components/Common/Header';
 import EditProfilePage from './pages/EditProfilePage';
+import MyPublicationsPage from './pages/MyPublicationsPage';
 /*import CreatePublicationPage from './pages/CreatePublicationPage';
 i
 import LogoutPage from './pages/LogoutPage';*/
@@ -81,7 +82,17 @@ const AppRoutes = () => {
               </ProtectedRoute>
             }
           />
-          
+          <Route
+            path="/own-posts"
+            element={
+              <ProtectedRoute>
+                <>
+                  <Header />
+                  <MyPublicationsPage />
+                </>
+              </ProtectedRoute>
+            }
+          />
           
           
         </Routes>

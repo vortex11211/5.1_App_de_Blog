@@ -81,11 +81,13 @@ export class Publication {
         this.props.deleted = !this.props.deleted
         this.props.updatedAt = new Date();
     }
-
+ 
 
     public static with(props: PublicationProps): Publication {
         return new Publication(props);
     }
+
+   
 }
 
 
