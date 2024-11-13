@@ -59,12 +59,32 @@ const getUserPublications = async () => {
        } 
       };
       
-      const publicationService = { 
-        getAllPublications, 
-        likePublication, 
+      const togglePublicationDelete = async (publicationId: number) => {
+        try {
+          const token = getToken();
+          const response = await axios.delete(`${API_URL}/publications/publication`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            },
+            data: {
+              publicationId
+            }
+          });
+          return response.data;
+        } catch (error) {
+          console.error('Error al alternar el estado de eliminación de la publicación:', error);
+          throw error;
+        }
+      };
+      
+      const publicationService = {
+        getAllPublications,
+        likePublication,
         getUserPublications,
-};
-
-export default publicationService;
+        togglePublicationDelete
+      };
+      
+      export default publicationService;
 
 

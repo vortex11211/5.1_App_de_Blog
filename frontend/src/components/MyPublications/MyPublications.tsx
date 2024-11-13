@@ -20,6 +20,18 @@ const MyPublications: React.FC = () => {
     fetchUserPublications();
   }, []);
 
+  const handleToggleDelete = async (publicationId: number) => {
+    try {
+      await publicationService.togglePublicationDelete(publicationId);
+      // Actualizar las publicaciones después de alternar el estado
+      const response = await publicationService.getUserPublications();
+      setPublications(response);
+    } catch (error) {
+      setError('Error al alternar el estado de eliminación de la publicación');
+      console.error('Error al alternar el estado de eliminación de la publicación:', error);
+    }
+  };
+
   return (
     <div className="my-publications-container">
       <h1>My Posts</h1>
@@ -39,6 +51,12 @@ const MyPublications: React.FC = () => {
             <div className="publication-footer">
               <p className="publication-author">Author: {publication.props.authorName}</p>
               <p className="publication-popularity">Popularity: {publication.props.popularity}</p>
+              <button
+                className="toggle-deleted-button"
+                onClick={() => handleToggleDelete(publication.props.id)}
+              >
+                {publication.props.deleted ? 'Recover' : 'Delete'}
+              </button>
             </div>
           </div>
         ))}
@@ -48,3 +66,5 @@ const MyPublications: React.FC = () => {
 };
 
 export default MyPublications;
+
+
