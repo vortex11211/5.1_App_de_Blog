@@ -7,6 +7,7 @@ import loginUserRoute from './routes/user/login-user.route'
 import listUsersRoute from './routes/user/list-users.route'
 import banUserRoute from './routes/user/ban-user.route'
 import updateUserRoute from './routes/user/update-user.route'
+import getUserPublicationsRoute from './routes/user/get-user-publications.route'
 
 import getAllPublicationsRoute from './routes/publication/getall-publications.route'
 import { authMiddleware } from '../middlewares/authentication.middleware';
@@ -34,7 +35,7 @@ class App {
         this.app.use(cors());
 
 
-        // Incluir tus propias cabeceras
+        /*/ Incluir tus propias cabeceras
         this.app.use((req, res, next) => {
             res.setHeader('X-Powered-By', 'Your-Own-Value');
             res.setHeader('X-Another-Custom-Header', 'Another-Value');
@@ -45,7 +46,7 @@ class App {
         this.app.use((req, res, next) => {
             console.log(`${req.method} ${req.url}`);
             next();
-        });
+        });*/
 
     }
 
@@ -58,6 +59,7 @@ class App {
         this.app.use('/api/users', listUsersRoute);
         this.app.use('/api/users', banUserRoute);
         this.app.use('/api/users', updateUserRoute);
+        this.app.use('/api/users', getUserPublicationsRoute);
         this.app.use('/api/publications', getAllPublicationsRoute);
         this.app.use('/api/publications', postPublicationRoute);
         this.app.use('/api/publications', editPublicationRoute);

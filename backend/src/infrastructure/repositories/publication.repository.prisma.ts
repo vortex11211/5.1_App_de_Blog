@@ -82,4 +82,13 @@ public async delete(id:number):Promise<void>{
         }
         return publicationsData.map(publication => PublicationMapper.toDomain(publication));
     }
+
+    public async findByUserIdWithDeleted(userId:number): Promise<DomainPublication[]>{
+        const publicationData = await prisma.publication.findMany({
+            where:{
+                authorId:userId
+            }
+        });
+        return publicationData.map(PublicationMapper.toDomain);
+    }
 }

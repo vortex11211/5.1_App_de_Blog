@@ -45,10 +45,24 @@ const getAllPublications = async () => {
     throw error;
   }
 };
-
-const publicationService = {
-  getAllPublications,
-  likePublication,
+const getUserPublications = async () => { 
+  try { 
+    const token = getToken();
+  const response = await axios.get(`${API_URL}/users/posts`, {
+     headers: { Authorization: `Bearer ${token}`,
+     },
+     });
+      return response.data;
+     } catch (error) {
+       console.error('Error al obtener las publicaciones del usuario:', error);
+        throw error;
+       } 
+      };
+      
+      const publicationService = { 
+        getAllPublications, 
+        likePublication, 
+        getUserPublications,
 };
 
 export default publicationService;

@@ -12,6 +12,7 @@ import { BanUser } from '../../usecases/users/banUser/ban-user.usecase';
 import { UpdateUserProfileDTO } from '../../usecases/users/update-user/update-user.dto';
 import { UpdateUserProfile } from '../../usecases/users/update-user/update-user.usecase';
 
+
 const userRepository = new UserRepositoryPrisma();
 
 const registerUserUseCase = new RegisterUser(userRepository);
@@ -42,36 +43,38 @@ export const listUsersController = async (req: Request, res: Response) => {
     }
 };
 
-const banUserUseCase= new BanUser(userRepository);
+const banUserUseCase = new BanUser(userRepository);
 
-export const banUserController= async (req:Request, res:Response)=>{
+export const banUserController = async (req: Request, res: Response) => {
     try {
-        const dto: BanUserDTO= req.body;
+        const dto: BanUserDTO = req.body;
         const bannedUser = await banUserUseCase.execute(dto);
         res.status(200).json({ message: `User ${bannedUser.banned ? 'banned' : 'unbanned'} successfully`, user: bannedUser });
-    } catch(error){
-        const typedError=error as Error;
-        if (typedError.message.includes("already exists")){
-            res.status(400).json({message:typedError.message});
+    } catch (error) {
+        const typedError = error as Error;
+        if (typedError.message.includes("already exists")) {
+            res.status(400).json({ message: typedError.message });
 
-        }else {
-res.status(500).json({ message: "An unexpected error occurred" });
+        } else {
+            res.status(500).json({ message: "An unexpected error occurred" });
         }
-    } }  
+    }
+}
 
 const updateUserProfileUseCase = new UpdateUserProfile(userRepository);
 
-export const updateUserProfileController= async(req:Request, res:Response)=>{
-    try{
+export const updateUserProfileController = async (req: Request, res: Response) => {
+    try {
         const userId = res.locals.jwtPayload.userId;
-        const{username, oldPassword,newPassword}= req.body;
+        const { username, oldPassword, newPassword } = req.body;
 
-        const dto:UpdateUserProfileDTO={userId, username, oldPassword, newPassword};
+        const dto: UpdateUserProfileDTO = { userId, username, oldPassword, newPassword };
         await updateUserProfileUseCase.execute(dto);
-        
-        res.status(200).json({message:'Profile updated successfully'});
-    }catch (error){
-        const typedError= error as Error;
-        res.status(500).json({message:'error updating profile', error: typedError.message})
+
+        res.status(200).json({ message: 'Profile updated successfully' });
+    } catch (error) {
+        const typedError = error as Error;
+        res.status(500).json({ message: 'error updating profile', error: typedError.message })
     }
 }
+

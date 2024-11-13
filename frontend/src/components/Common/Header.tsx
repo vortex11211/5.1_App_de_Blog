@@ -19,6 +19,9 @@ const Header: React.FC = () => {
           <li className="nav-item">
             <Link to="/logout" className="nav-link">Logout</Link>
           </li>
+          <li className="nav-item">
+            <Link to="/own-posts" className="nav-link">My Posts</Link>
+          </li>
         </ul>
       </nav>
     </header>
