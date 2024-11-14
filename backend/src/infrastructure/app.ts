@@ -17,7 +17,7 @@ import favoritePublicationRoute from './routes/publication/favorite-publication.
 import editPublicationRoute from './routes/publication/edit-publication.route'
 import softDeletePublicationRoute from './routes/publication/softdelete-publication.route'
 import deletePublicationRoute from './routes/publication/delete-publication.route'
-
+import getPublicationByIdRoute from './routes/publication/get-publication-by-id.route'
 
 
 class App {
@@ -40,13 +40,13 @@ class App {
             res.setHeader('X-Powered-By', 'Your-Own-Value');
             res.setHeader('X-Another-Custom-Header', 'Another-Value');
             next();
-        });
+        });*/
 
-        // Middleware global de logging
+        //Middleware global de logging
         this.app.use((req, res, next) => {
             console.log(`${req.method} ${req.url}`);
             next();
-        });*/
+        });
 
     }
 
@@ -66,7 +66,7 @@ class App {
         this.app.use('/api/publications', softDeletePublicationRoute);
         this.app.use('/api/publications', favoritePublicationRoute);
         this.app.use('/api/publications', deletePublicationRoute);
-
+        this.app.use('/api/publications', getPublicationByIdRoute);
     }
 
 

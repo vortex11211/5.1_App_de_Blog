@@ -61,7 +61,8 @@ public async delete(id:number):Promise<void>{
 
 
     public async findById(id: number): Promise<DomainPublication | null> {
-        const publicationData = await prisma.publication.findUnique({ where: { id } });
+        console.log('querecibe finbyid',typeof id)
+        const publicationData = await prisma.publication.findUnique({ where: { id:Number(id) } });
         if (!publicationData) {
             return null;
         }
