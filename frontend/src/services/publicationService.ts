@@ -114,7 +114,21 @@ const editPublication = async (publicationId: number, title: string, content: st
   }
 };
 
-
+const createPublication = async (title: string, content: string) => {
+  try {
+    const token = getToken();
+    const response = await axios.post(`${API_URL}/publications/publication`, { title, content }, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error al crear la publicación:', error);
+    throw error;
+  }
+};
 
 const publicationService = {
   getAllPublications,
@@ -123,8 +137,12 @@ const publicationService = {
   togglePublicationDelete,
   editPublication,
   getPublicationById,
+  createPublication // Añadir la nueva función aquí
 };
 
 export default publicationService;
+
+
+;
 
 
