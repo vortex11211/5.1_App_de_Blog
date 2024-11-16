@@ -20,9 +20,11 @@ const Header: React.FC = () => {
             <Link to="/edit-profile" className="nav-link">Editar Perfil</Link>
           </li>
           <li className="nav-item">
+            <Link to="/list-users" className="nav-link">List Users</Link>
+          </li>
+          <li className="nav-item">
             <Link to="/logout" className="nav-link">Logout</Link>
           </li>
-         
         </ul>
       </nav>
     </header>

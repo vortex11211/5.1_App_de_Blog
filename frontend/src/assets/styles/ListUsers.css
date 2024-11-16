@@ -1,0 +1,26 @@
+
+.list-users-container {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  margin: 40px auto;
+  text-align: center;
+}
+
+.users-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.user-card {
+  background: #f9f9f9;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  width: calc(100% - 20px);
+  margin-bottom: 10px;
+  text-align: left;
+}

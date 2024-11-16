@@ -9,8 +9,7 @@ import EditProfilePage from './pages/EditProfilePage';
 import MyPublicationsPage from './pages/MyPublicationsPage';
 import EditPublicationPage from './pages/EditPublicationPage';
 import CreatePublicationPage from './pages/CreatePublicationPage'
-
-
+import ListUsersPage from './pages/ListUserPage';
 
 const AppRoutes = () => {
   return (
@@ -73,7 +72,17 @@ const AppRoutes = () => {
              </ProtectedRoute>
              } 
           />
-          
+          <Route
+            path="/list-users"
+            element={
+              <ProtectedRoute>
+                <>
+                  <Header />
+                  <ListUsersPage />
+                </>
+              </ProtectedRoute>
+            }
+          />          
         </Routes>
       </Router>
     </AuthProvider>
