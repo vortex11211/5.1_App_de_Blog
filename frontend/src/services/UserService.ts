@@ -23,8 +23,28 @@ const getAllUsers = async () => {
   }
 };
 
+const toggleBanUser = async (userId: number) => {
+  try {
+    const token = getToken();
+    const response = await axios.delete(`${API_URL}/users/ban`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      data: {
+        userId,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error al banear/desbanear el usuario:', error);
+    throw error;
+  }
+};
+
 const userService = {
-  getAllUsers, // Añadir la función para obtener todos los usuarios
+  getAllUsers,
+  toggleBanUser, // Añadir la función para banear/desbanear usuarios
 };
 
 export default userService;

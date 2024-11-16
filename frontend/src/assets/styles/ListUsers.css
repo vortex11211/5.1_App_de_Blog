@@ -1,26 +1,83 @@
-
 .list-users-container {
-  background: #fff;
   padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-  max-width: 800px;
-  margin: 40px auto;
-  text-align: center;
-}
-
-.users-list {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
+.users-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 20px;
+}
+
 .user-card {
-  background: #f9f9f9;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  width: calc(100% - 20px);
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+}
+
+.user-card.banned {
+  color: #aaaaaa;
+  background: #f2f2f2;
+}
+
+.user-card h2 {
+  font-size: 24px;
   margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  background: linear-gradient(120deg, #2980b9, #8e44ad);
+  color: #fff;
+}
+
+.user-card p {
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.user-dates p {
+  font-size: 14px;
+  color: #666;
+  margin: 5px 0;
+}
+
+.user-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  color: #666;
+}
+
+.user-role {
   text-align: left;
 }
+
+.user-status {
+  text-align: left;
+}
+
+.ban-user-button {
+  background-color: #6a008a;
+  color: rgb(255, 255, 255);
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 12px;  /* Reducir el tamaño de la fuente */
+  margin-top: 10px;
+  align-self: flex-start;  /* Alinear a la izquierda */
+}
+
+.ban-user-button:hover {
+  background-color: #025457;
+}
+
