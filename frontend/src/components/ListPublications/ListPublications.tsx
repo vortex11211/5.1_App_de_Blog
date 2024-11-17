@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import {useAuth} from '../../contexts/AuthContext';
 import publicationService from '../../services/publicationService'
 import '../../assets/styles/ListPublications.css'
 
 const ListPublications: React.FC = () => {
+const {userRole} = useAuth();
   const [publications, setPublications] = useState<any[]>([]);
   const [error, setError] = useState<string | null>(null);
 
@@ -21,22 +23,31 @@ const ListPublications: React.FC = () => {
   }, []);
 
   const handleDelete = async (publicationId: number) => {
-    console.log('Trying to delete publication with ID:', publicationId);
+    if (userRole === 'simpleUser') {
+       alert('No tienes permiso para realizar esta acción');
+      return;
+    }
     try {
-      const response = await publicationService.deletePublication(publicationId);
-      console.log('Delete response in component:', response); // Verificar la respuesta
-      // Actualizar la lista de publicaciones después de eliminar
-      const updatedPublications = await publicationService.getAllPublications();
+      await publicationService.deletePublication(publicationId);
+         const updatedPublications = await publicationService.getAllPublications();
       setPublications(updatedPublications);
-    } catch (error) {
+    } catch (error:any) {
       console.error('Error al eliminar la publicación:', error);
-      setError('Error al eliminar la publicación');
+      if (error.response && error.response.status === 403) {
+         window.alert('No tienes permiso para eliminar esta publicación');
+      } else {
+        setError('Error al eliminar la publicación');
+      }
     }
   };
+  if (userRole === 'simpleUser') { 
+    return <p>No tienes permiso para ver esta página</p>;
+   };
+
 
   return (
     <div className="list-publications-container">
-      <h2>All Publications</h2>
+      <h2>Delete Publications</h2>
       {error && <p className="error-message">{error}</p>}
       <div className="publication-list">
         {publications.map(publication => (
@@ -46,7 +57,6 @@ const ListPublications: React.FC = () => {
             <button
               className="delete-publication-button"
               onClick={() => {
-                console.log('Publication ID:', publication.props.id);
                 handleDelete(publication.props.id);
               }}
             >
