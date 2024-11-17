@@ -10,6 +10,7 @@ import MyPublicationsPage from './pages/MyPublicationsPage';
 import EditPublicationPage from './pages/EditPublicationPage';
 import CreatePublicationPage from './pages/CreatePublicationPage'
 import ListUsersPage from './pages/ListUserPage';
+import ListPublicationsPage from './pages/ListPublicationsPage'
 
 const AppRoutes = () => {
   return (
@@ -82,7 +83,18 @@ const AppRoutes = () => {
                 </>
               </ProtectedRoute>
             }
-          />          
+          />
+             <Route
+            path="/list-publications"
+            element={
+              <ProtectedRoute>
+                <>
+                  <Header />
+                  <ListPublicationsPage />
+                </>
+              </ProtectedRoute>
+            }
+          />        
         </Routes>
       </Router>
     </AuthProvider>

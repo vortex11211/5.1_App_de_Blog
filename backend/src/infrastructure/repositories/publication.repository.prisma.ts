@@ -53,16 +53,33 @@ public async softDelete(publication: DomainPublication): Promise<void> {
     });
 }
 
-public async delete(id:number):Promise<void>{
+public async delete(id: number, userId: number, userRole: string): Promise<void> {
+    const publication = await prisma.publication.findUnique({
+      where: { id },
+    });
+
+    if (!publication) {
+      throw new Error('Publication not found');
+    }
+
+    // Check if user is admin or the owner of the publication
+    if (userRole !== 'admin' && publication.authorId !== userId) {
+      throw new Error('You do not have permission to delete this publication');
+    }
+
+    // Eliminar los "likes" relacionados
+    await prisma.favorite.deleteMany({
+      where: { publicationId: id },
+    });
+
     await prisma.publication.delete({
-        where:{id}
-    })
-}
+      where: { id },
+    });
+  }
 
 
     public async findById(id: number): Promise<DomainPublication | null> {
-        console.log('querecibe finbyid',typeof id)
-        const publicationData = await prisma.publication.findUnique({ where: { id:Number(id) } });
+      const publicationData = await prisma.publication.findUnique({ where: { id:Number(id) } });
         if (!publicationData) {
             return null;
         }

@@ -60,7 +60,7 @@ export const softDeletePublicationController = async (req: Request, res: Respons
 
 };
 
-const deletePublicationUseCase = new DeletePublication(publicationRepository);
+/*const deletePublicationUseCase = new DeletePublication(publicationRepository);
 export const deletePublicationController = async (req: Request, res: Response) => {
     try {
         const dto: DeletePublicationDTO = req.body;
@@ -73,13 +73,32 @@ export const deletePublicationController = async (req: Request, res: Response) =
     }
 }
 
+};*/
+const deletePublicationUseCase = new DeletePublication(publicationRepository);
+
+export const deletePublicationController = async (req: Request, res: Response) => {
+  try {
+    if (!res.locals.jwtPayload) {
+      res.status(403).json({ message: 'Forbidden: Missing JWT payload' });
+      return;
+    }
+    const { userId, userRole } = res.locals.jwtPayload;
+    const dto: DeletePublicationDTO = req.body;
+    await deletePublicationUseCase.execute(dto, userId, userRole);
+    res.status(200).json({ message: 'Publication deleted permanently successfully' });
+  } catch (error) {
+    const typedError = error as Error;
+    if (!res.headersSent) {
+      res.status(400).json({ message: typedError.message });
+    }
+  }
 };
 
 
 export const getPublicationByIdController = async (req: Request, res: Response): Promise<void> => {
     try {
         const { id } = req.params;
-        const publicationId = parseInt(id, 10); // Asegurarse de que el ID se convierte correctamente a número
+        const publicationId = parseInt(id, 10);
         console.log('publicationId:', publicationId);
 
         if (isNaN(publicationId)) {

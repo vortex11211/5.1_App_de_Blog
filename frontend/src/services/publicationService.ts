@@ -130,6 +130,25 @@ const createPublication = async (title: string, content: string) => {
   }
 };
 
+const deletePublication = async (publicationId: number) => {
+  try {
+    const token = getToken();
+    const response=await axios.delete(`${API_URL}/publications/delete-publication`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
+      data: {
+        publicationId
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error al eliminar de la publicación:', error);
+    throw error;
+  }
+};
+
 const publicationService = {
   getAllPublications,
   likePublication,
@@ -137,7 +156,8 @@ const publicationService = {
   togglePublicationDelete,
   editPublication,
   getPublicationById,
-  createPublication // Añadir la nueva función aquí
+  createPublication,
+  deletePublication 
 };
 
 export default publicationService;

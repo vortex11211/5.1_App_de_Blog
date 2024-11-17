@@ -1,6 +1,6 @@
 ### edit PORT number in this line add token after log-in
 @BASE_URL=http://localhost:3300
-@TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJSb2xlIjoiYWRtaW4iLCJpYXQiOjE3MzE3NzA3ODksImV4cCI6MTczMTc3NDM4OX0.69wXnG0l8nns9bS-1NSq5BZ8vAejnaZOiRu-4YuYbmc
+@TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJSb2xlIjoiYWRtaW4iLCJpYXQiOjE3MzE4NDQ3MDgsImV4cCI6MTczMTg0ODMwOH0.MMlnPb11xccnBCaR1TPBX5vzMb6zy9O2Cn9rZ5tKR10
 
 ### Register Admin
 POST {{BASE_URL}}/api/users/register
@@ -50,7 +50,7 @@ Content-Type: application/json
 Authorization: Bearer {{TOKEN}}
 
 {
-  "userId":5
+  "userId":6
 }
 
 
@@ -81,7 +81,7 @@ Content-Type: application/json
 Authorization: Bearer {{TOKEN}}
 
 {
-  "publicationId": 15
+  "publicationId": 4
 }
 
 ### Eliminate Publication
@@ -90,7 +90,7 @@ Content-Type: application/json
 Authorization: Bearer {{TOKEN}}
 
 {
-  "publicationId": 6
+  "publicationId": 15
 }
 
 
@@ -100,7 +100,7 @@ Content-Type: application/json
 Authorization: Bearer {{TOKEN}}
 
 {
-    "publicationId": 23
+    "publicationId": 15
 }
 
 

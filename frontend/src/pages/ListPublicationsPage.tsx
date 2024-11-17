@@ -1,4 +1,4 @@
-import ListPublications from '../components/ListUsers/ListUsers';
+import ListPublications from '../components/ListPublications/ListPublications';
 
 const ListPublicationsPage = () => {
   return (
