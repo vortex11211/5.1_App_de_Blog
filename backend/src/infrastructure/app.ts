@@ -1,7 +1,7 @@
 import express, { Application } from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-
+import swaggerConfig from './routes/swagger'
 import registerUserRoute from './routes/user/register-user.route'
 import loginUserRoute from './routes/user/login-user.route'
 import listUsersRoute from './routes/user/list-users.route'
@@ -35,14 +35,6 @@ class App {
         this.app.use(cors());
 
 
-        /*/ Incluir tus propias cabeceras
-        this.app.use((req, res, next) => {
-            res.setHeader('X-Powered-By', 'Your-Own-Value');
-            res.setHeader('X-Another-Custom-Header', 'Another-Value');
-            next();
-        });*/
-
-        //Middleware global de logging
         this.app.use((req, res, next) => {
             console.log(`${req.method} ${req.url}`);
             next();
@@ -53,7 +45,7 @@ class App {
     private initializeRoutes() {
         this.app.use('/api/users', registerUserRoute);
         this.app.use('/api/users', loginUserRoute);
-        
+        swaggerConfig(this.app)
         this.app.use(authMiddleware)
 
         this.app.use('/api/users', listUsersRoute);
@@ -67,9 +59,11 @@ class App {
         this.app.use('/api/publications', favoritePublicationRoute);
         this.app.use('/api/publications', deletePublicationRoute);
         this.app.use('/api/publications', getPublicationByIdRoute);
+        ;
     }
 
-
+    
+    
     public listen(port: number) {
         this.app.listen(port, () => {
             console.log(`Server running on port ${port}`);

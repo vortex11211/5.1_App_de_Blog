@@ -4,6 +4,7 @@ import { checkAction } from '../../../middlewares/auth.middleware';
 
 const router = express.Router();
 
+
 router.get("/:id", checkAction('getpublication'), getPublicationByIdController);
 
 export default router;

@@ -61,8 +61,6 @@ public async delete(id: number, userId: number, userRole: string): Promise<void>
     if (!publication) {
       throw new Error('Publication not found');
     }
-
-    // Check if user is admin or the owner of the publication
     if (userRole !== 'admin' && publication.authorId !== userId) {
       throw new Error('You do not have permission to delete this publication');
     }

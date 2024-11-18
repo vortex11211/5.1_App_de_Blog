@@ -60,20 +60,6 @@ export const softDeletePublicationController = async (req: Request, res: Respons
 
 };
 
-/*const deletePublicationUseCase = new DeletePublication(publicationRepository);
-export const deletePublicationController = async (req: Request, res: Response) => {
-    try {
-        const dto: DeletePublicationDTO = req.body;
-        await deletePublicationUseCase.execute(dto);
-        res.sendStatus(200).json({ message: 'Publication deleted permanently successfully' })
-    } catch (error) {
-        const typedError = error as Error;
-        if (!res.headersSent) { 
-        res.status(400).json({ message: typedError.message });
-    }
-}
-
-};*/
 const deletePublicationUseCase = new DeletePublication(publicationRepository);
 
 export const deletePublicationController = async (req: Request, res: Response) => {
