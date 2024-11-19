@@ -42,8 +42,8 @@ const swaggerOptions = {
         description:'Publications endpoints',
       },
       {
-        name:'Favorites',
-        description:'Favorite enpoints'
+        name:'Admin Only',
+        description:'Admin only enpoints'
       },
     ],
   },

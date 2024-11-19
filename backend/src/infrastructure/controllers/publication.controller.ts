@@ -74,10 +74,22 @@ export const deletePublicationController = async (req: Request, res: Response) =
     res.status(200).json({ message: 'Publication deleted permanently successfully' });
   } catch (error) {
     const typedError = error as Error;
-    if (!res.headersSent) {
-      res.status(400).json({ message: typedError.message });
+    if (typedError.message === 'Publication not found') {
+        if (!res.headersSent) {
+          res.status(404).json({ message: 'Publication not found' });
+        }
+      } else if (typedError.message === 'You do not have permission to delete this publication') {
+        if (!res.headersSent) {
+          res.status(403).json({ message: 'You do not have permission to delete this publication' });
+        }
+      } else {
+        if (!res.headersSent) {
+          res.status(400).json({ message: typedError.message });
+        } else {
+          res.status(500).json({ message: 'Internal Server Error' });
+        }
+      }
     }
-  }
 };
 
 

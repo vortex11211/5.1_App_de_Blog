@@ -11,7 +11,7 @@ export class PublicationRepositoryPrisma implements PublicationGateway {
             authorId: publication.authorId,
             createdAt: publication.createdAt,
             updatedAt: publication.updatedAt,
-           
+
         };
         await prisma.publication.create({
             data: prismaPublication,
@@ -22,7 +22,7 @@ export class PublicationRepositoryPrisma implements PublicationGateway {
                 authorId: true,
                 createdAt: true,
                 updatedAt: true,
-             
+
             }
         })
     }
@@ -30,54 +30,53 @@ export class PublicationRepositoryPrisma implements PublicationGateway {
         const prismaPublication = PublicationMapper.toPersistence(publication);
 
         const existingPublication = await prisma.publication.findUnique({
-            where: {id: prismaPublication.id},
-            select:{deleted:true},
+            where: { id: prismaPublication.id },
+            select: { deleted: true },
         });
-        if(existingPublication?.deleted){
-            throw new Error ('Cannot update a deleted publication')
+        if (existingPublication?.deleted) {
+            throw new Error('Cannot update a deleted publication')
         }
         await prisma.publication.update({
-            where: { 
-                id: prismaPublication.id, 
+            where: {
+                id: prismaPublication.id,
                 deleted: false
             },
             data: prismaPublication,
         });
     }
 
-public async softDelete(publication: DomainPublication): Promise<void> {
-    const prismaPublication = PublicationMapper.toPersistence(publication);
-    await prisma.publication.update({
-        where:{id: prismaPublication.id},
-        data:{deleted:prismaPublication.deleted, updatedAt: new Date()}
-    });
-}
-
-public async delete(id: number, userId: number, userRole: string): Promise<void> {
-    const publication = await prisma.publication.findUnique({
-      where: { id },
-    });
-
-    if (!publication) {
-      throw new Error('Publication not found');
-    }
-    if (userRole !== 'admin' && publication.authorId !== userId) {
-      throw new Error('You do not have permission to delete this publication');
+    public async softDelete(publication: DomainPublication): Promise<void> {
+        const prismaPublication = PublicationMapper.toPersistence(publication);
+        await prisma.publication.update({
+            where: { id: prismaPublication.id },
+            data: { deleted: prismaPublication.deleted, updatedAt: new Date() }
+        });
     }
 
-    // Eliminar los "likes" relacionados
-    await prisma.favorite.deleteMany({
-      where: { publicationId: id },
-    });
+    public async delete(id: number, userId: number, userRole: string): Promise<void> {
+        const publication = await prisma.publication.findUnique({
+            where: { id },
+        });
 
-    await prisma.publication.delete({
-      where: { id },
-    });
-  }
+        if (!publication) {
+            throw new Error('Publication not found');
+        }
+        if (userRole !== 'admin' && publication.authorId !== userId) {
+            throw new Error('You do not have permission to delete this publication');
+        }
+
+        await prisma.favorite.deleteMany({
+            where: { publicationId: id },
+        });
+
+        await prisma.publication.delete({
+            where: { id },
+        });
+    }
 
 
     public async findById(id: number): Promise<DomainPublication | null> {
-      const publicationData = await prisma.publication.findUnique({ where: { id:Number(id) } });
+        const publicationData = await prisma.publication.findUnique({ where: { id: Number(id) } });
         if (!publicationData) {
             return null;
         }
@@ -99,10 +98,10 @@ public async delete(id: number, userId: number, userRole: string): Promise<void>
         return publicationsData.map(publication => PublicationMapper.toDomain(publication));
     }
 
-    public async findByUserIdWithDeleted(userId:number): Promise<DomainPublication[]>{
+    public async findByUserIdWithDeleted(userId: number): Promise<DomainPublication[]> {
         const publicationData = await prisma.publication.findMany({
-            where:{
-                authorId:userId
+            where: {
+                authorId: userId
             }
         });
         return publicationData.map(PublicationMapper.toDomain);

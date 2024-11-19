@@ -8,10 +8,14 @@ const router = express.Router();
  * @swagger
  * /api/publications/posts:
  *   get:
- *     summary: Obtener todas las publicaciones
+ *     summary: Get all publications
  *     tags: [Publications]
  *     security:
  *       - Token: []
+ *     description: |
+ *       This endpoint retrieves all publications. 
+ *       The `userId` is extracted from the JWT token, so it is not required as a parameter.
+ *       A `simpleUser` only gets active posts, an `admin` user gets all posts, including soft deleted ones
  *     responses:
  *       200:
  *         description: Lista de publicaciones
@@ -57,11 +61,6 @@ const router = express.Router();
  *         description: Forbidden
  *       500:
  *         description: Internal Server Error
- *   securitySchemes:
- *     Token:
- *       type: http
- *       scheme: bearer
- *       bearerFormat: JWT
  */
 router.get('/posts', checkAction('view'), getAllPublicationsController);
 
