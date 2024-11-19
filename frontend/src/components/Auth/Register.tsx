@@ -26,7 +26,7 @@ const Register: React.FC = () => {
     <div className="login-container">
       <div className="login-box">
         <div className="login-header">
-          <i className="fas fa-user-plus"></i> {/* Icono de registro */}
+          <i className="fas fa-user-plus"></i> 
           <h2>Register</h2>
         </div>
         <form onSubmit={handleSubmit}>

@@ -19,8 +19,8 @@ const EditPublication: React.FC<EditPublicationProps> = ({ publicationId, initia
     e.preventDefault();
     try {
       await publicationService.editPublication(publicationId, title, content);
-      onSave({ publicationId, title, content }); // Llama a la función onSave con los datos editados
-      onClose(); // Cierra el formulario después de guardar los cambios
+      onSave({ publicationId, title, content }); 
+      onClose(); 
     } catch (error) {
       setError('Error al editar la publicación');
       console.error('Error al editar la publicación:', error);

@@ -1,6 +1,6 @@
 ### edit PORT number in this line add token after log-in
 @BASE_URL=http://localhost:3300
-@TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIyLCJ1c2VyUm9sZSI6InNpbXBsZVVzZXIiLCJpYXQiOjE3MzIwMTY2NTEsImV4cCI6MTczMjAyMDI1MX0.lP_YiB4XidZsRF1fUwHFI27-quNoxqKKN6EwbnWnAgw
+@TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjcsInVzZXJSb2xlIjoiYWRtaW4iLCJpYXQiOjE3MzIwNTMzNjIsImV4cCI6MTczMjA1Njk2Mn0._4yCHSlGfEOG7Fzk8eg0aA5BwXFDoEMX5Srw2Qerfjw
 
 ### Register Admin
 POST {{BASE_URL}}/api/users/register
@@ -31,8 +31,8 @@ POST {{BASE_URL}}/api/users/login
 Content-Type: application/json
 
 {
-  "email": "doejr@mail.com",
-  "password": "123456"
+  "email": "tes11@example.com",
+  "password": "1234567"
 }
 
 ### Obtener todas las publicaciones 
@@ -45,12 +45,12 @@ GET {{BASE_URL}}/api/users/list
 Authorization: Bearer {{TOKEN}}
 
 ### Ban User
-DELETE {{BASE_URL}}/api/users/ban
+PATCH {{BASE_URL}}/api/users/ban
 Content-Type: application/json
 Authorization: Bearer {{TOKEN}}
 
 {
-  "userId":6
+  "userId":5
 }
 
 

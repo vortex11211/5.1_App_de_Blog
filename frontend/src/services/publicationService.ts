@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-// Función auxiliar para obtener el token
+
 const getToken = () => {
   const user = JSON.parse(localStorage.getItem('user')!);
   return user?.token;

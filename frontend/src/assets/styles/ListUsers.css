@@ -72,9 +72,9 @@
   padding: 5px 10px;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 12px;  /* Reducir el tamaño de la fuente */
+  font-size: 12px;  
   margin-top: 10px;
-  align-self: flex-start;  /* Alinear a la izquierda */
+  align-self: flex-start;  
 }
 
 .ban-user-button:hover {

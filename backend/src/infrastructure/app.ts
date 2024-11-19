@@ -67,7 +67,7 @@ class App {
     public listen(port: number) {
         this.app.listen(port, () => {
             console.log(`Server running on port ${port}`);
-            console.log('documenst')
+            console.log(`You can review documentation at http://localhost:${port}/api-docs`)
         });
     }
 
