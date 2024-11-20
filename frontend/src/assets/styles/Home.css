@@ -11,7 +11,7 @@
 
 .sort-dropdown select {
   padding: 10px 20px;
-  background-color: #2980b9;
+  background-color: #126383;
   color: white;
   border: none;
   border-radius: 5px;
@@ -19,7 +19,7 @@
 }
 
 .sort-dropdown select:hover {
-  background-color: #1f6394;
+  background-color: #5a2756;
 }
 
 .publication-list {
@@ -33,9 +33,9 @@
   background: #fff;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-  width: 100%; /* Ocupa todo el ancho */
-  max-width: none; /* Sin límite de ancho */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  width: 100%; 
+  max-width: none; 
   text-align: left;
   display: flex;
   flex-direction: column;
