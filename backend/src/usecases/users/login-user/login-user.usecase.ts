@@ -19,6 +19,9 @@ export class LoginUser implements LoginUserUseCase {
         if (!user) {
             throw new Error('Invalid email');
         }
+        if (user.banned) {
+            throw new Error('Your account is banned.');
+        }
         const isPasswordValid = await bcrypt.compare(dto.password, user.password);
         if (!isPasswordValid) {
             throw new Error('Invalid password');

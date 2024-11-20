@@ -41,27 +41,7 @@ const toggleBanUser = async (userId: number) => {
     throw error;
   }
 };
-/*
-const toggleBanUser = async (userId: number) => {
-  try {
-    const token = getToken();
-    const response = await axios.patch(`${API_URL}/users/ban`, {
-      userId, banned:true},
-      {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-      data: {
-        userId,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    console.error('Error al banear/desbanear el usuario:', error);
-    throw error;
-  }
-};*/
+
 const userService = {
   getAllUsers,
   toggleBanUser, 

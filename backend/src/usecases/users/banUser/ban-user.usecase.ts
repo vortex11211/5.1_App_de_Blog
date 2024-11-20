@@ -18,7 +18,7 @@ export class BanUser implements BanUserUseCase{
         if (!user) {
             throw new Error("User not found");
         }
-        user.banUser(); // Cambiar el estado del usuario
+        user.banUser();
         await this.userGateway.banUser(user); 
         return user;
     }

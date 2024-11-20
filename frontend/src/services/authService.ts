@@ -8,9 +8,17 @@ const login = async (email: string, password: string) => {
         if (response.data.token) {
             localStorage.setItem('user', JSON.stringify(response.data));
         } return response.data;
-    } catch (error) { if (axios.isAxiosError(error) && error.response) { throw new Error('Invalid email or password'); } throw error; }
+    } catch (error) {
+        if (axios.isAxiosError(error) && error.response) {
+            if (error.response.status === 400 && error.response.data.message === 'Your account is banned.') {
+                throw new Error('Your account is banned.');
+            } else {
+                throw new Error('Invalid email or password');
+            }
+        }
+        throw error;
+    }
 };
-
 
 const register = async (username: string, email: string, password: string, role:string, adminKey?:string) => {
     const response = await axios.post(`${API_URL}/users/register`, { username, email, password, role, adminKey });

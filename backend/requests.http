@@ -1,6 +1,6 @@
 ### edit PORT number in this line add token after log-in
 @BASE_URL=http://localhost:3300
-@TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE1LCJ1c2VyUm9sZSI6ImFkbWluIiwiaWF0IjoxNzMyMTA1NjExLCJleHAiOjE3MzIxMDkyMTF9.BJi_Rsap6NSKTt72h2Los43KXH4XYIlPTuibvPzb-2s
+@TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsInVzZXJSb2xlIjoic2ltcGxlVXNlciIsImlhdCI6MTczMjEzNTkwMSwiZXhwIjoxNzMyMTM5NTAxfQ.RzJSbRcwhhSVfCC4Kyt6oGtPxZetVRgISEmHThOEWxg
 
 ### Register Admin
 POST {{BASE_URL}}/api/users/register
@@ -31,7 +31,7 @@ POST {{BASE_URL}}/api/users/login
 Content-Type: application/json
 
 {
-  "email": "usuario25@test.com",
+  "email": "tes3@example.com",
   "password": "123456"
 }
 
@@ -60,8 +60,8 @@ Content-Type: application/json
 Authorization: Bearer {{TOKEN}}
 
 {
-  "title": "Simple usuario",
-  "content": "simple publicacion9"
+  "title": "no deberia",
+  "content": "publicar"
 }
 
 ### Edit Publication
@@ -110,7 +110,7 @@ Content-Type: application/json
 Authorization: Bearer {{TOKEN}}
 
 {
-  "username": "Nuevo Admin",
+  "username": "Nuevo Nombre",
   "oldPassword": "123456",
   "newPassword": "1234567"
 }

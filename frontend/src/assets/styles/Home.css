@@ -33,7 +33,7 @@
   background: #fff;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
   width: 100%; 
   max-width: none; 
   text-align: left;
@@ -93,6 +93,6 @@
 }
 
 .publication-card.deleted {
-  color: #aaaaaa;
-  background: #f2f2f2;
+  color: #5a5464;
+  background: #5d278a54;
 }

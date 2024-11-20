@@ -13,12 +13,19 @@ const Login: React.FC = () => {
     e.preventDefault();
     try {
       await login(email, password);
-      navigate('/'); // Utilizar navigate para redirigir a la página de inicio
+      navigate('/'); 
     } catch (error) {
-      setError('Invalid email or password');
+      if (error instanceof Error) {
+        if(error.message === 'Your account is banned.'){
+        setError('Your account is banned.');
+      } else {
+        setError('Invalid email or password');
+      }
       console.error('Error al iniciar sesión:', error);
     }
+    }
   };
+
 
   return (
     <div className="login-container">
