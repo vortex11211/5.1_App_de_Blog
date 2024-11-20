@@ -22,8 +22,8 @@ const EditPublication: React.FC<EditPublicationProps> = ({ publicationId, initia
       onSave({ publicationId, title, content }); 
       onClose(); 
     } catch (error) {
-      setError('Error al editar la publicación');
-      console.error('Error al editar la publicación:', error);
+      setError('Error editing post');
+      console.error('Error editing post:', error);
     }
   };
 

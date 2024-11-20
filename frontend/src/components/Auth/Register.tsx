@@ -17,8 +17,8 @@ const Register: React.FC = () => {
       await authService.register(username, email, password,role,adminKey);
       navigate('/login');
     } catch (error) {
-      setError('Error al registrarse');
-      console.error('Error al registrarse:', error);
+      setError('Error registering');
+      console.error('Error registering', error);
     }
   };
 

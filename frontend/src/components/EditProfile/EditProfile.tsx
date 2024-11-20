@@ -21,12 +21,12 @@ const EditProfile: React.FC = () => {
     e.preventDefault();
     try {
       await authService.updateProfile(username, oldPassword, newPassword);
-      setSuccess('Perfil actualizado con éxito');
+      setSuccess('Profile updated successfully');
       setError(null);
     } catch (error) {
-      setError('Error al actualizar el perfil');
+      setError('Error updating profile');
       setSuccess(null);
-      console.error('Error al actualizar el perfil:', error);
+      console.error('Error updating profile', error);
     }
   };
 
@@ -47,7 +47,7 @@ const EditProfile: React.FC = () => {
           />
         </div>
         <div className="input-container">
-          <label htmlFor="oldPassword">Contraseña Anterior</label>
+          <label htmlFor="oldPassword">Old Password</label>
           <input
             type="password"
             id="oldPassword"
@@ -57,7 +57,7 @@ const EditProfile: React.FC = () => {
           />
         </div>
         <div className="input-container">
-          <label htmlFor="newPassword">Nueva Contraseña</label>
+          <label htmlFor="newPassword">New Password</label>
           <input
             type="password"
             id="newPassword"
@@ -66,7 +66,7 @@ const EditProfile: React.FC = () => {
             required
           />
         </div>
-        <button type="submit" className="edit-profile-button">Actualizar Perfil</button>
+        <button type="submit" className="edit-profile-button">Update Profile</button>
       </form>
     </div>
   );

@@ -17,8 +17,8 @@ const Home: React.FC = () => {
         const response = await publicationService.getAllPublications();
         setPublications(response);
       } catch (error) {
-        setError('Error al obtener las publicaciones');
-        console.error('Error al obtener las publicaciones:', error);
+        setError('Error retrieving posts');
+        console.error('Error retrieving posts:', error);
       }
     };
 
@@ -32,8 +32,8 @@ const Home: React.FC = () => {
       const response = await publicationService.getAllPublications();
       setPublications(response);
     } catch (error) {
-      setError('Error al dar like a la publicación');
-      console.error('Error al dar like a la publicación:', error);
+      setError('Error liking the post');
+      console.error('Error liking the post:', error);
     }
   };
 
@@ -66,8 +66,8 @@ const Home: React.FC = () => {
           <option value="default">Select Sorting Option</option>
           <option value="title_asc">Sort by Title (A-Z)</option>
           <option value="title_desc">Sort by Title (Z-A)</option>
-          <option value="popularity_asc">Sort by Popularity (Low to High)</option>
-          <option value="popularity_desc">Sort by Popularity (High to Low)</option>
+          <option value="popularity_asc">Sort by Popularity (Low to High ⬇)</option>
+          <option value="popularity_desc">Sort by Popularity (High to Low ⬇)</option>
         </select>
       </div>
       <div className="publication-list">
