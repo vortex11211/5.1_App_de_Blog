@@ -5,6 +5,23 @@
   align-items: center;
 }
 
+.sort-dropdown {
+  margin-bottom: 20px;
+}
+
+.sort-dropdown select {
+  padding: 10px 20px;
+  background-color: #2980b9;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.sort-dropdown select:hover {
+  background-color: #1f6394;
+}
+
 .publication-list {
   display: flex;
   flex-direction: column;
@@ -73,4 +90,9 @@
 
 .like-icon:hover {
   color: #a500b4;
+}
+
+.publication-card.deleted {
+  color: #aaaaaa;
+  background: #f2f2f2;
 }

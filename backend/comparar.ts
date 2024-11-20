@@ -157,4 +157,3 @@ const swaggerDocs = swaggerJSDoc(swaggerOptions);
 export default (app: Application): void => {
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 };
-

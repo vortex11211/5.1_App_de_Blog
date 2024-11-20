@@ -1,6 +1,6 @@
 ### edit PORT number in this line add token after log-in
 @BASE_URL=http://localhost:3300
-@TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjcsInVzZXJSb2xlIjoiYWRtaW4iLCJpYXQiOjE3MzIwNTMzNjIsImV4cCI6MTczMjA1Njk2Mn0._4yCHSlGfEOG7Fzk8eg0aA5BwXFDoEMX5Srw2Qerfjw
+@TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE1LCJ1c2VyUm9sZSI6ImFkbWluIiwiaWF0IjoxNzMyMTA1NjExLCJleHAiOjE3MzIxMDkyMTF9.BJi_Rsap6NSKTt72h2Los43KXH4XYIlPTuibvPzb-2s
 
 ### Register Admin
 POST {{BASE_URL}}/api/users/register
@@ -31,8 +31,8 @@ POST {{BASE_URL}}/api/users/login
 Content-Type: application/json
 
 {
-  "email": "tes11@example.com",
-  "password": "1234567"
+  "email": "usuario25@test.com",
+  "password": "123456"
 }
 
 ### Obtener todas las publicaciones 
