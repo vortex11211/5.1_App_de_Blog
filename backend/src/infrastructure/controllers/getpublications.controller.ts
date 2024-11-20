@@ -8,11 +8,10 @@ import { GetUserPublicationsDTO } from '../../usecases/users/getUserPublications
 import { GetUserPublications } from '../../usecases/users/getUserPublications/get-user-publications.usecase';
 
 
-
-
 const publicationRepository = new PublicationRepositoryPrisma();
 const userRepository=new UserRepositoryPrisma();
 const favoriteRepository= new FavoriteRepositoryPrisma();
+
 const getAllPublicationsUseCase = new GetAllPublications(publicationRepository, userRepository,favoriteRepository);
 
 export const getAllPublicationsController = async (req: Request, res: Response) => {
@@ -22,7 +21,16 @@ export const getAllPublicationsController = async (req: Request, res: Response) 
         res.status(200).json(publications);
     } catch (error) {
         const typedError = error as Error;
-        res.status(500).json({ message: 'Error fetching publications', error: typedError.message });
+        if (typedError.message === 'Unauthorized') {
+            res.status(401).json({ message: 'Unauthorized access' });
+        } else if (typedError.message === 'Forbidden') {
+            res.status(403).json({ message: 'Forbidden access' });
+        } else if (typedError.message === 'No publications found') {
+            res.status(404).json({ message: 'No publications found' });
+        } else {
+            console.error('Error fetching publications:', typedError); // Optional logging
+            res.status(500).json({ message: 'Error fetching publications', error: typedError.message });
+        }
     }
 };
 
@@ -35,7 +43,13 @@ export const getUserPublicationsController = async (req: Request, res: Response)
         res.status(200).json(publications);
     } catch (error) {
         const typedError = error as Error;
-        res.status(500).json({ message: 'Error al obtener las publicaciones del usuario', error: typedError.message });
+        if (typedError.message === 'User not found') {
+            res.status(404).json({ message: 'User not found' });
+        } else if (typedError.message === 'No publications found') {
+            res.status(404).json({ message: 'No publications found for this user' });
+        } else {
+            res.status(500).json({ message: 'Error retrieving user publications', error: typedError.message });
+        }
     }
 };
 
