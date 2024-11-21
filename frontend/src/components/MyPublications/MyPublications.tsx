@@ -14,8 +14,8 @@ const MyPublications: React.FC = () => {
         const response = await publicationService.getUserPublications();
         setPublications(response);
       } catch (error) {
-        setError('Error al obtener las publicaciones del usuario');
-        console.error('Error al obtener las publicaciones del usuario:', error);
+        setError('Error retrieving users posts');
+        console.error('Error retrieving users posts:', error);
       }
     };
 

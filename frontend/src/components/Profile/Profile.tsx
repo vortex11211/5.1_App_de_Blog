@@ -8,8 +8,7 @@ const Profile = () => {
   const [newPassword, setNewPassword] = useState('');
 
   useEffect(() => {
-    // Obtener la información del perfil del usuario
-    const user = JSON.parse(localStorage.getItem('user')!);
+       const user = JSON.parse(localStorage.getItem('user')!);
     if (user) {
       setUsername(user.username);
       setEmail(user.email);
@@ -21,9 +20,8 @@ const Profile = () => {
     try {
       await authService.updateProfile(username, oldPassword, newPassword);
       alert('Profile updated successfully');
-      // Redireccionar o actualizar el estado del componente
-    } catch (error) {
-      console.error('Error al actualizar el perfil:', error);
+      } catch (error) {
+      console.error('Error updating profile:', error);
     }
   };
 
@@ -44,7 +42,7 @@ const Profile = () => {
           value={email}
           disabled
         />
-        <label>Old Password:</label>
+        <label>Current Password:</label>
         <input
           type="password"
           value={oldPassword}

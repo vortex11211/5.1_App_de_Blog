@@ -5,7 +5,7 @@ import { Role } from '../../../domain/entities/user.entity';
 import bcrypt from 'bcryptjs'
 
 
-const ADMIN_KEY= 'admin_key112';
+const ADMIN_KEY= process.env.ADMIN_KEY;
 
 export interface RegisterUserUseCase {
     execute(dto: RegisterUserDTO): Promise<void>;
@@ -18,7 +18,7 @@ export class RegisterUser implements RegisterUserUseCase {
         this.userGateway = userGateway;
     }
     public async execute(dto: RegisterUserDTO): Promise<void> {
-        // Validar que el email no exista ya en la base de datos
+        
         const existingUser = await this.userGateway.findByEmail(dto.email);
         if (existingUser) {
             throw new Error('User with this email already exists.');
@@ -34,7 +34,7 @@ export class RegisterUser implements RegisterUserUseCase {
         const hashedPassword= await bcrypt.hash(dto.password,10);
 
         const role = dto.role as Role;
-        // Crear usuario y guardarlo en la base de datos
+        
         const user = User.create(dto.username, dto.email, hashedPassword, role);
         await this.userGateway.save(user);
     }
