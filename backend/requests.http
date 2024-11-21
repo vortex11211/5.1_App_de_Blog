@@ -1,19 +1,23 @@
 ### edit PORT number in this line add token after log-in
-@BASE_URL=http://localhost:3300
-@TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsInVzZXJSb2xlIjoic2ltcGxlVXNlciIsImlhdCI6MTczMjEzNTkwMSwiZXhwIjoxNzMyMTM5NTAxfQ.RzJSbRcwhhSVfCC4Kyt6oGtPxZetVRgISEmHThOEWxg
+@BASE_URL = http://localhost:3300
+### Edit Your Admin key
+@ADMIN_KEY = "admin_key112"
+### Introduce token after login
+@TOKEN = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJSb2xlIjoiYWRtaW4iLCJpYXQiOjE3MzIxODY3NDUsImV4cCI6MTczMjE5MDM0NX0.MMzV5oxnuJn0s-fxdsQK-phDa2iL0t-v7xNZBw55oa4
 
-### Register Admin
+### Register an Admin
 POST {{BASE_URL}}/api/users/register
 Content-Type: application/json
 
 {
-  "username": "malkey2",
-  "email": "malkey2@example.com",
+  "username": "admin_new2",
+  "email": "admin_new22@example.com",
   "password": "123456",
   "role": "admin",
-  "adminKey":"admin_key112"
+  "adminKey": {{ADMIN_KEY}}
  }
-### Register simpleUser
+
+### Register a simpleUser
 POST {{BASE_URL}}/api/users/register
 Content-Type: application/json
 
@@ -31,7 +35,7 @@ POST {{BASE_URL}}/api/users/login
 Content-Type: application/json
 
 {
-  "email": "tes3@example.com",
+  "email": "tes5@example.com",
   "password": "123456"
 }
 
