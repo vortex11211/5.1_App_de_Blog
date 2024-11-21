@@ -1,6 +1,10 @@
 import request from "supertest";
 import { describe, expect, afterAll } from '@jest/globals';
 import App from '../infrastructure/app';
+import dotenv from 'dotenv';
+
+dotenv.config({ path: '../../.env' });
+
 
 const app = new App().app;
 const server = app.listen(3000);
@@ -69,4 +73,34 @@ describe('POST /api/users/register', () => {
     expect(response.status).toBe(409);
     expect(response.body.message).toBe('User with this username already exists.');
   });
-});
+
+  test('should register a new admin successfully', async () => {
+      const response = await request(app)
+      .post('/api/users/register')
+      .send({
+        username: 'adminUser',
+        email: 'adminuser@example.com',
+        password: 'password123',
+        role: 'admin',
+        adminKey: process.env.ADMIN_KEY
+      });
+
+    expect(response.status).toBe(201);
+    expect(response.body.message).toBe('User registered successfully');
+  });
+
+  test('should return error for invalid admin key', async () => {
+    const response = await request(app)
+      .post('/api/users/register')
+      .send({
+        username: 'adminuser2',
+        email: 'adminuser2@example.com',
+        password: 'password123',
+        role: 'admin',
+        adminKey: 'wrongAdminKey'
+      });
+
+    expect(response.status).toBe(400);
+    expect(response.body.message).toBe('Invalid admin Key');
+  });
+})
