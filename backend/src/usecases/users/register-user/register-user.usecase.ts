@@ -21,11 +21,16 @@ export class RegisterUser implements RegisterUserUseCase {
         
         const existingUser = await this.userGateway.findByEmail(dto.email);
         if (existingUser) {
-            throw new Error('User with this email already exists.');
+            const error = new Error('User with this email already exists.');
+            error.name = 'Conflict';
+            throw error;
         }
+
         const existingUsername = await this.userGateway.findByUsername(dto.username);
         if (existingUsername) {
-            throw new Error('User with this username already exists.');
+            const error = new Error('User with this username already exists.');
+            error.name = 'Conflict';
+            throw error;
         }
 
         if (dto.role ==='admin' && dto.adminKey !== ADMIN_KEY){

@@ -24,7 +24,11 @@ export const registerUserController = async (req: Request, res: Response) => {
         res.status(201).json({ message: 'User registered successfully' });
     } catch (error) {
         const typedError = error as Error;
-        res.status(400).json({ message: typedError.message });
+        if (typedError.name === 'Conflict') {
+            res.status(409).json({ message: typedError.message });
+        } else {
+            res.status(400).json({ message: typedError.message });
+        }
     }
 };
 

@@ -3,12 +3,11 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "npm run resetdb:test && jest",
-    "resetdb:test": "npx prisma db push --schema=prisma/schema.test.prisma --force-reset",
-    "start": "ts-node src/server.ts",
-    "build": "tsc",
-    "api": "npx prisma db push --schema=prisma/schema.prisma && node ./dist/app.js",
-    "dev": "node ./dist/app.js"
+      "test": "npm run resetdb:test && jest",
+      "resetdb:test": "npx prisma db push --schema=prisma/schema.test.prisma --force-reset",
+      "start": "npm run resetdb:original && ts-node src/server.ts",
+      "resetdb:original": "npx prisma db push --schema=prisma/schema.prisma",
+      "build": "tsc"
   },
   "keywords": [],
   "author": "",

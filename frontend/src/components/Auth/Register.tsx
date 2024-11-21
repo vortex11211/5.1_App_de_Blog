@@ -8,7 +8,7 @@ const Register: React.FC = () => {
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('simpleUser');
   const [adminKey, setAdminKey] = useState('');
-  const [error, setError] = useState('');
+  const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -16,11 +16,15 @@ const Register: React.FC = () => {
     try {
       await authService.register(username, email, password,role,adminKey);
       navigate('/login');
-    } catch (error) {
-      setError('Error registering');
-      console.error('Error registering', error);
-    }
-  };
+    } catch (error: unknown) {
+      if (error instanceof Error){
+      setError(error.message);
+  }else {
+    setError('An unexpected error occurred')
+  }
+};
+}
+
 
   return (
     <div className="login-container">
@@ -75,7 +79,7 @@ const Register: React.FC = () => {
                 placeholder="Admin Key"
                 value={adminKey}
                 onChange={(e)=>setAdminKey(e.target.value)}
-                required
+                required={role === 'admin'}
                 />
               </div>
             )}

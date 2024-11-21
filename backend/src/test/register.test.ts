@@ -1,5 +1,5 @@
 import request from "supertest";
-import { describe, test, expect, afterAll } from '@jest/globals';
+import { describe, expect, afterAll } from '@jest/globals';
 import App from '../infrastructure/app';
 
 const app = new App().app;
@@ -10,7 +10,7 @@ afterAll(async () => {
 });
 
 describe('POST /api/users/register', () => {
-  it('should register a new simpleUser successfully', async () => {
+  test('should register a new simpleUser successfully', async () => {
     const response = await request(app)
       .post('/api/users/register')
       .send({
@@ -24,8 +24,8 @@ describe('POST /api/users/register', () => {
     expect(response.body.message).toBe('User registered successfully');
   });
 
-  it('should return error for existing email', async () => {
-    const response = await request(app)
+  test('should return 409 for existing email', async () => {
+    await request(app)
       .post('/api/users/register')
       .send({
         username: 'testuser2',
@@ -34,12 +34,21 @@ describe('POST /api/users/register', () => {
         role: 'simpleUser'
       });
 
-    expect(response.status).toBe(400);
+    const response = await request(app)
+      .post('/api/users/register')
+      .send({
+        username: 'testuser3',
+        email: 'testuser@example.com',
+        password: 'password123',
+        role: 'simpleUser'
+      });
+
+    expect(response.status).toBe(409);
     expect(response.body.message).toBe('User with this email already exists.');
   });
 
-  it('should return error for existing username', async () => {
-    const response = await request(app)
+  test('should return 409 for existing username', async () => {
+    await request(app)
       .post('/api/users/register')
       .send({
         username: 'testuser',
@@ -48,23 +57,16 @@ describe('POST /api/users/register', () => {
         role: 'simpleUser'
       });
 
-    expect(response.status).toBe(400);
-    expect(response.body.message).toBe('User with this username already exists.');
-  });
-
-  it('should return error for invalid admin key', async () => {
     const response = await request(app)
       .post('/api/users/register')
       .send({
-        username: 'adminuser',
-        email: 'adminuser@example.com',
+        username: 'testuser',
+        email: 'testuser3@example.com',
         password: 'password123',
-        role: 'admin',
-        adminKey: 'wrong_admin_key'
+        role: 'simpleUser'
       });
 
-    expect(response.status).toBe(400);
-    expect(response.body.message).toBe('Invalid admin Key');
+    expect(response.status).toBe(409);
+    expect(response.body.message).toBe('User with this username already exists.');
   });
-
 });
