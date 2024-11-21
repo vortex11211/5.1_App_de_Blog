@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "npm run resetdb:test && jest --config jest.config.ts",
+    "test": "npm run resetdb:test && jest",
     "resetdb:test": "npx prisma db push --schema=prisma/schema.test.prisma --force-reset",
     "start": "ts-node src/server.ts",
     "build": "tsc",

@@ -1,4 +1,5 @@
-import request from 'supertest';
+import request from "supertest";
+import { describe, test, expect, afterAll } from '@jest/globals';
 import App from '../infrastructure/app';
 
 const app = new App().app;
@@ -9,7 +10,7 @@ afterAll(async () => {
 });
 
 describe('POST /api/users/register', () => {
-  test('should register a new simpleUser successfully', async () => {
+  it('should register a new simpleUser successfully', async () => {
     const response = await request(app)
       .post('/api/users/register')
       .send({
@@ -23,7 +24,7 @@ describe('POST /api/users/register', () => {
     expect(response.body.message).toBe('User registered successfully');
   });
 
- /* it('should return error for existing email', async () => {
+  it('should return error for existing email', async () => {
     const response = await request(app)
       .post('/api/users/register')
       .send({
@@ -65,5 +66,5 @@ describe('POST /api/users/register', () => {
     expect(response.status).toBe(400);
     expect(response.body.message).toBe('Invalid admin Key');
   });
-*/
+
 });
