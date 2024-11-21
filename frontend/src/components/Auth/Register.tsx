@@ -17,8 +17,8 @@ const Register: React.FC = () => {
       await authService.register(username, email, password,role,adminKey);
       navigate('/login');
     } catch (error) {
-      setError('Error al registrarse');
-      console.error('Error al registrarse:', error);
+      setError('Error registering');
+      console.error('Error registering', error);
     }
   };
 
@@ -26,7 +26,7 @@ const Register: React.FC = () => {
     <div className="login-container">
       <div className="login-box">
         <div className="login-header">
-          <i className="fas fa-user-plus"></i> {/* Icono de registro */}
+          <i className="fas fa-user-plus"></i> 
           <h2>Register</h2>
         </div>
         <form onSubmit={handleSubmit}>

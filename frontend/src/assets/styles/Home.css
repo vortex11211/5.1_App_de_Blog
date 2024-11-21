@@ -5,6 +5,23 @@
   align-items: center;
 }
 
+.sort-dropdown {
+  margin-bottom: 20px;
+}
+
+.sort-dropdown select {
+  padding: 10px 20px;
+  background-color: #126383;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.sort-dropdown select:hover {
+  background-color: #5a2756;
+}
+
 .publication-list {
   display: flex;
   flex-direction: column;
@@ -16,9 +33,9 @@
   background: #fff;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-  width: 100%; /* Ocupa todo el ancho */
-  max-width: none; /* Sin límite de ancho */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  width: 100%; 
+  max-width: none; 
   text-align: left;
   display: flex;
   flex-direction: column;
@@ -73,4 +90,9 @@
 
 .like-icon:hover {
   color: #a500b4;
+}
+
+.publication-card.deleted {
+  color: #5a5464;
+  background: #5d278a54;
 }

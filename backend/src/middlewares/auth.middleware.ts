@@ -34,10 +34,10 @@ export const checkAction = (...actions: string[]) => {
                 return;
             }
 
-            // Verificar si la acción implica una publicación
+            
             const publicationId = req.body.publicationId || req.params.publicationId;
             if (publicationId && !actions.includes('like')) {
-                // Verificar la propiedad de la publicación
+                
                 const publicationRepository = new PublicationRepositoryPrisma();
                 const publication = await publicationRepository.findById(publicationId);
                 if (publication && userRole !== 'admin' && publication.authorId !== userId) {

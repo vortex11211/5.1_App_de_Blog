@@ -1,5 +1,5 @@
 // This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
 
 generator client {
   provider = "prisma-client-js"
@@ -57,7 +57,7 @@ model Favorite {
   publicationId Int
   createdAt   DateTime  @default(now()) @db.DateTime(3)
   user        User      @relation(fields: [userId], references: [id])
-  publication Publication @relation("PublicationFavorites",fields: [publicationId], references: [id])
+  publication Publication @relation("PublicationFavorites",fields: [publicationId], references: [id], onDelete: Cascade)
 
   @@unique([userId, publicationId])
   @@map("favorite")

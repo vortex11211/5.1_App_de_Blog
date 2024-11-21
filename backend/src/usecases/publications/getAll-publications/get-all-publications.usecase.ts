@@ -21,11 +21,18 @@ export class GetAllPublications implements GetAllPublicationsUseCase {
 
     async execute(userRole: string): Promise<Publication[]> {
         let publications = await this.publicationGateway.list();
+        //adding length
+        if (publications.length === 0) {
+            const error = new Error('No publications found');
+            error.name = 'NotFoundError';
+            throw error;
+        }
         const totalUsers = await this.userGateway.count();
 
         if (userRole !== 'admin') {
             publications = publications.filter(publication => !publication.deleted)
         }
+       
         const publicationsWithAutors = await Promise.all(publications.map(async (publication) => {
             const likes = await this.favoriteGateway.countByPublicationId(publication.id);
             const popularity = likes / (totalUsers - 1);

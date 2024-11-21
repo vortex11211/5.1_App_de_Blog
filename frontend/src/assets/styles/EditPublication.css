@@ -1,0 +1,55 @@
+.edit-publication-container {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 40px auto;
+  text-align: center;
+}
+
+.edit-publication-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.edit-publication-form .input-container {
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+.edit-publication-form .input-container label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 16px;
+  color: #333;
+}
+
+.edit-publication-form .input-container input,
+.edit-publication-form .input-container textarea {
+  width: calc(100% - 20px);
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-family: 'Arial', sans-serif; } 
+.edit-publication-form .input-container textarea { 
+  font-family: 'Arial', sans-serif; /* Cambia esto al tipo de fuente que prefieras para el contenido */ 
+  }
+
+.edit-publication-form .edit-publication-button,
+.edit-publication-form .cancel-button {
+  background-color: #ff4081;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.edit-publication-form .edit-publication-button:hover,
+.edit-publication-form .cancel-button:hover {
+  background-color: #e91e63;
+}

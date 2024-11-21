@@ -6,6 +6,6 @@ export interface PublicationGateway{
     list():Promise<Publication[]>;
     findByTitle(title:string):Promise<Publication[] | null>;
     softDelete(publication:Publication):Promise<void>;
-    delete(id:number):Promise<void>;
+    delete(id:number, userId:number,userRole:string):Promise<void>;
     findByUserIdWithDeleted(id:number):Promise<Publication[]>
 }

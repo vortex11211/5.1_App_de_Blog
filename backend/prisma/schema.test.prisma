@@ -1,0 +1,69 @@
+// This is your Prisma schema file,
+
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL_TEST")
+}
+
+model PrismaMigration {
+  id                String   @id @default(uuid())
+  checksum          String
+  finishedAt       DateTime? @db.DateTime(3)
+  migrationName     String
+  logs              String?
+  rolledBackAt      DateTime? @db.DateTime(3)
+  startedAt        DateTime   @default(now()) @db.DateTime(3)
+  appliedStepsCount Int      @default(0)
+
+  @@map("_prisma_migrations")
+}
+
+model User {
+  id        Int       @id @default(autoincrement())
+  username  String    @unique @db.VarChar(191)
+  email     String    @unique @db.VarChar(191)
+  password  String    @db.VarChar(191)
+  role      Role      @default(simpleUser) 
+  banned    Boolean   @default(false)
+  createdAt DateTime  @default(now()) @db.DateTime(3)
+  updatedAt DateTime  @updatedAt @db.DateTime(3)
+  publications Publication[]
+  favorites   Favorite[]
+
+  @@map("user")
+}
+
+model Publication {
+  id        Int       @id @default(autoincrement())
+  title     String    @db.VarChar(191)
+  content   String    @db.Text
+  authorId  Int
+  author    User      @relation(fields: [authorId], references: [id])
+  createdAt DateTime  @default(now()) @db.DateTime(3)
+  updatedAt DateTime  @updatedAt @db.DateTime(3)
+  deleted   Boolean   @default(false)
+  favorites Favorite[] @relation("PublicationFavorites")
+  @@map("Publication")
+}
+
+model Favorite {
+  id          Int       @id @default(autoincrement())
+  userId      Int
+  publicationId Int
+  createdAt   DateTime  @default(now()) @db.DateTime(3)
+  user        User      @relation(fields: [userId], references: [id])
+  publication Publication @relation("PublicationFavorites",fields: [publicationId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, publicationId])
+  @@map("favorite")
+}
+
+enum Role {
+  admin 
+  simpleUser 
+}

@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import publicationService from '../../services/publicationService';
-import '../../assets/styles/MyPublications.css'
+import { useNavigate } from 'react-router-dom';
+import '../../assets/styles/MyPublications.css';
 
 const MyPublications: React.FC = () => {
   const [publications, setPublications] = useState<any[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUserPublications = async () => {
@@ -12,8 +14,8 @@ const MyPublications: React.FC = () => {
         const response = await publicationService.getUserPublications();
         setPublications(response);
       } catch (error) {
-        setError('Error al obtener las publicaciones del usuario');
-        console.error('Error al obtener las publicaciones del usuario:', error);
+        setError('Error retrieving users posts');
+        console.error('Error retrieving users posts:', error);
       }
     };
 
@@ -23,7 +25,7 @@ const MyPublications: React.FC = () => {
   const handleToggleDelete = async (publicationId: number) => {
     try {
       await publicationService.togglePublicationDelete(publicationId);
-      // Actualizar las publicaciones después de alternar el estado
+     
       const response = await publicationService.getUserPublications();
       setPublications(response);
     } catch (error) {
@@ -31,6 +33,10 @@ const MyPublications: React.FC = () => {
       console.error('Error al alternar el estado de eliminación de la publicación:', error);
     }
   };
+  const handleEdit = (publicationId: number) => {
+    navigate(`/edit-publication/${publicationId}`);
+  };
+  
 
   return (
     <div className="my-publications-container">
@@ -51,11 +57,17 @@ const MyPublications: React.FC = () => {
             <div className="publication-footer">
               <p className="publication-author">Author: {publication.props.authorName}</p>
               <p className="publication-popularity">Popularity: {publication.props.popularity}</p>
-              <button
-                className="toggle-deleted-button"
+              <button 
+                className="toggle-delete-button" 
                 onClick={() => handleToggleDelete(publication.props.id)}
               >
                 {publication.props.deleted ? 'Recover' : 'Delete'}
+              </button>
+              <button 
+                className="edit-button" 
+                onClick={() => handleEdit(publication.props.id)}
+              >
+                Edit
               </button>
             </div>
           </div>
@@ -66,5 +78,3 @@ const MyPublications: React.FC = () => {
 };
 
 export default MyPublications;
-
-

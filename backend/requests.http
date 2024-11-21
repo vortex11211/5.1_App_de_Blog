@@ -1,19 +1,23 @@
 ### edit PORT number in this line add token after log-in
-@BASE_URL=http://localhost:3300
-@TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsInVzZXJSb2xlIjoic2ltcGxlVXNlciIsImlhdCI6MTczMTUwMzUxMywiZXhwIjoxNzMxNTA3MTEzfQ.CJb6-V8XBTR7n2yrarTW6sndCravLFnOPBEgomlzJhU
+@BASE_URL = http://localhost:3300
+### Edit Your Admin key
+@ADMIN_KEY = "admin_key112"
+### Introduce token after login
+@TOKEN = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJSb2xlIjoiYWRtaW4iLCJpYXQiOjE3MzIxODY3NDUsImV4cCI6MTczMjE5MDM0NX0.MMzV5oxnuJn0s-fxdsQK-phDa2iL0t-v7xNZBw55oa4
 
-### Register Admin
+### Register an Admin
 POST {{BASE_URL}}/api/users/register
 Content-Type: application/json
 
 {
-  "username": "malkey2",
-  "email": "malkey2@example.com",
+  "username": "admin_new2",
+  "email": "admin_new22@example.com",
   "password": "123456",
   "role": "admin",
-  "adminKey":"admin_key112"
+  "adminKey": {{ADMIN_KEY}}
  }
-### Register simpleUser
+
+### Register a simpleUser
 POST {{BASE_URL}}/api/users/register
 Content-Type: application/json
 
@@ -31,7 +35,7 @@ POST {{BASE_URL}}/api/users/login
 Content-Type: application/json
 
 {
-  "email": "tes3@example.com",
+  "email": "tes5@example.com",
   "password": "123456"
 }
 
@@ -45,7 +49,7 @@ GET {{BASE_URL}}/api/users/list
 Authorization: Bearer {{TOKEN}}
 
 ### Ban User
-DELETE {{BASE_URL}}/api/users/ban
+PATCH {{BASE_URL}}/api/users/ban
 Content-Type: application/json
 Authorization: Bearer {{TOKEN}}
 
@@ -60,8 +64,8 @@ Content-Type: application/json
 Authorization: Bearer {{TOKEN}}
 
 {
-  "title": "Simple usuario",
-  "content": "simple publicacion9"
+  "title": "no deberia",
+  "content": "publicar"
 }
 
 ### Edit Publication
@@ -81,7 +85,7 @@ Content-Type: application/json
 Authorization: Bearer {{TOKEN}}
 
 {
-  "publicationId": 15
+  "publicationId": 4
 }
 
 ### Eliminate Publication
@@ -90,7 +94,7 @@ Content-Type: application/json
 Authorization: Bearer {{TOKEN}}
 
 {
-  "publicationId": 8
+  "publicationId": 9
 }
 
 
@@ -100,7 +104,7 @@ Content-Type: application/json
 Authorization: Bearer {{TOKEN}}
 
 {
-    "publicationId": 23
+    "publicationId": 15
 }
 
 
@@ -110,7 +114,7 @@ Content-Type: application/json
 Authorization: Bearer {{TOKEN}}
 
 {
-  "username": "Nuevo Admin",
+  "username": "Nuevo Nombre",
   "oldPassword": "123456",
   "newPassword": "1234567"
 }
@@ -120,5 +124,7 @@ GET {{BASE_URL}}/api/users/posts
 Content-Type: application/json
 Authorization: Bearer {{TOKEN}}
 
-
-
+### obtener Publicacion por id
+GET {{BASE_URL}}/api/publications/12
+Content-Type: application/json
+Authorization: Bearer {{TOKEN}}

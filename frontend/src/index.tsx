@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './styles/app.css'; // Asegúrate de importar tu archivo CSS aquí
+import './styles/app.css'; 
 import App from './App';
 
 const rootElement = document.getElementById('root');
