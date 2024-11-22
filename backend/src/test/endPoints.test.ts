@@ -355,4 +355,45 @@ describe('DELETE /api/publications', () => {
   });
 });
 
+describe('GET /api/publications/:id', () => {
+  const generateToken = (userId: number, userRole: string) => {
+    const payload = { userId, userRole };
+    return jwt.sign(payload, process.env.JWT_SECRET_KEY as string, { expiresIn: '1h' });
+  };
+  test('should get a publication by ID successfully', async () => {
+    const token = generateToken(2, 'simpleUser');
+
+    const response = await request(app)
+      .get('/api/publications/1')
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(response.status).toBe(200);
+    expect(response.body.props).toHaveProperty('id', 1);
+    expect(response.body.props).toHaveProperty('title', 'New Publication');
+    expect(response.body.props).toHaveProperty('content', 'Content of the new publication');
+    expect(response.body.props).toHaveProperty('authorId', 3);
+  });
+
+  test('should return error for invalid ID', async () => {
+    const token = generateToken(2, 'simpleUser');
+
+    const response = await request(app)
+      .get('/api/publications/invalid-id')
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(response.status).toBe(400);
+    expect(response.body.message).toBe('Invalid publication ID');
+  });
+
+  test('should return error if publication is not found', async () => {
+    const token = generateToken(2, 'simpleUser');
+
+    const response = await request(app)
+      .get('/api/publications/999')
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(response.status).toBe(404);
+    expect(response.body.message).toBe('Publication not found');
+  });
+});
 

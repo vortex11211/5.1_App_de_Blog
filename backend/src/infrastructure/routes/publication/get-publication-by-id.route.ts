@@ -1,5 +1,5 @@
 import express from 'express'
-import { getPublicationByIdController } from '../../controllers/publication.controller';
+import { getPublicationByIdController } from '../../controllers/getpublications.controller';
 import { checkAction } from '../../../middlewares/auth.middleware';
 
 const router = express.Router();
@@ -12,9 +12,6 @@ const router = express.Router();
  *     tags: [Publications]
  *     security:
  *       - Token: []
- *     description: |
- *       This endpoint retrieves a publication by its ID.
- *       The `userId` is extracted from the JWT token, so it is not required as a parameter in the request body.
  *     parameters:
  *       - in: path
  *         name: id
@@ -68,6 +65,9 @@ const router = express.Router();
  *         description: Publication not found
  *       500:
  *         description: Internal Server Error
+ *     description: |
+ *       This endpoint retrieves a publication by its ID.
+ * 
  */
 
 router.get("/:id", checkAction('getpublication'), getPublicationByIdController);

@@ -1,10 +1,14 @@
-import { RegisterUser } from '../../usecases/users/register-user/register-user.usecase';
 import { Request, Response } from 'express';
 import { UserRepositoryPrisma } from '../repositories/user.repository.prisma';
 
 import { RegisterUserDTO } from '../../usecases/users/register-user/register-user.dto';
-import { ListUsers } from '../../usecases/users/listUsers/list-users.usecase';
+import { RegisterUser } from '../../usecases/users/register-user/register-user.usecase';
+
+import { LoginUserDTO } from '../../usecases/users/login-user/login-user.dto';
+import { LoginUser } from '../../usecases/users/login-user/login-user.usecase';
+
 import { ListUsersDTO } from '../../usecases/users/listUsers/list-users.dto';
+import { ListUsers } from '../../usecases/users/listUsers/list-users.usecase';
 
 import { BanUserDTO } from '../../usecases/users/banUser/ban-user.dto';
 import { BanUser } from '../../usecases/users/banUser/ban-user.usecase';
@@ -32,7 +36,18 @@ export const registerUserController = async (req: Request, res: Response) => {
     }
 };
 
+const loginUserUseCase = new LoginUser(userRepository);
 
+export const loginUserController = async (req: Request, res: Response) => {
+    try {
+        const dto: LoginUserDTO = req.body;
+        const token = await loginUserUseCase.execute(dto);
+        res.status(200).json({ token });
+    } catch (error) {
+        const typedError = error as Error;
+        res.status(400).json({ message: typedError.message });
+    }
+};
 
 
 const listUsersUseCase = new ListUsers(userRepository);

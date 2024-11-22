@@ -13,8 +13,7 @@ import { SoftDeletePublication } from "../../usecases/publications/softdeleted-p
 import { DeletePublicationDTO } from "../../usecases/publications/delete-publication/delete-publication.dto";
 import { DeletePublication } from "../../usecases/publications/delete-publication/delete-publication.usecase";
 
-import { GetPublicationByIdDTO } from "../../usecases/publications/get-publication-by-id/get-publication-by-id.dto";
-import { GetPublicationByIdUseCase } from "../../usecases/publications/get-publication-by-id/get-publication-by-id.usescase";
+
 
 const publicationRepository = new PublicationRepositoryPrisma();
 
@@ -97,32 +96,3 @@ export const deletePublicationController = async (req: Request, res: Response) =
     }
   }
 };
-
-
-export const getPublicationByIdController = async (req: Request, res: Response): Promise<void> => {
-  try {
-    const { id } = req.params;
-    const publicationId = parseInt(id, 10);
-    console.log('publicationId:', publicationId);
-
-    if (isNaN(publicationId)) {
-      res.status(400).json({ message: 'Invalid publication ID' });
-      return;
-    }
-
-    const dto: GetPublicationByIdDTO = { publicationId };
-    const getPublicationByIdUseCase = new GetPublicationByIdUseCase(publicationRepository);
-    const publication = await getPublicationByIdUseCase.execute(dto);
-
-    if (publication) {
-      res.status(200).json(publication);
-    } else {
-      res.status(404).json({ message: 'Publication not found' });
-    }
-  } catch (error) {
-    const typedError = error as Error;
-    res.status(500).json({ message: 'Error al obtener la publicación', error: typedError.message });
-  }
-};
-
-

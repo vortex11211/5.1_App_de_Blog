@@ -7,6 +7,9 @@ import { FavoriteRepositoryPrisma } from '../repositories/favorite.repository.pr
 import { GetUserPublicationsDTO } from '../../usecases/users/getUserPublications/get-user-publications.dto';
 import { GetUserPublications } from '../../usecases/users/getUserPublications/get-user-publications.usecase';
 
+import { GetPublicationByIdDTO } from '../../usecases/publications/get-publication-by-id/get-publication-by-id.dto';
+import { GetPublicationByIdUseCase } from '../../usecases/publications/get-publication-by-id/get-publication-by-id.usescase';
+
 
 const publicationRepository = new PublicationRepositoryPrisma();
 const userRepository=new UserRepositoryPrisma();
@@ -54,6 +57,31 @@ export const getUserPublicationsController = async (req: Request, res: Response)
 };
 
 
-
+export const getPublicationByIdController = async (req: Request, res: Response): Promise<void> => {
+    try {
+      const { id } = req.params;
+      const publicationId = parseInt(id, 10);
+      console.log('publicationId:', publicationId);
+  
+      if (isNaN(publicationId)) {
+        res.status(400).json({ message: 'Invalid publication ID' });
+        return;
+      }
+  
+      const dto: GetPublicationByIdDTO = { publicationId };
+      const getPublicationByIdUseCase = new GetPublicationByIdUseCase(publicationRepository);
+      const publication = await getPublicationByIdUseCase.execute(dto);
+  
+      if (publication) {
+        res.status(200).json(publication);
+      } else {
+        res.status(404).json({ message: 'Publication not found' });
+      }
+    } catch (error) {
+      const typedError = error as Error;
+      res.status(500).json({ message: 'Error al obtener la publicación', error: typedError.message });
+    }
+  };
+  
 
 

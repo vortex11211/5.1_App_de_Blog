@@ -30,6 +30,7 @@ const router = express.Router();
  *               summary: Suscessfully recover a sofdelete publication
  *               value:
  *                 publicationId: 23
+ *
  *     responses:
  *       200:
  *         description: Publication deleted/restored successfully
@@ -41,6 +42,8 @@ const router = express.Router();
  *         description: Publication not found
  *       500:
  *         description: Internal Server Error
+ *     description: |
+ *       To mark a publication as deleted, you must be the author of the post or an administrator. If you call the route again, you can recover the post.
  */
 
 router.delete('/publication',checkAction('softDelete','softDeleteOwn') ,softDeletePublicationController);
