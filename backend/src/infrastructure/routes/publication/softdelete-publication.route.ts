@@ -12,21 +12,32 @@ const router = express.Router();
  *     tags: [Publications]
  *     security:
  *       - Token: []
- *     parameters:
- *       - in: query
- *         name: publicationId
- *         required: true
- *         schema:
- *           type: integer
- *           description: ID of the publication to be soft deleted
+*     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               publicationId:
+ *                 type: integer
+ *           examples:
+ *             Sofdelete:
+ *               summary: Suscessfully sofdelete publication
+ *               value:
+ *                 publicationId: 23
+ *             Recover:
+ *               summary: Suscessfully recover a sofdelete publication
+ *               value:
+ *                 publicationId: 23
  *     responses:
  *       200:
- *         description: Publication soft deleted successfully
+ *         description: Publication deleted/restored successfully
  *       401:
  *         description: Unauthorized
  *       403:
- *         description: Forbidden
- *       404:
+ *         description: Forbidden You do not own this publication
+ *       400:
  *         description: Publication not found
  *       500:
  *         description: Internal Server Error

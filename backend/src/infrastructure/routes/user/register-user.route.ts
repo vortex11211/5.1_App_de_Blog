@@ -52,6 +52,9 @@ const router = express.Router();
  *         description: Bad request
  *       409:
  *         description: Confict - Username or email already exists
+ *     description: |
+ *       This endpoint allows you to register a simpleUser or an admin, provided the correct adminKey is entered.. 
+ *       The user id is autoincrement.
  */
 
 router.post('/register', registerUserController);

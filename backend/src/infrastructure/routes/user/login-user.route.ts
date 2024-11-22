@@ -51,6 +51,8 @@ const router = express.Router();
  *                 message:
  *                   type: string
  *                   example: "Invalid email or password"
+ *     description: |
+ *       If the user has been banned, he will not be able to log in.
  */
 
 router.post('/login', loginUserController);

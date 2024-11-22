@@ -18,8 +18,8 @@ export class SoftDeletePublication implements SoftDeletePublicationUseCase {
         if (!publication) {
             throw new Error("Publication not found");
         }
-        publication.softDelete(); // Este método debe alternar el estado de eliminado
-        await this.publicationGateway.softDelete(publication); // Guarda el estado actualizado de la publicación
+        publication.softDelete(); 
+        await this.publicationGateway.softDelete(publication); 
         return publication;
     }
 }

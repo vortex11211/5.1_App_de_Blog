@@ -24,6 +24,14 @@ beforeAll(async () => {
       banned: true
     }
   });
+  await prisma.user.create({
+    data: {
+      username: 'user2',
+      email: 'testing@example.com',
+      password: hashedPassword,
+      role: 'simpleUser'
+    }
+  });
 });
 
 afterAll(async () => {
@@ -204,7 +212,7 @@ describe('POST /api/publications/publication', () => {
     expect(response.body.publication).toHaveProperty('props');
     expect(response.body.publication.props).toHaveProperty('title', 'New Publication');
     expect(response.body.publication.props).toHaveProperty('content', 'Content of the new publication');
-    expect(response.body.publication.props).toHaveProperty('authorId', 2);
+    expect(response.body.publication.props).toHaveProperty('authorId', 3);
   });
 
   test('should return error for missing title', async () => {
@@ -247,6 +255,103 @@ describe('POST /api/publications/publication', () => {
 
     expect(response.status).toBe(400);
     expect(response.body.message).toBe('Content is required');
+  });
+});
+
+//SOFT DELETED
+
+describe('DELETE /api/publications', () => {
+
+  test('should soft delete a publication successfully', async () => {
+    const loginResponse = await request(app)
+    .post('/api/users/login')
+    .send({
+      email: 'testuser@example.com',
+      password: 'password123'
+    });
+  const token = loginResponse.body.token;
+
+    const response = await request(app)
+      .delete('/api/publications/publication')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        publicationId: 1,
+      });
+
+    expect(response.status).toBe(200);
+    expect(response.body.message).toBe('Publication deleted successfully');
+    expect(response.body.publication).toHaveProperty('props');
+    expect(response.body.publication.props).toHaveProperty('deleted', true);
+  });
+
+  test('should restored a soft delete a publication successfully', async () => {
+    const loginResponse = await request(app)
+    .post('/api/users/login')
+    .send({
+      email: 'testuser@example.com',
+      password: 'password123'
+    });
+  const token = loginResponse.body.token;
+
+    const response = await request(app)
+      .delete('/api/publications/publication')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        publicationId: 1,
+      });
+
+    expect(response.status).toBe(200);
+    expect(response.body.message).toBe('Publication restored successfully');
+    expect(response.body.publication).toHaveProperty('props');
+    expect(response.body.publication.props).toHaveProperty('deleted', false);
+  });
+
+  test('should return error if publication is not found', async () => {
+    const loginResponse = await request(app)
+    .post('/api/users/login')
+    .send({
+      email: 'testuser@example.com',
+      password: 'password123'
+    });
+  const token = loginResponse.body.token;
+
+    const response = await request(app)
+      .delete('/api/publications/publication')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        publicationId: 999,
+      });
+
+    expect(response.status).toBe(400);
+    expect(response.body.message).toBe('Publication not found');
+  });
+
+  test('should return error if user does not have permission', async () => {
+    const generateToken = (userId: number, userRole: string) => {
+      const payload = { userId, userRole };
+      return jwt.sign(payload, process.env.JWT_SECRET_KEY as string, { expiresIn: '1h' });
+    };
+
+    const token = generateToken(2, 'simpleUser'); 
+    console.log(token)
+    await prisma.publication.create({
+      data: {
+        title: 'Second Publication',
+        content: 'Content of the test publication',
+        authorId: 3,
+        deleted: false,
+      },
+    });
+
+    const response = await request(app)
+      .delete('/api/publications/publication')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        publicationId: 2,
+      });
+
+    expect(response.status).toBe(403);
+    expect(response.body.message).toBe('You do not own this publication');
   });
 });
 
