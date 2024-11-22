@@ -3,7 +3,7 @@
 ### Edit Your Admin key
 @ADMIN_KEY = "admin_key112"
 ### Introduce token after login
-@TOKEN = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJSb2xlIjoiYWRtaW4iLCJpYXQiOjE3MzIxODY3NDUsImV4cCI6MTczMjE5MDM0NX0.MMzV5oxnuJn0s-fxdsQK-phDa2iL0t-v7xNZBw55oa4
+@TOKEN = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsInVzZXJSb2xlIjoic2ltcGxlVXNlciIsImlhdCI6MTczMjI5Mjk5MiwiZXhwIjoxNzMyMjk2NTkyfQ._NWQ1fMwtR_Ve7qVD8H7CV7SggLsFYQpZ2Vh5clLgiE
 
 ### Register an Admin
 POST {{BASE_URL}}/api/users/register
@@ -35,8 +35,8 @@ POST {{BASE_URL}}/api/users/login
 Content-Type: application/json
 
 {
-  "email": "tes5@example.com",
-  "password": "123456"
+  "email": "tes4@example.com",
+  "password": "1234567"
 }
 
 ### Obtener todas las publicaciones 
@@ -64,8 +64,8 @@ Content-Type: application/json
 Authorization: Bearer {{TOKEN}}
 
 {
-  "title": "no deberia",
-  "content": "publicar"
+  "title": "Titulo bonito",
+  "content": null
 }
 
 ### Edit Publication

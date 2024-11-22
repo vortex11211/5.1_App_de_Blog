@@ -10,6 +10,8 @@ const router = express.Router();
  *   delete:
  *     summary: Soft delete a publication
  *     tags: [Publications]
+ *     security:
+ *       - Token: []
  *     parameters:
  *       - in: query
  *         name: publicationId

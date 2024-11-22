@@ -17,10 +17,19 @@ const router = express.Router();
  *             properties:
  *               email:
  *                 type: string
- *                 example: "malkey2@example.com"
  *               password:
  *                 type: string
- *                 example: "123456"
+ *           examples:
+ *             simpleUser:
+ *               summary: Login as a simple user
+ *               value:
+ *                 email: "simpleswagger@example.com"
+ *                 password: "123456"
+ *             admin:
+ *               summary: Login as an admin
+ *               value:
+ *                 email: "adminswagger@example.com"
+ *                 password: "123456"
  *     responses:
  *       200:
  *         description: User logged in successfully

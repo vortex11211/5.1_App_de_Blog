@@ -21,42 +21,48 @@ const publicationRepository = new PublicationRepositoryPrisma();
 const postPublicationUseCase = new PostPublication(publicationRepository);
 
 export const postPublicationController = async (req: Request, res: Response) => {
-    try {
-        const{title, content}= req.body;
-        const authorId=res.locals.jwtPayload.userId;
-        const dto: PostPublicationDTO = {title,content,authorId}
-        const createdPublication = await postPublicationUseCase.execute(dto);
-        res.status(201).json({ message: 'Post created successfully', publication: createdPublication })
-    } catch (error) {
-        const typedError = error as Error;
-        res.status(400).json({ message: typedError.message })
+  try {
+    const { title, content } = req.body;
+    const authorId = res.locals.jwtPayload.userId;
+    if (!title) {res.status(400).json({ message: 'Title is required' });
+      return;
     }
-}
+    if (!content) {res.status(400).json({ message: 'Content is required' });
+      return; 
+    }
+    const dto: PostPublicationDTO = { title, content, authorId }
+    const createdPublication = await postPublicationUseCase.execute(dto);
+    res.status(201).json({ message: 'Post created successfully', publication: createdPublication })
+  } catch (error) {
+    const typedError = error as Error;
+    res.status(400).json({ message: typedError.message })
+  }
+};
 
 const editPublicationUseCase = new EditPublication(publicationRepository);
 
 export const editPublicationController = async (req: Request, res: Response) => {
-    try {
-        const dto: EditPublicationDTO = req.body;
-        const updatedPublication = await editPublicationUseCase.execute(dto);
-        res.status(200).json({ message: 'Publication updated successfully', publication: updatedPublication });
-    } catch (error) {
-        const typedError = error as Error;
-        res.status(400).json({ message: typedError.message });
-    }
+  try {
+    const dto: EditPublicationDTO = req.body;
+    const updatedPublication = await editPublicationUseCase.execute(dto);
+    res.status(200).json({ message: 'Publication updated successfully', publication: updatedPublication });
+  } catch (error) {
+    const typedError = error as Error;
+    res.status(400).json({ message: typedError.message });
+  }
 };
 
 const softDeletePublicationUseCase = new SoftDeletePublication(publicationRepository);
 
 export const softDeletePublicationController = async (req: Request, res: Response) => {
-    try {
-        const dto: SoftDeletePublicationDTO = req.body;
-        const softdeletePublication = await softDeletePublicationUseCase.execute(dto);
-        res.status(200).json({ message: `Publication ${softdeletePublication.deleted ? 'deleted' :'restored'} successfully`, publication: softdeletePublication })
-    } catch (error) {
-        const typedError = error as Error;
-        res.status(400).json({ message: typedError.message })
-    }
+  try {
+    const dto: SoftDeletePublicationDTO = req.body;
+    const softdeletePublication = await softDeletePublicationUseCase.execute(dto);
+    res.status(200).json({ message: `Publication ${softdeletePublication.deleted ? 'deleted' : 'restored'} successfully`, publication: softdeletePublication })
+  } catch (error) {
+    const typedError = error as Error;
+    res.status(400).json({ message: typedError.message })
+  }
 
 };
 
@@ -75,48 +81,48 @@ export const deletePublicationController = async (req: Request, res: Response) =
   } catch (error) {
     const typedError = error as Error;
     if (typedError.message === 'Publication not found') {
-        if (!res.headersSent) {
-          res.status(404).json({ message: 'Publication not found' });
-        }
-      } else if (typedError.message === 'You do not have permission to delete this publication') {
-        if (!res.headersSent) {
-          res.status(403).json({ message: 'You do not have permission to delete this publication' });
-        }
+      if (!res.headersSent) {
+        res.status(404).json({ message: 'Publication not found' });
+      }
+    } else if (typedError.message === 'You do not have permission to delete this publication') {
+      if (!res.headersSent) {
+        res.status(403).json({ message: 'You do not have permission to delete this publication' });
+      }
+    } else {
+      if (!res.headersSent) {
+        res.status(400).json({ message: typedError.message });
       } else {
-        if (!res.headersSent) {
-          res.status(400).json({ message: typedError.message });
-        } else {
-          res.status(500).json({ message: 'Internal Server Error' });
-        }
+        res.status(500).json({ message: 'Internal Server Error' });
       }
     }
+  }
 };
 
 
 export const getPublicationByIdController = async (req: Request, res: Response): Promise<void> => {
-    try {
-        const { id } = req.params;
-        const publicationId = parseInt(id, 10);
-        console.log('publicationId:', publicationId);
+  try {
+    const { id } = req.params;
+    const publicationId = parseInt(id, 10);
+    console.log('publicationId:', publicationId);
 
-        if (isNaN(publicationId)) {
-            res.status(400).json({ message: 'Invalid publication ID' });
-            return;
-        }
-        
-        const dto: GetPublicationByIdDTO = { publicationId };
-        const getPublicationByIdUseCase = new GetPublicationByIdUseCase(publicationRepository);
-        const publication = await getPublicationByIdUseCase.execute(dto);
-        
-        if (publication) {
-            res.status(200).json(publication);
-        } else {
-            res.status(404).json({ message: 'Publication not found' });
-        }
-    } catch (error) {
-        const typedError = error as Error;
-        res.status(500).json({ message: 'Error al obtener la publicación', error: typedError.message });
+    if (isNaN(publicationId)) {
+      res.status(400).json({ message: 'Invalid publication ID' });
+      return;
     }
+
+    const dto: GetPublicationByIdDTO = { publicationId };
+    const getPublicationByIdUseCase = new GetPublicationByIdUseCase(publicationRepository);
+    const publication = await getPublicationByIdUseCase.execute(dto);
+
+    if (publication) {
+      res.status(200).json(publication);
+    } else {
+      res.status(404).json({ message: 'Publication not found' });
+    }
+  } catch (error) {
+    const typedError = error as Error;
+    res.status(500).json({ message: 'Error al obtener la publicación', error: typedError.message });
+  }
 };
 
 

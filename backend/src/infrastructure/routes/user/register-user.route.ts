@@ -33,15 +33,15 @@ const router = express.Router();
  *             simpleUser:
  *               summary: Register as a simple user
  *               value:
- *                 username: "malkey2"
- *                 email: "malkey2@example.com"
+ *                 username: "SgwaggerSimple"
+ *                 email: "simpleswagger@example.com"
  *                 password: "123456"
  *                 role: "simpleUser"
  *             admin:
  *               summary: Register as an admin
  *               value:
- *                 username: "malkey2"
- *                 email: "malkey2@example.com"
+ *                 username: "SwaggerAdmin"
+ *                 email: "adminswagger@example.com"
  *                 password: "123456"
  *                 role: "admin"
  *                 adminKey: "admin_key112"

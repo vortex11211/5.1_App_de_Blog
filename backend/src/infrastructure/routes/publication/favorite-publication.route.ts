@@ -11,7 +11,7 @@ const router = express.Router();
  *     summary: Like or unlike a publication
  *     tags: [Publications]
  *     security:
- *       - BearerAuth: []
+ *       - Token: []
  *     description: |
  *       This endpoint allows a user to like or unlike a publication. 
  *       The `userId` is extracted from the JWT token, so it is not required as a parameter in the request body.
