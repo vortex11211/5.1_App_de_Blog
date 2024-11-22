@@ -64,16 +64,17 @@ const router= express.Router();
  *               properties:
  *                 message:
  *                   type: string
- *                   example: "Validation error message"
+ *                   example: "Publication not found"
  *       401:
  *         description: Unauthorized
  *       403:
- *         description: Forbidden
+ *         description: Forbidden | You do not own this publication
  *       500:
  *         description: Internal Server Error
  *     description: |
  *       This endpoint edits an existing publication. 
  *       The `userId` of the author is extracted from the JWT token, so it is not required as a parameter in the request body.
+ *       Only the author of the post, or an admin, can edit it.
  */
 
 router.put('/publication',checkAction('edit','editOwn'),editPublicationController);

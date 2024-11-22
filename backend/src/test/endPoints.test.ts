@@ -12,6 +12,10 @@ dotenv.config({ path: '../../.env' });
 const app = new App().app;
 const server = app.listen(3000);
 
+const generateToken = (userId: number, userRole: string) => {
+  const payload = { userId, userRole };
+  return jwt.sign(payload, process.env.JWT_SECRET_KEY as string, { expiresIn: '1h' });
+};
 beforeAll(async () => {
 
   const hashedPassword = await bcrypt.hash('password123', 10);
@@ -327,10 +331,10 @@ describe('DELETE /api/publications', () => {
   });
 
   test('should return error if user does not have permission', async () => {
-    const generateToken = (userId: number, userRole: string) => {
+   /* const generateToken = (userId: number, userRole: string) => {
       const payload = { userId, userRole };
       return jwt.sign(payload, process.env.JWT_SECRET_KEY as string, { expiresIn: '1h' });
-    };
+    };*/
 
     const token = generateToken(2, 'simpleUser'); 
     console.log(token)
@@ -356,10 +360,10 @@ describe('DELETE /api/publications', () => {
 });
 
 describe('GET /api/publications/:id', () => {
-  const generateToken = (userId: number, userRole: string) => {
+ /* const generateToken = (userId: number, userRole: string) => {
     const payload = { userId, userRole };
     return jwt.sign(payload, process.env.JWT_SECRET_KEY as string, { expiresIn: '1h' });
-  };
+  };*/
   test('should get a publication by ID successfully', async () => {
     const token = generateToken(2, 'simpleUser');
 
@@ -397,3 +401,56 @@ describe('GET /api/publications/:id', () => {
   });
 });
 
+// EDIT PUBLICATION
+
+describe('PUT /api/publications', () => {
+  test('should update a publication successfully', async () => {
+    const token = generateToken(3, 'simpleUser');
+
+    const response = await request(app)
+      .put('/api/publications/publication')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        publicationId: 1,
+        title: 'Updated Test Publication',
+        content: 'Updated content of the test publication',
+      });
+
+    expect(response.status).toBe(200);
+    expect(response.body.publication.props).toHaveProperty('title', 'Updated Test Publication');
+    expect(response.body.publication.props).toHaveProperty('content', 'Updated content of the test publication');
+    expect(response.body.message).toBe('Publication updated successfully');
+  });
+
+  test('should return error if publication is not found', async () => {
+    const token = generateToken(3, 'simpleUser');
+
+    const response = await request(app)
+      .put('/api/publications/publication')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        publicationId: 999,
+        title: 'Updated Test Publication',
+        content: 'Updated content of the test publication',
+      });
+
+    expect(response.status).toBe(400);
+    expect(response.body.message).toBe('Publication not found');
+  });
+
+  test('should return error if user does not have permission', async () => {
+    const token = generateToken(2, 'simpleUser');
+
+    const response = await request(app)
+      .put('/api/publications/publication')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        publicationId: 1,
+        title: 'Updated Test Publication',
+        content: 'Updated content of the test publication',
+      });
+
+    expect(response.status).toBe(403);
+    expect(response.body.message).toBe('You do not own this publication');
+  });
+});
