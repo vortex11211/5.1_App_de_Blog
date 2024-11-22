@@ -1,5 +1,5 @@
 import express from 'express';
-import { loginUserController } from '../../controllers/login.controller'
+import { loginUserController } from '../../controllers/user.controller'
 
 const router = express.Router();
 /**
@@ -17,10 +17,19 @@ const router = express.Router();
  *             properties:
  *               email:
  *                 type: string
- *                 example: "malkey2@example.com"
  *               password:
  *                 type: string
- *                 example: "123456"
+ *           examples:
+ *             simpleUser:
+ *               summary: Login as a simple user
+ *               value:
+ *                 email: "simpleswagger@example.com"
+ *                 password: "123456"
+ *             admin:
+ *               summary: Login as an admin
+ *               value:
+ *                 email: "adminswagger@example.com"
+ *                 password: "123456"
  *     responses:
  *       200:
  *         description: User logged in successfully
@@ -42,6 +51,8 @@ const router = express.Router();
  *                 message:
  *                   type: string
  *                   example: "Invalid email or password"
+ *     description: |
+ *       If the user has been banned, he will not be able to log in.
  */
 
 router.post('/login', loginUserController);

@@ -11,7 +11,7 @@ import { checkAction } from '../../../middlewares/auth.middleware';
  *     summary: Create a new publication
  *     tags: [Publications]
  *     security:
- *       - BearerAuth: []
+ *       - Token: []
  *     requestBody:
  *       required: true
  *       content:
@@ -21,10 +21,25 @@ import { checkAction } from '../../../middlewares/auth.middleware';
  *             properties:
  *               title:
  *                 type: string
- *                 example: "My First Post"
  *               content:
  *                 type: string
  *                 example: "This is the content of my first post."
+ *           examples:
+ *             New Post:
+ *               summary: Suscessfully publication
+ *               value:
+ *                 title: "My First Publication"
+ *                 content: "My first Content"
+ *             Error Title:
+ *               summary: Missing title
+ *               value:
+ *                 title: ""
+ *                 content: "Publication without tittle"
+  *             Error Content:
+ *               summary: Missing content
+ *               value:
+ *                 title: "Publication title"
+ *                 content: ""
  *     responses:
  *       201:
  *         description: Post created successfully
@@ -62,7 +77,7 @@ import { checkAction } from '../../../middlewares/auth.middleware';
  *               properties:
  *                 message:
  *                   type: string
- *                   example: "Validation error message"
+ *                   example: "Validation error message (e.g., Title is required or Content is required)"
  *       401:
  *         description: Unauthorized
  *       403:

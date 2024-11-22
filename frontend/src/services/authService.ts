@@ -20,9 +20,25 @@ const login = async (email: string, password: string) => {
     }
 };
 
-const register = async (username: string, email: string, password: string, role:string, adminKey?:string) => {
-    const response = await axios.post(`${API_URL}/users/register`, { username, email, password, role, adminKey });
-    return response.data;
+const register = async (username: string, email: string, password: string, role: string, adminKey?: string) => {
+    try {
+        const response = await axios.post(`${API_URL}/users/register`, { username, email, password, role, adminKey });
+        return response.data;
+    } catch (error) {
+        if (axios.isAxiosError(error) && error.response) {
+            if (error.response.status === 409) {
+                if (error.response.data.message.includes('email')) {
+                    throw new Error('User with this email already exists.');
+                }
+                if (error.response.data.message.includes('username')) {
+                    throw new Error('User with this username already exists.');
+                }
+            } else {
+                throw new Error('An error occurred during registration.');
+            }
+        }
+        throw error;
+    }
 };
 
 const updateProfile = async (username: string, oldPassword: string, newPassword: string) => {

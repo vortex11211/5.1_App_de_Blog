@@ -33,15 +33,15 @@ const router = express.Router();
  *             simpleUser:
  *               summary: Register as a simple user
  *               value:
- *                 username: "malkey2"
- *                 email: "malkey2@example.com"
+ *                 username: "SgwaggerSimple"
+ *                 email: "simpleswagger@example.com"
  *                 password: "123456"
  *                 role: "simpleUser"
  *             admin:
  *               summary: Register as an admin
  *               value:
- *                 username: "malkey2"
- *                 email: "malkey2@example.com"
+ *                 username: "SwaggerAdmin"
+ *                 email: "adminswagger@example.com"
  *                 password: "123456"
  *                 role: "admin"
  *                 adminKey: "admin_key112"
@@ -50,6 +50,11 @@ const router = express.Router();
  *         description: User registered successfully
  *       400:
  *         description: Bad request
+ *       409:
+ *         description: Confict - Username or email already exists
+ *     description: |
+ *       This endpoint allows you to register a simpleUser or an admin, provided the correct adminKey is entered.. 
+ *       The user id is autoincrement.
  */
 
 router.post('/register', registerUserController);
