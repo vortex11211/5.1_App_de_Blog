@@ -31,7 +31,7 @@ export const getAllPublicationsController = async (req: Request, res: Response) 
         } else if (typedError.message === 'No publications found') {
             res.status(404).json({ message: 'No publications found' });
         } else {
-            console.error('Error fetching publications:', typedError); // Optional logging
+            console.error('Error fetching publications:', typedError); 
             res.status(500).json({ message: 'Error fetching publications', error: typedError.message });
         }
     }
@@ -79,7 +79,7 @@ export const getPublicationByIdController = async (req: Request, res: Response):
       }
     } catch (error) {
       const typedError = error as Error;
-      res.status(500).json({ message: 'Error al obtener la publicación', error: typedError.message });
+      res.status(500).json({ message: 'Error getting post', error: typedError.message });
     }
   };
   

@@ -8,17 +8,17 @@ const router = express.Router();
  * @swagger
  * /api/publications/posts:
  *   get:
- *     summary: Get all publications
+ *     summary: Retrieve all publications
  *     tags: [Publications]
  *     security:
  *       - Token: []
  *     description: |
- *       This endpoint retrieves all publications. 
- *       The `userId` is extracted from the JWT token, so it is not required as a parameter.
- *       A `simpleUser` only gets active posts, an `admin` user gets all posts, including soft deleted ones
+ *       This end point retrieves all posts sorted by creation date in descending order. 
+ *       A `simpleUser` will only receive active posts, while an `admin` will receive all posts, including those marked as `deleted: true`. 
+ *       The `userId` and `role` are extracted from the JWT token, so it are not required as a parameters.
  *     responses:
  *       200:
- *         description: Lista de publicaciones
+ *         description: A list of publications
  *         content:
  *           application/json:
  *             schema:
@@ -28,40 +28,62 @@ const router = express.Router();
  *                 properties:
  *                   id:
  *                     type: integer
- *                     description: ID de la publicación
+ *                     description: ID of the publication
  *                   title:
  *                     type: string
- *                     description: Título de la publicación
+ *                     description: Title of the publication
  *                   content:
  *                     type: string
- *                     description: Contenido de la publicación
+ *                     description: Content of the publication
  *                   authorId:
  *                     type: integer
- *                     description: ID del autor
+ *                     description: ID of the author
  *                   authorName:
  *                     type: string
- *                     description: Nombre del autor
+ *                     description: Name of the author
  *                   createdAt:
  *                     type: string
  *                     format: date-time
- *                     description: Fecha de creación
+ *                     description: Creation date
  *                   updatedAt:
  *                     type: string
  *                     format: date-time
- *                     description: Fecha de última actualización
+ *                     description: Last update date
  *                   deleted:
  *                     type: boolean
- *                     description: Indica si la publicación está eliminada
+ *                     description: Indicates if the publication is deleted
  *                   popularity:
  *                     type: string
- *                     description: Popularidad de la publicación
+ *                     description: Popularity of the publication
+ *               example:
+ *                 id: 1
+ *                 title: "Sample Post"
+ *                 content: "This is the content of the sample post."
+ *                 authorId: 1
+ *                 authorName: "John Doe"
+ *                 createdAt: "2024-01-01T00:00:00.000Z"
+ *                 updatedAt: "2024-01-01T00:00:00.000Z"
+ *                 deleted: false
+ *                 popularity: "85.67"
  *       401:
  *         description: Unauthorized
  *       403:
  *         description: Forbidden
+ *       404:
+ *         description: No publications found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "No publications found"
  *       500:
  *         description: Internal Server Error
  */
+
+
 router.get('/posts', checkAction('view'), getAllPublicationsController);
 
 export default router;

@@ -264,7 +264,7 @@ describe('POST /api/publications/publication', () => {
 
 //SOFT DELETED
 
-describe('DELETE /api/publications', () => {
+describe('DELETE /api/publications/publication', () => {
 
   test('should soft delete a publication successfully', async () => {
     const loginResponse = await request(app)
@@ -331,11 +331,7 @@ describe('DELETE /api/publications', () => {
   });
 
   test('should return error if user does not have permission', async () => {
-   /* const generateToken = (userId: number, userRole: string) => {
-      const payload = { userId, userRole };
-      return jwt.sign(payload, process.env.JWT_SECRET_KEY as string, { expiresIn: '1h' });
-    };*/
-
+   
     const token = generateToken(2, 'simpleUser'); 
     console.log(token)
     await prisma.publication.create({
@@ -360,10 +356,6 @@ describe('DELETE /api/publications', () => {
 });
 
 describe('GET /api/publications/:id', () => {
- /* const generateToken = (userId: number, userRole: string) => {
-    const payload = { userId, userRole };
-    return jwt.sign(payload, process.env.JWT_SECRET_KEY as string, { expiresIn: '1h' });
-  };*/
   test('should get a publication by ID successfully', async () => {
     const token = generateToken(2, 'simpleUser');
 
@@ -403,7 +395,7 @@ describe('GET /api/publications/:id', () => {
 
 // EDIT PUBLICATION
 
-describe('PUT /api/publications', () => {
+describe('PUT /api/publications/publication', () => {
   test('should update a publication successfully', async () => {
     const token = generateToken(3, 'simpleUser');
 
@@ -454,3 +446,70 @@ describe('PUT /api/publications', () => {
     expect(response.body.message).toBe('You do not own this publication');
   });
 });
+
+//GET ALL PUBLICATIONS
+describe('GET /api/publications/posts', () => {
+  test('should get all publications successfully ordered by creation date', async () => {
+    const token = generateToken(2, 'simpleUser');
+
+    const response = await request(app)
+      .get('/api/publications/posts')
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveLength(2);
+    expect(response.body[0].props).toHaveProperty('title', 'Second Publication');
+    expect(response.body[0].props).toHaveProperty('content', 'Content of the test publication');
+    expect(response.body[0].props).toHaveProperty('authorId', 3);
+    expect(response.body[1].props).toHaveProperty('title', 'Updated Test Publication');
+    expect(response.body[1].props).toHaveProperty('content', 'Updated content of the test publication');
+    expect(response.body[1].props).toHaveProperty('authorId', 3);
+  });
+
+  test('should return error if no publications found', async () => {
+    await prisma.publication.deleteMany(); // Asegúrate de que no haya publicaciones
+
+    const token = generateToken(2, 'simpleUser');
+
+    const response = await request(app)
+      .get('/api/publications/posts')
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(response.status).toBe(404);
+    expect(response.body.message).toBe('No publications found');
+  });
+
+  test('should return all publications including deleted for admin', async () => {
+    await prisma.publication.create({
+      data: {
+        id: 1,
+        title: 'Deleted Publication',
+        content: 'Content of the deleted publication',
+        authorId: 2,
+        deleted: true,
+      },
+    });
+    await prisma.publication.create({
+      data: {
+        id: 2,
+        title: 'test Publication',
+        content: 'Content of the test publication',
+        authorId: 3,
+        deleted: false,
+      },
+    });
+
+    const token = generateToken(4, 'admin');
+
+    const response = await request(app)
+      .get('/api/publications/posts')
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveLength(2);
+    expect(response.body[0].props).toHaveProperty('title', 'test Publication');
+    expect(response.body[1].props).toHaveProperty('title', 'Deleted Publication');
+  });
+});
+
+

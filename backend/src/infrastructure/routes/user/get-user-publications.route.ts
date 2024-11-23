@@ -6,10 +6,10 @@ const router = express.Router();
 
 /**
  * @swagger
- * /api/publications/posts:
+ * /api/users/posts:
  *   get:
  *     summary: Get all user's publications
- *     tags: [Publications]
+ *     tags: [Users]
  *     security:
  *       - Token: []
  *     description: |
