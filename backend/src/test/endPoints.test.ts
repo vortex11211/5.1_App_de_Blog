@@ -709,6 +709,34 @@ test('should return error if user does not have permission', async () => {
     expect(response.status).toBe(404);
     expect(response.body.message).toBe('Publication not found');
   });
-
-  
 });
+
+//LIST USERS
+describe('GET /api/users/list', () => {
+  test('should list users successfully as admin', async () => {
+    const token = generateToken(4, 'admin');
+
+    const response = await request(app)
+      .get('/api/users/list')
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(response.status).toBe(200);
+    expect(response.body.users).toHaveLength(4);
+    expect(response.body.users[0].props).toHaveProperty('username', 'banneduser');
+    expect(response.body.users[1].props).toHaveProperty('username', 'user2');
+    expect(response.body.users[2].props).toHaveProperty('username', 'user3_updated');
+    expect(response.body.users[3].props).toHaveProperty('username', 'adminUser');
+  });
+
+  test('should return error if user does not have permission', async () => {
+    const token = generateToken(2, 'simpleUser');
+
+    const response = await request(app)
+      .get('/api/users/list')
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(response.status).toBe(403);
+    expect(response.body.message).toBe('You do not have permission to perform this action');
+  });
+});
+
