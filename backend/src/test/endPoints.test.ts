@@ -663,3 +663,52 @@ describe('PUT /api/users/profile', () => {
     expect(response.body.error).toBe('old password is incorrect');
   });
 });
+
+//ADMIN ACTIONS
+//DELETE PUBLICATION
+
+describe('DELETE /api/publications/delete-publication', () => {
+test('should return error if user does not have permission', async () => {
+    const token = generateToken(2, 'simpleUser');
+
+    const response = await request(app)
+      .delete('/api/publications/delete-publication')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        publicationId: 1,
+      });
+
+    expect(response.status).toBe(403);
+    expect(response.body.message).toBe('You do not have permission to perform this action');
+  });
+
+   test('should delete a publication successfully as admin', async () => {
+    const token = generateToken(4, 'admin');
+
+    const response = await request(app)
+      .delete('/api/publications/delete-publication')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        publicationId: 1,
+      });
+
+    expect(response.status).toBe(200);
+    expect(response.body.message).toBe('Publication deleted permanently successfully');
+  });
+
+  test('should return error if publication not found', async () => {
+    const token = generateToken(4, 'admin');
+
+    const response = await request(app)
+      .delete('/api/publications/delete-publication')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        publicationId: 999,
+      });
+
+    expect(response.status).toBe(404);
+    expect(response.body.message).toBe('Publication not found');
+  });
+
+  
+});
