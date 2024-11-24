@@ -12,6 +12,10 @@ dotenv.config({ path: '../../.env' });
 const app = new App().app;
 const server = app.listen(3000);
 
+const generateToken = (userId: number, userRole: string) => {
+  const payload = { userId, userRole };
+  return jwt.sign(payload, process.env.JWT_SECRET_KEY as string, { expiresIn: '1h' });
+};
 beforeAll(async () => {
 
   const hashedPassword = await bcrypt.hash('password123', 10);
@@ -260,16 +264,16 @@ describe('POST /api/publications/publication', () => {
 
 //SOFT DELETED
 
-describe('DELETE /api/publications', () => {
+describe('DELETE /api/publications/publication', () => {
 
   test('should soft delete a publication successfully', async () => {
     const loginResponse = await request(app)
-    .post('/api/users/login')
-    .send({
-      email: 'testuser@example.com',
-      password: 'password123'
-    });
-  const token = loginResponse.body.token;
+      .post('/api/users/login')
+      .send({
+        email: 'testuser@example.com',
+        password: 'password123'
+      });
+    const token = loginResponse.body.token;
 
     const response = await request(app)
       .delete('/api/publications/publication')
@@ -286,12 +290,12 @@ describe('DELETE /api/publications', () => {
 
   test('should restored a soft delete a publication successfully', async () => {
     const loginResponse = await request(app)
-    .post('/api/users/login')
-    .send({
-      email: 'testuser@example.com',
-      password: 'password123'
-    });
-  const token = loginResponse.body.token;
+      .post('/api/users/login')
+      .send({
+        email: 'testuser@example.com',
+        password: 'password123'
+      });
+    const token = loginResponse.body.token;
 
     const response = await request(app)
       .delete('/api/publications/publication')
@@ -308,12 +312,12 @@ describe('DELETE /api/publications', () => {
 
   test('should return error if publication is not found', async () => {
     const loginResponse = await request(app)
-    .post('/api/users/login')
-    .send({
-      email: 'testuser@example.com',
-      password: 'password123'
-    });
-  const token = loginResponse.body.token;
+      .post('/api/users/login')
+      .send({
+        email: 'testuser@example.com',
+        password: 'password123'
+      });
+    const token = loginResponse.body.token;
 
     const response = await request(app)
       .delete('/api/publications/publication')
@@ -327,12 +331,8 @@ describe('DELETE /api/publications', () => {
   });
 
   test('should return error if user does not have permission', async () => {
-    const generateToken = (userId: number, userRole: string) => {
-      const payload = { userId, userRole };
-      return jwt.sign(payload, process.env.JWT_SECRET_KEY as string, { expiresIn: '1h' });
-    };
 
-    const token = generateToken(2, 'simpleUser'); 
+    const token = generateToken(2, 'simpleUser');
     console.log(token)
     await prisma.publication.create({
       data: {
@@ -356,10 +356,6 @@ describe('DELETE /api/publications', () => {
 });
 
 describe('GET /api/publications/:id', () => {
-  const generateToken = (userId: number, userRole: string) => {
-    const payload = { userId, userRole };
-    return jwt.sign(payload, process.env.JWT_SECRET_KEY as string, { expiresIn: '1h' });
-  };
   test('should get a publication by ID successfully', async () => {
     const token = generateToken(2, 'simpleUser');
 
@@ -396,4 +392,415 @@ describe('GET /api/publications/:id', () => {
     expect(response.body.message).toBe('Publication not found');
   });
 });
+
+// EDIT PUBLICATION
+
+describe('PUT /api/publications/publication', () => {
+  test('should update a publication successfully', async () => {
+    const token = generateToken(3, 'simpleUser');
+
+    const response = await request(app)
+      .put('/api/publications/publication')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        publicationId: 1,
+        title: 'Updated Test Publication',
+        content: 'Updated content of the test publication',
+      });
+
+    expect(response.status).toBe(200);
+    expect(response.body.publication.props).toHaveProperty('title', 'Updated Test Publication');
+    expect(response.body.publication.props).toHaveProperty('content', 'Updated content of the test publication');
+    expect(response.body.message).toBe('Publication updated successfully');
+  });
+
+  test('should return error if publication is not found', async () => {
+    const token = generateToken(3, 'simpleUser');
+
+    const response = await request(app)
+      .put('/api/publications/publication')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        publicationId: 999,
+        title: 'Updated Test Publication',
+        content: 'Updated content of the test publication',
+      });
+
+    expect(response.status).toBe(400);
+    expect(response.body.message).toBe('Publication not found');
+  });
+
+  test('should return error if user does not have permission', async () => {
+    const token = generateToken(2, 'simpleUser');
+
+    const response = await request(app)
+      .put('/api/publications/publication')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        publicationId: 1,
+        title: 'Updated Test Publication',
+        content: 'Updated content of the test publication',
+      });
+
+    expect(response.status).toBe(403);
+    expect(response.body.message).toBe('You do not own this publication');
+  });
+});
+
+//GET ALL PUBLICATIONS
+describe('GET /api/publications/posts', () => {
+  test('should get all publications successfully ordered by creation date', async () => {
+    const token = generateToken(2, 'simpleUser');
+
+    const response = await request(app)
+      .get('/api/publications/posts')
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveLength(2);
+    expect(response.body[0].props).toHaveProperty('title', 'Second Publication');
+    expect(response.body[0].props).toHaveProperty('content', 'Content of the test publication');
+    expect(response.body[0].props).toHaveProperty('authorId', 3);
+    expect(response.body[1].props).toHaveProperty('title', 'Updated Test Publication');
+    expect(response.body[1].props).toHaveProperty('content', 'Updated content of the test publication');
+    expect(response.body[1].props).toHaveProperty('authorId', 3);
+  });
+
+  test('should return error if no publications found', async () => {
+    await prisma.publication.deleteMany(); // Asegúrate de que no haya publicaciones
+
+    const token = generateToken(2, 'simpleUser');
+
+    const response = await request(app)
+      .get('/api/publications/posts')
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(response.status).toBe(404);
+    expect(response.body.message).toBe('No publications found');
+  });
+
+  test('should return all publications including deleted for admin', async () => {
+    await prisma.publication.create({
+      data: {
+        id: 1,
+        title: 'Deleted Publication',
+        content: 'Content of the deleted publication',
+        authorId: 2,
+        deleted: true,
+      },
+    });
+    await prisma.publication.create({
+      data: {
+        id: 2,
+        title: 'test Publication',
+        content: 'Content of the test publication',
+        authorId: 3,
+        deleted: false,
+      },
+    });
+
+    const token = generateToken(4, 'admin');
+
+    const response = await request(app)
+      .get('/api/publications/posts')
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveLength(2);
+    expect(response.body[0].props).toHaveProperty('title', 'test Publication');
+    expect(response.body[1].props).toHaveProperty('title', 'Deleted Publication');
+  });
+});
+
+// Get User publications
+describe('GET /api/users/posts', () => {
+
+
+  test('should get user publications successfully even deleted ones', async () => {
+    await prisma.publication.create({
+      data: {
+        id: 3,
+        title: 'Active User Publication',
+        content: 'Content of the user publication',
+        authorId: 2,
+        deleted: false,
+      },
+    });
+
+    const token = generateToken(2, 'simpleUser');
+    const response = await request(app)
+      .get('/api/users/posts')
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveLength(2);
+    expect(response.body[0].props).toHaveProperty('title', 'Active User Publication');
+    expect(response.body[0].props).toHaveProperty('content', 'Content of the user publication');
+    expect(response.body[0].props).toHaveProperty('authorId', 2);
+    expect(response.body[1].props).toHaveProperty('title', 'Deleted Publication');
+    expect(response.body[1].props).toHaveProperty('content', 'Content of the deleted publication');
+  });
+
+  test('should return an empty array if user has not publications yet', async () => {
+    await prisma.publication.deleteMany();
+
+    const token = generateToken(3, 'simpleUser');
+
+    const response = await request(app)
+      .get('/api/users/posts')
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(response.status).toBe(200);
+    expect(response.body.length).toBe(0);
+  });
+});
+
+//Like Publication
+
+describe('POST /api/publications/like', () => {
+
+  test('should like a publication successfully', async () => {
+    await prisma.publication.create({
+      data: {
+        id: 1,
+        title: 'Test Publication',
+        content: 'Content of the test publication',
+        authorId: 2,
+        deleted: false,
+      },
+    });
+
+    const token = generateToken(3, 'simpleUser');
+
+    const response = await request(app)
+      .post('/api/publications/like')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        publicationId: 1,
+      });
+
+    expect(response.status).toBe(201);
+    expect(response.body.message).toBe('Favorite processed successfully');
+  });
+  
+    test('should return error if publication not found', async () => {
+      const token = generateToken(3, 'simpleUser');
+  
+      const response = await request(app)
+        .post('/api/publications/like')
+        .set('Authorization', `Bearer ${token}`)
+        .send({
+          publicationId: 999,
+        });
+  
+      expect(response.status).toBe(404);
+      expect(response.body.message).toBe('Publication not found');
+    });
+  
+    test('should unlike a publication successfully', async () => {
+      const token = generateToken(3, 'simpleUser');
+  
+       const response = await request(app)
+        .post('/api/publications/like')
+        .set('Authorization', `Bearer ${token}`)
+        .send({
+          publicationId: 1,
+        });
+  
+      expect(response.status).toBe(201);
+      expect(response.body.message).toBe('Favorite processed successfully');
+    });
+});
+
+//UPDATE USER
+describe('PUT /api/users/profile', () => {
+  test('should update User successfully', async () => {
+    const token = generateToken(3, 'simpleUser');
+    const response = await request(app)
+      .put('/api/users/profile')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        username: 'user3_updated',
+        oldPassword: 'password123',
+        newPassword: '123456'
+      });
+
+    expect(response.status).toBe(200);
+    expect(response.body.message).toBe('Profile updated successfully');
+  });
+
+
+  test('should return error if user not found', async () => {
+    const token = generateToken(999, 'simpleUser'); 
+
+    const response = await request(app)
+      .put('/api/users/profile')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        username: 'newuser',
+        oldPassword: '123456',
+        newPassword: '1234567'
+      });
+
+    expect(response.status).toBe(403);
+    expect(response.body.message).toBe('User not found');
+    });
+
+  test('should return error if old password is incorrect', async () => {
+    const token = generateToken(3, 'simpleUser');
+
+    const response = await request(app)
+      .put('/api/users/profile')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        username: 'newuser',
+        oldPassword: 'wrongpassword',
+        newPassword: '1234567'
+      });
+
+    expect(response.status).toBe(500);
+    expect(response.body.message).toBe('error updating profile');
+    expect(response.body.error).toBe('old password is incorrect');
+  });
+});
+
+//ADMIN ACTIONS
+//DELETE PUBLICATION
+
+describe('DELETE /api/publications/delete-publication', () => {
+test('should return error if user does not have permission', async () => {
+    const token = generateToken(2, 'simpleUser');
+
+    const response = await request(app)
+      .delete('/api/publications/delete-publication')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        publicationId: 1,
+      });
+
+    expect(response.status).toBe(403);
+    expect(response.body.message).toBe('You do not have permission to perform this action');
+  });
+
+   test('should delete a publication successfully as admin', async () => {
+    const token = generateToken(4, 'admin');
+
+    const response = await request(app)
+      .delete('/api/publications/delete-publication')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        publicationId: 1,
+      });
+
+    expect(response.status).toBe(200);
+    expect(response.body.message).toBe('Publication deleted permanently successfully');
+  });
+
+  test('should return error if publication not found', async () => {
+    const token = generateToken(4, 'admin');
+
+    const response = await request(app)
+      .delete('/api/publications/delete-publication')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        publicationId: 999,
+      });
+
+    expect(response.status).toBe(404);
+    expect(response.body.message).toBe('Publication not found');
+  });
+});
+
+//LIST USERS
+describe('GET /api/users/list', () => {
+  test('should list users successfully as admin', async () => {
+    const token = generateToken(4, 'admin');
+
+    const response = await request(app)
+      .get('/api/users/list')
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(response.status).toBe(200);
+    expect(response.body.users).toHaveLength(4);
+    expect(response.body.users[0].props).toHaveProperty('username', 'banneduser');
+    expect(response.body.users[1].props).toHaveProperty('username', 'user2');
+    expect(response.body.users[2].props).toHaveProperty('username', 'user3_updated');
+    expect(response.body.users[3].props).toHaveProperty('username', 'adminUser');
+  });
+
+  test('should return error if user does not have permission', async () => {
+    const token = generateToken(2, 'simpleUser');
+
+    const response = await request(app)
+      .get('/api/users/list')
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(response.status).toBe(403);
+    expect(response.body.message).toBe('You do not have permission to perform this action');
+  });
+});
+
+//BAN USER
+
+describe('PATCH /api/users/ban', () => {
+  test('should ban a user successfully', async () => {
+    const token = generateToken(4, 'admin');
+
+    const response = await request(app)
+      .patch('/api/users/ban')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        userId: 2,
+      });
+
+    expect(response.status).toBe(200);
+    expect(response.body.message).toBe('User banned successfully');
+    expect(response.body.user.props).toHaveProperty('banned', true);
+  });
+
+  test('should unban a user successfully', async () => {
+    const token = generateToken(4, 'admin');
+
+    const response = await request(app)
+      .patch('/api/users/ban')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        userId: 2,
+      });
+
+    expect(response.status).toBe(200);
+    expect(response.body.message).toBe('User unbanned successfully');
+    expect(response.body.user.props).toHaveProperty('banned', false);
+  });
+
+  test('should return error if user not found', async () => {
+    const token = generateToken(4, 'admin');
+
+    const response = await request(app)
+      .patch('/api/users/ban')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        userId: 999,
+      });
+
+    expect(response.status).toBe(404);
+    expect(response.body.message).toBe('User not found');
+  });
+
+  test('should return error if non-admin user tries to ban', async () => {
+    const token = generateToken(2, 'simpleUser');
+
+    const response = await request(app)
+      .patch('/api/users/ban')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        userId: 2,
+      });
+
+    expect(response.status).toBe(403);
+    expect(response.body.message).toBe('You do not have permission to perform this action');
+  });
+});
+
+
 

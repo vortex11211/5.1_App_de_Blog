@@ -14,7 +14,6 @@ export class EditPublication {
         if (!publication) {
             throw new Error("Publication not found");
         }
-        // Actualizar los campos opcionales
         if (dto.title !== undefined) {
             publication.updateTitle(dto.title);
         }

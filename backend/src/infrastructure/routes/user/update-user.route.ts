@@ -12,9 +12,6 @@ const router= express.Router();
  *     tags: [Users]
  *     security:
  *       - Token: []
- *     description: |
- *       This endpoint allows a user to update their profile. 
- *       The `userId` is obtained from the JWT token, so it is not required as a parameter.
  *     requestBody:
  *       required: true
  *       content:
@@ -27,10 +24,10 @@ const router= express.Router();
  *                 example: "newUsername"
  *               oldPassword:
  *                 type: string
- *                 example: "oldPassword123"
+ *                 example: "123456"
  *               newPassword:
  *                 type: string
- *                 example: "newPassword456"
+ *                 example: "1234567"
  *     responses:
  *       200:
  *         description: Profile updated successfully
@@ -55,10 +52,14 @@ const router= express.Router();
  *       401:
  *         description: Unauthorized
  *       403:
- *         description: Forbidden
+ *         description: Forbidden | User not found
  *       500:
  *         description: Internal Server Error
- */
+ *     description: |
+ *       Updates the profile of the authenticated user. The `userId` is extracted from the JWT token, so it is not required as a parameter.
+ *       If the `oldPassword` and `newPassword` fields are provided, the password will be updated after verifying the old password. The `username` field can also be updated.
+ */ 
+
 
 
 router.put('/profile',checkAction('editprofile'), updateUserProfileController );

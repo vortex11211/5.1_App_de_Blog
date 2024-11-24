@@ -17,10 +17,9 @@ export class FavoritePublication implements FavoritePublicationUseCase {
         const existingLike = await this.favoriteGateway.findByUserAndPublication(dto.userId, dto.publicationId);
 
         if (existingLike) {
-            // Si ya existe, elimina el like
+
             await this.favoriteGateway.deleteByUserAndPublication(dto.userId, dto.publicationId);
         } else {
-            // Si no existe, crea un nuevo like
             const favorite = Favorite.create(dto.userId, dto.publicationId);
             await this.favoriteGateway.save(favorite);
         }

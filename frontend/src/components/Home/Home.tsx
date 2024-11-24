@@ -47,6 +47,10 @@ const Home: React.FC = () => {
       sortedPublications.sort((a, b) => parseFloat(a.props.popularity) - parseFloat(b.props.popularity));
     } else if (criterion === 'popularity_desc') {
       sortedPublications.sort((a, b) => parseFloat(b.props.popularity) - parseFloat(a.props.popularity));
+    }else if (criterion === 'authorName_asc') {
+      sortedPublications.sort((a, b) => a.props.authorName.localeCompare(b.props.authorName));
+    } else if (criterion === 'authorName_desc') {
+      sortedPublications.sort((a, b) => b.props.authorName.localeCompare(a.props.authorName));
     }
     return sortedPublications;
   };
@@ -64,10 +68,12 @@ const Home: React.FC = () => {
       <div className="sort-dropdown">
         <select onChange={(e) => setSortCriterion(e.target.value)} value={sortCriterion}>
           <option value="default">Select Sorting Option</option>
-          <option value="title_asc">Sort by Title (A-Z)</option>
-          <option value="title_desc">Sort by Title (Z-A)</option>
+          <option value="title_asc">Sort by Title (A-Z ⬇)</option>
+          <option value="title_desc">Sort by Title (Z-A ⬇)</option>
           <option value="popularity_asc">Sort by Popularity (Low to High ⬇)</option>
           <option value="popularity_desc">Sort by Popularity (High to Low ⬇)</option>
+          <option value="authorName_asc">Sort by Author (A-Z ⬇)</option>
+          <option value="authorName_desc">Sort by Author (Z-A ⬇)</option>
         </select>
       </div>
       <div className="publication-list">
