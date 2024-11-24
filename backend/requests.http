@@ -3,7 +3,7 @@
 ### Edit Your Admin key
 @ADMIN_KEY = "admin_key112"
 ### Introduce token after login
-@TOKEN = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJSb2xlIjoiYWRtaW4iLCJpYXQiOjE3MzI0NTAyNDUsImV4cCI6MTczMjQ1Mzg0NX0.AD_cm_zQe16jczTnqEggUQGD5FqX3nHms2Rbg7ECtzc
+@TOKEN = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE0LCJ1c2VyUm9sZSI6InNpbXBsZVVzZXIiLCJpYXQiOjE3MzI0NTkzMDksImV4cCI6MTczMjQ2MjkwOX0.XzNBFgUREYvT-PGpARIxhhfKgHLuJto5L0mo8MpNxVk
 
 ### Register an Admin
 POST {{BASE_URL}}/api/users/register
@@ -35,7 +35,7 @@ POST {{BASE_URL}}/api/users/login
 Content-Type: application/json
 
 {
-  "email": "tes1@example.com",
+  "email": "paquito@example.com",
   "password": "123456"
 }
 

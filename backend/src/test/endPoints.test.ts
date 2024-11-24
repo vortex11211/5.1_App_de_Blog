@@ -612,3 +612,54 @@ describe('POST /api/publications/like', () => {
     });
 });
 
+//UPDATE USER
+describe('PUT /api/users/profile', () => {
+  test('should update User successfully', async () => {
+    const token = generateToken(3, 'simpleUser');
+    const response = await request(app)
+      .put('/api/users/profile')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        username: 'user3_updated',
+        oldPassword: 'password123',
+        newPassword: '123456'
+      });
+
+    expect(response.status).toBe(200);
+    expect(response.body.message).toBe('Profile updated successfully');
+  });
+
+
+  test('should return error if user not found', async () => {
+    const token = generateToken(999, 'simpleUser'); 
+
+    const response = await request(app)
+      .put('/api/users/profile')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        username: 'newuser',
+        oldPassword: '123456',
+        newPassword: '1234567'
+      });
+
+    expect(response.status).toBe(403);
+    expect(response.body.message).toBe('User not found');
+    });
+
+  test('should return error if old password is incorrect', async () => {
+    const token = generateToken(3, 'simpleUser');
+
+    const response = await request(app)
+      .put('/api/users/profile')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        username: 'newuser',
+        oldPassword: 'wrongpassword',
+        newPassword: '1234567'
+      });
+
+    expect(response.status).toBe(500);
+    expect(response.body.message).toBe('error updating profile');
+    expect(response.body.error).toBe('old password is incorrect');
+  });
+});
