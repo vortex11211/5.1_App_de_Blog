@@ -512,4 +512,47 @@ describe('GET /api/publications/posts', () => {
   });
 });
 
+// Get User publications
+describe('GET /api/users/posts', () => {
+
+
+  test('should get user publications successfully even deleted ones', async () => {
+    await prisma.publication.create({
+      data: {
+        id: 3,
+        title: 'Active User Publication',
+        content: 'Content of the user publication',
+        authorId: 2,
+        deleted: false,
+      },
+    }); 
+
+    const token = generateToken(2, 'simpleUser');
+    const response = await request(app)
+      .get('/api/users/posts')
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveLength(2);
+    expect(response.body[0].props).toHaveProperty('title', 'Active User Publication');
+    expect(response.body[0].props).toHaveProperty('content', 'Content of the user publication');
+    expect(response.body[0].props).toHaveProperty('authorId', 2);
+    expect(response.body[1].props).toHaveProperty('title', 'Deleted Publication');
+    expect(response.body[1].props).toHaveProperty('content', 'Content of the deleted publication');
+  });
+
+  test('should return an empty array if user has not publications yet', async () => {
+    await prisma.publication.deleteMany(); 
+
+    const token = generateToken(3, 'simpleUser');
+
+    const response = await request(app)
+      .get('/api/users/posts')
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(response.status).toBe(200);
+    expect(response.body.length).toBe(0);
+  });
+});
+
 

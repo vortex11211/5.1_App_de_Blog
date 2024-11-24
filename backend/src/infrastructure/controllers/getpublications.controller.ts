@@ -47,7 +47,7 @@ export const getUserPublicationsController = async (req: Request, res: Response)
     } catch (error) {
         const typedError = error as Error;
         if (typedError.message === 'User not found') {
-            res.status(404).json({ message: 'User not found' });
+            res.status(403).json({ message: 'User not found' });
         } else if (typedError.message === 'No publications found') {
             res.status(404).json({ message: 'No publications found for this user' });
         } else {
