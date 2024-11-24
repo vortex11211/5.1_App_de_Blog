@@ -268,12 +268,12 @@ describe('DELETE /api/publications/publication', () => {
 
   test('should soft delete a publication successfully', async () => {
     const loginResponse = await request(app)
-    .post('/api/users/login')
-    .send({
-      email: 'testuser@example.com',
-      password: 'password123'
-    });
-  const token = loginResponse.body.token;
+      .post('/api/users/login')
+      .send({
+        email: 'testuser@example.com',
+        password: 'password123'
+      });
+    const token = loginResponse.body.token;
 
     const response = await request(app)
       .delete('/api/publications/publication')
@@ -290,12 +290,12 @@ describe('DELETE /api/publications/publication', () => {
 
   test('should restored a soft delete a publication successfully', async () => {
     const loginResponse = await request(app)
-    .post('/api/users/login')
-    .send({
-      email: 'testuser@example.com',
-      password: 'password123'
-    });
-  const token = loginResponse.body.token;
+      .post('/api/users/login')
+      .send({
+        email: 'testuser@example.com',
+        password: 'password123'
+      });
+    const token = loginResponse.body.token;
 
     const response = await request(app)
       .delete('/api/publications/publication')
@@ -312,12 +312,12 @@ describe('DELETE /api/publications/publication', () => {
 
   test('should return error if publication is not found', async () => {
     const loginResponse = await request(app)
-    .post('/api/users/login')
-    .send({
-      email: 'testuser@example.com',
-      password: 'password123'
-    });
-  const token = loginResponse.body.token;
+      .post('/api/users/login')
+      .send({
+        email: 'testuser@example.com',
+        password: 'password123'
+      });
+    const token = loginResponse.body.token;
 
     const response = await request(app)
       .delete('/api/publications/publication')
@@ -331,8 +331,8 @@ describe('DELETE /api/publications/publication', () => {
   });
 
   test('should return error if user does not have permission', async () => {
-   
-    const token = generateToken(2, 'simpleUser'); 
+
+    const token = generateToken(2, 'simpleUser');
     console.log(token)
     await prisma.publication.create({
       data: {
@@ -525,7 +525,7 @@ describe('GET /api/users/posts', () => {
         authorId: 2,
         deleted: false,
       },
-    }); 
+    });
 
     const token = generateToken(2, 'simpleUser');
     const response = await request(app)
@@ -542,7 +542,7 @@ describe('GET /api/users/posts', () => {
   });
 
   test('should return an empty array if user has not publications yet', async () => {
-    await prisma.publication.deleteMany(); 
+    await prisma.publication.deleteMany();
 
     const token = generateToken(3, 'simpleUser');
 
@@ -555,4 +555,60 @@ describe('GET /api/users/posts', () => {
   });
 });
 
+//Like Publication
+
+describe('POST /api/publications/like', () => {
+
+  test('should like a publication successfully', async () => {
+    await prisma.publication.create({
+      data: {
+        id: 1,
+        title: 'Test Publication',
+        content: 'Content of the test publication',
+        authorId: 2,
+        deleted: false,
+      },
+    });
+
+    const token = generateToken(3, 'simpleUser');
+
+    const response = await request(app)
+      .post('/api/publications/like')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        publicationId: 1,
+      });
+
+    expect(response.status).toBe(201);
+    expect(response.body.message).toBe('Favorite processed successfully');
+  });
+  
+    test('should return error if publication not found', async () => {
+      const token = generateToken(3, 'simpleUser');
+  
+      const response = await request(app)
+        .post('/api/publications/like')
+        .set('Authorization', `Bearer ${token}`)
+        .send({
+          publicationId: 999,
+        });
+  
+      expect(response.status).toBe(404);
+      expect(response.body.message).toBe('Publication not found');
+    });
+  
+    test('should unlike a publication successfully', async () => {
+      const token = generateToken(3, 'simpleUser');
+  
+       const response = await request(app)
+        .post('/api/publications/like')
+        .set('Authorization', `Bearer ${token}`)
+        .send({
+          publicationId: 1,
+        });
+  
+      expect(response.status).toBe(201);
+      expect(response.body.message).toBe('Favorite processed successfully');
+    });
+});
 
