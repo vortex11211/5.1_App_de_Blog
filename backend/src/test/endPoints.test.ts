@@ -740,3 +740,67 @@ describe('GET /api/users/list', () => {
   });
 });
 
+//BAN USER
+
+describe('PATCH /api/users/ban', () => {
+  test('should ban a user successfully', async () => {
+    const token = generateToken(4, 'admin');
+
+    const response = await request(app)
+      .patch('/api/users/ban')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        userId: 2,
+      });
+
+    expect(response.status).toBe(200);
+    expect(response.body.message).toBe('User banned successfully');
+    expect(response.body.user.props).toHaveProperty('banned', true);
+  });
+
+  test('should unban a user successfully', async () => {
+    const token = generateToken(4, 'admin');
+
+    const response = await request(app)
+      .patch('/api/users/ban')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        userId: 2,
+      });
+
+    expect(response.status).toBe(200);
+    expect(response.body.message).toBe('User unbanned successfully');
+    expect(response.body.user.props).toHaveProperty('banned', false);
+  });
+
+  test('should return error if user not found', async () => {
+    const token = generateToken(4, 'admin');
+
+    const response = await request(app)
+      .patch('/api/users/ban')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        userId: 999,
+      });
+
+    expect(response.status).toBe(404);
+    expect(response.body.message).toBe('User not found');
+  });
+
+  test('should return error if non-admin user tries to ban', async () => {
+    const token = generateToken(2, 'simpleUser');
+
+    const response = await request(app)
+      .patch('/api/users/ban')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        userId: 2,
+      });
+
+    expect(response.status).toBe(403);
+    expect(response.body.message).toBe('You do not have permission to perform this action');
+  });
+});
+
+
+
