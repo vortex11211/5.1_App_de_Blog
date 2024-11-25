@@ -39,7 +39,7 @@
   }
   
   .delete-publication-button {
-    background-color: #ff4081;
+    background-color: #706d6e;
     color: white;
     border: none;
     padding: 5px 10px;
@@ -51,6 +51,6 @@
   }
   
   .delete-publication-button:hover {
-    background-color: #e91e63;
+    background-color: #f70d5b;
   }
   

@@ -51,7 +51,7 @@
 
 .create-publication-form .create-publication-button,
 .create-publication-form .cancel-button {
-  background-color: #ff4081;
+  background-color: #0888dd;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -62,5 +62,5 @@
 
 .create-publication-form .create-publication-button:hover,
 .create-publication-form .cancel-button:hover {
-  background-color: #e91e63;
+  background-color: #96009b;
 }

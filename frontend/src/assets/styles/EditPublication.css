@@ -52,7 +52,7 @@
   
   .edit-publication-form .edit-publication-button,
   .edit-publication-form .cancel-button {
-    background-color: #ff4081;
+    background-color: #51489cc5;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -63,6 +63,6 @@
   
   .edit-publication-form .edit-publication-button:hover,
   .edit-publication-form .cancel-button:hover {
-    background-color: #e91e63;
+    background-color: #0d8999;
   }
   
