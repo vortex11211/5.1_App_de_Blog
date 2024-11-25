@@ -38,10 +38,8 @@ Las publicaciones deben mostrar:
 ### ⭐  Nivel 1
 - Documentar las rutas con Swagger.
 - Implementar tests para cada endpoint.
-- 
 ### ⭐⭐ Nivel 2
 - Posibilidad de ordenar publicaciones por popularidad y autor.
-- 
 ### ⭐⭐⭐ Nivel 3
 - Uso del patrón Clean Architecture.
 - Barra de búsqueda en la página de inicio con función debounce.
