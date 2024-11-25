@@ -94,7 +94,7 @@ Crea un archivo `.env` basándote en la configuración proporcionada en el archi
 
 Utilizamos la base de datos acorde  este esquema:
 
-![Diagrama Blog](https://raw.githubusercontent.com/vortex11211/2.1_Estructura_BasedeDatos_MySQL_Nivel3/refs/heads/master/Nivel%201/Pizzeria/Diagrama_Pizzeria.png)
+![Diagrama Blog](https://raw.githubusercontent.com/vortex11211/5.1_App_de_Blog/refs/heads/master/Esquema_sprint5.png)
 
 `npx prisma migrate dev --name init`
 `npx prisma generate`
