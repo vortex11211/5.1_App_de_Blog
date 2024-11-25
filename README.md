@@ -10,7 +10,7 @@ El propósito de este ejercicio es crear una API que respalde una aplicación de
 
 ### Funcionalidades para todos los usuarios:
 - Crear publicaciones.
-- Dar like a publicaciones de otros usuarios.
+- Dar like a publicaciones.
 - Ver, editar y eliminar sus propias publicaciones.
 - Recuperar publicaciones eliminadas por error.
 - Editar datos personales.
@@ -35,9 +35,14 @@ Las publicaciones deben mostrar:
 - Realizar el ejercicio en TypeScript.
 - Utilizar MySQL como base de datos con Prisma como ORM.
 - Gestionar errores con mensajes personalizados y códigos de error.
+### ⭐  Nivel 1
 - Documentar las rutas con Swagger.
 - Implementar tests para cada endpoint.
+- 
+### ⭐⭐ Nivel 2
 - Posibilidad de ordenar publicaciones por popularidad y autor.
+- 
+### ⭐⭐⭐ Nivel 3
 - Uso del patrón Clean Architecture.
 - Barra de búsqueda en la página de inicio con función debounce.
 
@@ -50,12 +55,12 @@ Las publicaciones deben mostrar:
 - MySQL
 - Swagger para documentación
 - Jest para pruebas
-- React para el frontend
+- React y Vite para el frontend
 
 ## 📋 Requisitos
 
-- Node.js (versión 14 o superior)
-- MySQL (versión 5.7 o superior)
+- Node.js 
+- MySQL 
 - Prisma CLI
 - npm como gestor de dependencias
 
@@ -73,7 +78,7 @@ Las publicaciones deben mostrar:
     
 #### 3. Configura las variables de entorno del backend:
 Crea un archivo `.env` basándote en la configuración proporcionada en el archivo `env.test`
-##Edit to connect to your MySQL database
+###Edit to connect to your MySQL database
 `DATABASE_URL = "mysql://user:password@localhost:3306/Blog?schema=public"`
 ###DataBase for testing
 `DATABASE_URL_TEST="mysql://user:password@localhost:3306/sprint_5_blog_test?schema=public"`
@@ -95,17 +100,43 @@ Crea un archivo `.env` basándote en la configuración proporcionada en el archi
 ``cd frontend``
 ``npm install``
 
+### ▶️ Ejecución
+
+1.  Inicia el servidor de desarrollo del backend:
+
+`cd backend`
+`npm run start`
+
+Este script realizará la migración a la base de datos principal en caso de que se hayan realizado los test con anterioridad.
 
 
-🤝 Contribuciones
+-- Nota: Aparecerá en la consola una dirección local donde podrás revisar la documentación usando Swagger. `http://localhost:XXXX/api-docs`  
+Usará el puerto que hayas configurado.
+##### Ejecutar Test
+Para ejecutar los tests, utiliza el siguiente comando:
+
+`cd backend`
+`npm run test`
+
+Este comando reinicia la base de datos de pruebas y realiza la migración correspondiente para ejecutar los tests utilizando Jest
+
+2. En otra terminal inicia el servidor de desarrollo del frontend:
+
+`cd ../frontend`
+`npm run start`
+
+3. Visita la dirección  `http://localhost:XXXX` que aparecerá en la consola con el número de puerto que hayas configurado.
+
+
+## 🤝 Contribuciones
 ¡Gracias por querer contribuir a este proyecto! Sigue estos pasos para contribuir:
 
 Haz un fork del proyecto.
 
-Crea una rama con tu nueva funcionalidad: git checkout -b nueva-funcionalidad
+Crea una rama con tu nueva funcionalidad: `git checkout -b nueva-funcionalidad`
 
-Realiza los cambios necesarios y haz commit: git commit -m 'Añadir nueva funcionalidad'
+Realiza los cambios necesarios y haz commit: `git commit -m 'Añadir nueva funcionalidad'`
 
-Envía tus cambios a tu fork: git push origin nueva-funcionalidad
+Envía tus cambios a tu fork: `git push origin nueva-funcionalidad`
 
 Abre un Pull Request en el repositorio original.
