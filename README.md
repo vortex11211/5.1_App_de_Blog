@@ -92,6 +92,10 @@ Crea un archivo `.env` basándote en la configuración proporcionada en el archi
 
 ### 4. Configura Prisma:
 
+Utilizamos la base de datos acorde  este esquema:
+
+![Diagrama Blog](https://raw.githubusercontent.com/vortex11211/2.1_Estructura_BasedeDatos_MySQL_Nivel3/refs/heads/master/Nivel%201/Pizzeria/Diagrama_Pizzeria.png)
+
 `npx prisma migrate dev --name init`
 `npx prisma generate`
 
@@ -112,7 +116,7 @@ Este script realizará la migración a la base de datos principal en caso de que
 
 -- Nota: Aparecerá en la consola una dirección local donde podrás revisar la documentación usando Swagger. `http://localhost:XXXX/api-docs`  
 Usará el puerto que hayas configurado.
-##### Ejecutar Test
+##### 🧪Ejecutar Test
 Para ejecutar los tests, utiliza el siguiente comando:
 
 `cd backend`
