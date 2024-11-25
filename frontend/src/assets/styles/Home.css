@@ -96,3 +96,24 @@
   color: #5a5464;
   background: #5d278a54;
 }
+
+.search-bar-container {
+  position: relative;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.search-bar {
+  width: 100%;
+  padding: 10px 40px 10px 10px;
+  box-sizing: border-box;
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #aaa;
+}

@@ -74,12 +74,10 @@ const EditPublication: React.FC = () => {
               required
             />
           </div>
-          <button type="submit" className="edit-publication-button" disabled={isLoading}>
-            {isLoading ? 'Saving...' : 'Save Changes'}
-          </button>
-          <button type="button" className="cancel-button" onClick={handleCancel} disabled={isLoading}>
-            Cancel
-          </button>
+          <div className="button-container">
+            <button type="submit" className="edit-publication-button">Save Changes</button>
+            <button type="button" className="cancel-button" onClick={handleCancel}>Cancel</button>
+          </div>
         </form>
       )}
     </div>
