@@ -43,7 +43,7 @@
   }
   
   .edit-profile-form .edit-profile-button {
-    background-color: #ff4081;
+    background-color: #086b42;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -53,7 +53,7 @@
   }
   
   .edit-profile-form .edit-profile-button:hover {
-    background-color: #e91e63;
+    background-color: #1ee9b6;
   }
   
   .edit-profile-form .error-message {

@@ -66,7 +66,7 @@
 }
 
 .toggle-delete-button {
-  background-color: #ff4081;
+  background-color: #802acf;
   color: rgb(255, 255, 255);
   border: none;
   padding: 5px 10px;
@@ -76,5 +76,21 @@
 }
 
 .toggle-delete-button:hover {
-  background-color: #e91e63;
+  background-color: #500045;
+}
+
+.edit-button {
+  background-color: #3498db; 
+  color: white; 
+  border: none;
+  padding: 8px 16px; 
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease; 
+}
+
+.edit-button:hover {
+  background-color: #590ebb; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
 }

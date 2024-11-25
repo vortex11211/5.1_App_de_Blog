@@ -25,6 +25,7 @@
 .publication-list {
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 100%;
   gap: 20px;
 }
@@ -35,7 +36,7 @@
   border-radius: 10px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
   width: 100%; 
-  max-width: none; 
+  max-width: 90%; 
   text-align: left;
   display: flex;
   flex-direction: column;
@@ -95,4 +96,25 @@
 .publication-card.deleted {
   color: #5a5464;
   background: #5d278a54;
+}
+
+.search-bar-container {
+  position: relative;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.search-bar {
+  width: 100%;
+  padding: 10px 40px 10px 10px;
+  box-sizing: border-box;
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #aaa;
 }
