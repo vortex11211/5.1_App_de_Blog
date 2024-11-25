@@ -15,14 +15,13 @@ export const checkAction = (...actions: string[]) => {
             }
 
             const { userId, userRole } = res.locals.jwtPayload;
-            console.log(`UserId: ${userId}, UserRole: ${userRole}`);
             const authorizeUser = new AuthorizeUser(userRepository);
 
             let hasPermission = false;
             for (const action of actions) {
                 const dto: AuthorizeUserDTO = { userId, userRole, action };
                 const actionPermission = await authorizeUser.execute(dto);
-                console.log(`Action: ${action}, Permission: ${actionPermission}`);
+                
                 if (actionPermission) {
                     hasPermission = true;
                     break;
@@ -34,10 +33,10 @@ export const checkAction = (...actions: string[]) => {
                 return;
             }
 
-            
+
             const publicationId = req.body.publicationId || req.params.publicationId;
             if (publicationId && !actions.includes('like')) {
-                
+
                 const publicationRepository = new PublicationRepositoryPrisma();
                 const publication = await publicationRepository.findById(publicationId);
                 if (publication && userRole !== 'admin' && publication.authorId !== userId) {

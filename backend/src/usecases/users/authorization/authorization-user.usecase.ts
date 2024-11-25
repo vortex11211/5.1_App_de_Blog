@@ -18,7 +18,7 @@ export class AuthorizeUser implements AuthorizeUserUseCase {
             admin: ['viewAllUsers', 'banUser', 'eliminatePublication', 'view', 'create', 'edit', 'softDelete', 'recover', 'like','editprofile','getpublication'],
             simpleUser: ['viewOwn', 'create', 'editOwn', 'softDeleteOwn', 'like','view','editprofile','getpublication'],
         };
-        console.log(`Checking access for role: ${role}, action: ${action}`);
+        
 
         return rolePermissions[role]?.includes(action) || false;
     }
