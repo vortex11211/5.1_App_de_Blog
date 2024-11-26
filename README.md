@@ -125,7 +125,7 @@ Este comando reinicia la base de datos de pruebas y realiza la migración corres
 2. En otra terminal inicia el servidor de desarrollo del frontend:
 
 `cd ../frontend`
-`npm run start`
+`npm run dev `
 
 3. Visita la dirección  `http://localhost:XXXX` que aparecerá en la consola con el número de puerto que hayas configurado.
 
